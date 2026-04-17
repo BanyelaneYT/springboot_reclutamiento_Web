@@ -21,15 +21,14 @@ public class EventoController {
     }
 
     @GetMapping("/main")
-    public String irMain(Model model) {
-        model.addAttribute("listaEventos", bdEventos);
-        return "main";
+    public String irMain() {
+        return "main"; // Carga el menú principal sin el CRUD
     }
 
     @GetMapping("/Crudcreacion")
     public String listar(Model model) {
         model.addAttribute("listaEventos", bdEventos);
-        return "main";
+        return "evento-crud"; // Carga el archivo donde está la tabla y el formulario
     }
 
     @PostMapping("/eventos/guardar")
@@ -41,6 +40,6 @@ public class EventoController {
         int nuevoId = bdEventos.size() + 1;
         bdEventos.add(new Evento(nuevoId, nombre, tipo, fecha, descripcion));
 
-        return "redirect:/main";
+        return "redirect:/Crudcreacion";
     }
 }

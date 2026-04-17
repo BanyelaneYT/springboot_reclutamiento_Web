@@ -19,7 +19,7 @@
     <p>Panel de Eventos</p>
     <input type="text" placeholder="Usuario">
     <input type="password" placeholder="Contraseña">
-    <form action="/main" method="GET">
+    <form action="/#" method="GET">
         <button type="submit">Entrar al Sistema</button>
     </form>
 </div>
