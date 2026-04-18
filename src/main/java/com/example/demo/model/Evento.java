@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 public class Evento {
+
     private Integer id;
     private String nombre;
     private String tipo;

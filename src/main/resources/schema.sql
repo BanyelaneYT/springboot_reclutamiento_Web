@@ -1,7 +1,7 @@
-CREATE TABLE IF NOT EXISTS evento (
+CREATE TABLE IF NOT EXISTS EVENTO (
                                       id INT AUTO_INCREMENT PRIMARY KEY,
-                                      nombre VARCHAR(255) NOT NULL,
-    tipo VARCHAR(100),
-    fecha VARCHAR(50),
-    descripcion VARCHAR(500)
+                                      nombre VARCHAR(255),
+    tipo VARCHAR(255),
+    fecha VARCHAR(100),
+    descripcion VARCHAR(255)
     );

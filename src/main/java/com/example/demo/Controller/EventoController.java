@@ -1,19 +1,22 @@
 package com.example.demo.Controller;
 
 import com.example.demo.model.Evento;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class EventoController {
 
-    private static List<Evento> bdEventos = new ArrayList<>();
+    @Autowired
+    private JdbcTemplate jdbcTemplate; // Cambiamos Repository por JdbcTemplate
 
     @GetMapping("/")
     public String login() {
@@ -22,13 +25,17 @@ public class EventoController {
 
     @GetMapping("/main")
     public String irMain() {
-        return "main"; // Carga el menú principal sin el CRUD
+        return "main";
     }
 
     @GetMapping("/Crudcreacion")
     public String listar(Model model) {
-        model.addAttribute("listaEventos", bdEventos);
-        return "evento-crud"; // Carga el archivo donde está la tabla y el formulario
+        // Consulta SQL pura para traer los datos
+        String sql = "SELECT * FROM EVENTO";
+        List<Evento> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Evento.class));
+
+        model.addAttribute("listaEventos", lista);
+        return "evento-crud";
     }
 
     @PostMapping("/eventos/guardar")
@@ -37,8 +44,9 @@ public class EventoController {
                           @RequestParam String fecha,
                           @RequestParam String descripcion) {
 
-        int nuevoId = bdEventos.size() + 1;
-        bdEventos.add(new Evento(nuevoId, nombre, tipo, fecha, descripcion));
+        // SQL para insertar. El ID no se pone porque es AUTO_INCREMENT en la BD
+        String sql = "INSERT INTO EVENTO (nombre, tipo, fecha, descripcion) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, nombre, tipo, fecha, descripcion);
 
         return "redirect:/Crudcreacion";
     }
