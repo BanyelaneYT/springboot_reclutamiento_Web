@@ -1,0 +1,37 @@
+body { font-family: "Raleway", sans-serif; color: #131313;background: rgba(14, 14, 14, 0.9); }
+
+/* Header Estilo Callypso */
+#header { background: rgba(177, 0, 0, 0.9); padding: 15px 0; color: white; transition: all 0.5s; }
+#header .logo { font-size: 32px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+#header .logo span { color: #a60000; }
+
+/* Sección Hero (Portada) */
+#hero {
+    width: 100%; height: 80vh;
+    background: linear-gradient(rgba(188, 0, 0, 0.65), rgba(163, 3, 3, 0.65)),
+    url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1920&q=80') center center;
+    background-size: cover;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; text-align: center;
+}
+#hero h1 { font-size: 56px; font-weight: 800; margin-bottom: 20px; }
+#hero p { font-size: 24px; margin-bottom: 30px; }
+
+/* El botón que lleva al Login */
+.btn-get-started {
+    font-weight: 500; font-size: 16px; letter-spacing: 1px;
+    display: inline-block; padding: 12px 40px; border-radius: 50px;
+    transition: 0.5s; margin: 10px; color: #fff;
+    background: #710000; text-decoration: none;
+    border: 2px solid #710000;
+}
+.btn-get-started:hover { background: none; color: #fff; border-color: #fff; }
+
+/* Servicios / Info */
+.services { padding: 60px 0; }
+.section-title { text-align: center; padding-bottom: 30px;color: white }
+.section-title h2 { font-size: 32px; font-weight: bold; text-transform: uppercase; color: #9c0000; }
+.tarjeta h4 { color: black;}
+.tarjeta i { color: #9f0000;}
+.tarjeta p {color: black; margin-bottom: 0;}
+.tarjeta{ padding: 24px;height: 100%;background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);}
