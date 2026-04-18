@@ -105,7 +105,7 @@
         </form>
     </div>
 
-    <table>
+    <!--<table>
         <thead>
         <tr>
             <th>ID</th>
@@ -130,7 +130,7 @@
             </tr>
         </c:forEach>
         </tbody>
-    </table>
+    </table>-->
 </div>
 
 </body>

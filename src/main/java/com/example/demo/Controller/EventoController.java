@@ -31,7 +31,7 @@ public class EventoController {
     @GetMapping("/Crudcreacion")
     public String listar(Model model) {
         // Consulta SQL pura para traer los datos
-        String sql = "SELECT * FROM EVENTO";
+        String sql = "SELECT * FROM evento";
         List<Evento> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Evento.class));
 
         model.addAttribute("listaEventos", lista);
@@ -45,7 +45,7 @@ public class EventoController {
                           @RequestParam String descripcion) {
 
         // SQL para insertar. El ID no se pone porque es AUTO_INCREMENT en la BD
-        String sql = "INSERT INTO EVENTO (nombre, tipo, fecha, descripcion) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO evento (nombre, tipo, fecha, descripcion) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, nombre, tipo, fecha, descripcion);
 
         return "redirect:/Crudcreacion";
