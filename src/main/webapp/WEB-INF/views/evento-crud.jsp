@@ -5,72 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Eventos - Callypso</title>
-    <style>
-        /* Fondo oscuro para que combine con el Main */
-        body {
-            font-family: 'Raleway', sans-serif;
-            background-color: rgb(11, 11, 11);
-            margin: 40px;
-            color: white;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            background: rgb(37, 37, 37);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-            color: #333; /* Texto oscuro dentro del contenedor blanco */
-        }
-
-        /* Títulos en Rojo Callypso */
-        h1 {
-            color: #ffffff;
-            border-bottom: 3px solid #9c0000;
-            padding-bottom: 10px;
-            font-weight: 800;
-        }
-
-        .form-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            border-left: 5px solid #9c0000;
-        }
-
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; color: #131313; }
-
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-        }
-
-        /* Botón Rojo */
-        .btn-save {
-            background-color: #9c0000;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .btn-volver {
-            display: inline-block;
-            margin-bottom: 20px;
-            text-decoration: none;
-            color: #ffffff;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="/css/crudc.css">
 </head>
 <body>
 
