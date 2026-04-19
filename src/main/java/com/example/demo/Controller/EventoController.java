@@ -27,6 +27,10 @@ public class EventoController {
     public String irMain() {
         return "main";
     }
+    @GetMapping("/publicidad") //@CODEX
+    public String mostrarPublicidad() {
+        return "publicidad";
+    }
 
     @GetMapping("/Crudcreacion")
     public String listar(Model model) {
