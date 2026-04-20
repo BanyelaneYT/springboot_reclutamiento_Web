@@ -32,11 +32,17 @@ public class EventoController {
         return "publicidad";
     }
 
+    @GetMapping("/gestion")
+    public String irGestion() {
+        // Retorna el nombre del archivo JSP: gestion.jsp
+        return "gestion";
+    }
+
     @GetMapping("/Crudcreacion")
     public String listar(Model model) {
         // Consulta SQL pura para traer los datos
         String sql = "SELECT * FROM evento";
-        List<Evento> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Evento.class));
+        List<Evento> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Evento>(Evento.class));
 
         model.addAttribute("listaEventos", lista);
         return "evento-crud";

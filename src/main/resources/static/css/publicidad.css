@@ -1,0 +1,110 @@
+:root {
+    --callypso-red: #ca0000;
+    --callypso-dark: #0e0e0e;
+    --callypso-gray: #252525;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: var(--callypso-dark);
+    color: white;
+    scroll-behavior: smooth;
+    /* Ajuste para que el contenido no quede debajo del header fijo */
+    padding-top: 70px;
+    margin: 0;
+}
+
+/* --- Header Fijo --- */
+#header {
+    background: rgba(177, 0, 0, 0.95);
+    height: 70px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+#header .logo {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+    margin: 0;
+}
+
+#header .logo span {
+    color: #ffffff; /* El punto del logo en blanco para contraste */
+}
+
+/* --- Hero Section --- */
+.hero {
+    height: calc(100vh - 70px);
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
+    url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    border-bottom: 6px solid var(--callypso-red);
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+}
+
+.highlight { color: var(--callypso-red); }
+
+/* --- Sección Beneficios --- */
+.work-with-us {
+    padding: 80px 0;
+    background-color: var(--callypso-gray);
+}
+
+.card-benefit {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 15px;
+    padding: 30px;
+    transition: 0.4s;
+    height: 100%;
+}
+
+.card-benefit:hover {
+    border-color: var(--callypso-red);
+    transform: translateY(-10px);
+}
+
+.icon-red {
+    color: var(--callypso-red);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+/* --- Footer / CTA --- */
+.footer-call {
+    padding: 60px 0;
+    background: linear-gradient(45deg, #9c0000, #4a0000);
+    text-align: center;
+}
+
+.btn-join {
+    background-color: white;
+    color: var(--callypso-red);
+    padding: 15px 40px;
+    font-weight: 800;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+.btn-join:hover {
+    background-color: var(--callypso-dark);
+    color: white;
+}
