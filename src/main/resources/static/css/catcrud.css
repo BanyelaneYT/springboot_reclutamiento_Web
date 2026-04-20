@@ -1,0 +1,149 @@
+/* GENERAL */
+body {
+    background-color: #0e0e0e !important;
+    color: #e0e0e0;
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+}
+
+/* HEADER */
+#header {
+    background: #ca0000;
+    padding: 1rem 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.logo {
+    color: white;
+    font-weight: 800;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.logo span {
+    color: #333;
+}
+
+/* CARD PRINCIPAL */
+.main-card {
+    background: #dfdfdf;
+    border: 1px solid #333;
+    border-radius: 15px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+.section-title {
+    text-align: center;
+    color: #000000;
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+/* TABLA */
+.table {
+    margin-bottom: 0;
+    border-color: #333;
+}
+
+thead th {
+    background-color: #ca0000 !important;
+    color: white !important;
+    text-align: center;
+    padding: 15px !important;
+    border: none !important;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+}
+
+tbody td {
+    background-color: transparent !important;
+    color: #b0b0b0;
+    padding: 15px !important;
+    border-bottom: 1px solid #2a2a2a !important;
+    text-align: center;
+}
+
+.text-id { font-size: 0.9rem; color: white; }
+
+.badge-tipo {
+    background: #7c7c7c;
+    color: #ff0000;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid #5e5e5e;
+}
+
+.text-description {
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    color: white;
+    text-overflow: ellipsis;
+}
+
+/* BOTONES DE ACCIÓN */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-action {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.btn-edit { background: #ffc107; color: #000; }
+.btn-delete { background: #dc3545; color: white; }
+
+.btn-action:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+}
+
+/* MODAL */
+.custom-modal {
+    background: #1a1a1a !important;
+    color: white;
+    border: 1px solid #ca0000;
+    border-radius: 15px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #333;
+}
+
+.form-control, .form-select {
+    background-color: #252525 !important;
+    border: 1px solid #444 !important;
+    color: white !important;
+    padding: 10px;
+}
+
+.form-control:focus {
+    border-color: #ca0000 !important;
+    box-shadow: 0 0 0 0.25rem rgba(202, 0, 0, 0.2);
+}
+
+.btn-save {
+    background: #ca0000;
+    color: white;
+    font-weight: 700;
+    padding: 12px;
+    border: none;
+}
+
+.btn-save:hover {
+    background: #a80000;
+    color: white;
+}
