@@ -12,7 +12,7 @@ body {
     background: rgb(37, 37, 37);
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);/*borde de sombra*/
     color: #333; /* Texto oscuro dentro del contenedor blanco */
 }
 
@@ -52,7 +52,6 @@ input, select {
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    transition: 0.3s;
 }
 
 .btn-volver {
