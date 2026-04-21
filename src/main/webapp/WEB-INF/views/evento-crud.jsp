@@ -39,34 +39,6 @@
             <button type="submit" class="btn-save">Registrar Evento</button>
         </form>
     </div>
-
-    <!--<table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Tipo</th>
-            <th>Fecha</th>
-            <th>Descripción</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${listaEventos}" var="ev">
-            <tr>
-                <td>${ev.id}</td>
-                <td><strong>${ev.nombre}</strong></td>
-                <td>
-                    <span class="badge ${ev.tipo == 'Reclutamiento' ? 'bg-recru' : (ev.tipo == 'Motivacion' ? 'bg-motiv' : 'bg-fest')}">
-                            ${ev.tipo}
-                    </span>
-                </td>
-                <td>${ev.fecha}</td>
-                <td>${ev.descripcion}</td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>-->
 </div>
-
 </body>
 </html>

@@ -1,6 +1,6 @@
 /* GENERAL */
 body {
-    background-color: #0e0e0e !important;
+    background-color: #0e0e0e ;
     color: #e0e0e0;
     font-family: 'Raleway', sans-serif;
     margin: 0;
@@ -47,21 +47,21 @@ body {
 }
 
 thead th {
-    background-color: #ca0000 !important;
-    color: white !important;
+    background-color: #ca0000;
+    color: white ;
     text-align: center;
-    padding: 15px !important;
-    border: none !important;
+    padding: 15px ;
+    border: none ;
     text-transform: uppercase;
     font-size: 0.85rem;
     letter-spacing: 1px;
 }
 
 tbody td {
-    background-color: transparent !important;
+    background-color: transparent ;
     color: #b0b0b0;
-    padding: 15px !important;
-    border-bottom: 1px solid #2a2a2a !important;
+    padding: 15px ;
+    border-bottom: 1px solid #2a2a2a ;
     text-align: center;
 }
 
@@ -100,7 +100,6 @@ tbody td {
     align-items: center;
     justify-content: center;
     border: none;
-    transition: transform 0.2s, opacity 0.2s;
 }
 
 .btn-edit { background: #ffc107; color: #000; }
@@ -113,7 +112,7 @@ tbody td {
 
 /* MODAL */
 .custom-modal {
-    background: #1a1a1a !important;
+    background: #1a1a1a ;
     color: white;
     border: 1px solid #ca0000;
     border-radius: 15px;
@@ -124,14 +123,14 @@ tbody td {
 }
 
 .form-control, .form-select {
-    background-color: #252525 !important;
-    border: 1px solid #444 !important;
-    color: white !important;
+    background-color: #252525 ;
+    border: 1px solid #444 ;
+    color: white ;
     padding: 10px;
 }
 
 .form-control:focus {
-    border-color: #ca0000 !important;
+    border-color: #ca0000 ;
     box-shadow: 0 0 0 0.25rem rgba(202, 0, 0, 0.2);
 }
 

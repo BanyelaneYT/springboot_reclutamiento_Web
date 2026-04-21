@@ -15,10 +15,6 @@ public class CatalogoController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    @GetMapping("/cat")
-    public String ircat() {
-        return "catalogo-crud";
-    }
     // LISTAR
     @GetMapping("/catalogo")
     public String listar(Model model) {
