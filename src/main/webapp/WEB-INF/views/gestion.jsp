@@ -36,7 +36,7 @@
             </a>
         </li>
         <li>
-            <a href="/main">
+            <a href="/">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Cerrar Sesión</span>
             </a>

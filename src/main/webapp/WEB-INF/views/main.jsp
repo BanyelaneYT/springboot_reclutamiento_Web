@@ -20,7 +20,7 @@
 
 <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-        <div class="logo">Callypso<span>.</span></div>
+        <div class="logo">Callypso<span>Call</span></div>
     </div>
 </header>
 
