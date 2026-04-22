@@ -1,0 +1,104 @@
+:root {
+    --bg-dark: #0e0e0e;
+    --card-bg: #1a1a1a;
+    --primary: #ca0000;
+    --sidebar-width: 260px;
+}
+
+body {
+    background-color: white;
+    font-family: 'Raleway', sans-serif;
+    color: #fff;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--bg-dark);
+    position: fixed;
+    z-index: 1000;
+    border-right: 1px solid #222;
+}
+
+.sidebar.active {
+    margin-left: calc(-1 * var(--sidebar-width));
+}
+
+.sidebar-header {
+    padding: 30px;
+    text-align: center;
+}
+
+.logo { font-weight: 800;     font-size: 160%;
+    color: #fff; text-transform: uppercase; }
+.logo span { color: var(--primary); }
+
+.nav-links {
+    list-style: none;
+    padding: 20px 0;
+}
+
+.nav-links li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 30px;
+    color: #888;
+    text-decoration: none;
+}
+
+.nav-links li a i { font-size: 20px; margin-right: 15px; }
+.disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* MAIN CONTENT */
+.main-content {
+    margin-left: var(--sidebar-width);
+    min-height: 100vh;
+}
+
+.main-content.active { margin-left: 0; }
+
+/* NAVBAR */
+.navbar-custom {
+    height: 70px;
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    border-bottom: 1px solid #222;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}
+/* CARDS */
+.card-module {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #333;
+    height: 100%;
+}
+.icon-box {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.icon-box i { font-size: 28px; color: var(--primary); }
+
+.status-badge.gray { background: #333; color: #888; }
+.locked { opacity: 0.6; cursor: not-allowed; }
