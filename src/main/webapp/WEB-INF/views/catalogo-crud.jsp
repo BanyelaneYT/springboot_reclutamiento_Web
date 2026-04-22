@@ -22,13 +22,18 @@
     <div class="row justify-content-center">
         <div class="col-lg-11">
             <div class="main-card">
+                <div class="d-flex content-right">
+                    <button class="btn btn-dark btn-sm rounded-pill px-4" type="button"
+                            data-bs-toggle="modal" data-bs-target="#modalGuardar">
+                        Ingresar nuevo evento
+                    </button>
+                </div>
                 <h2 class="section-title">Administración de Eventos</h2>
 
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">
                         <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Nombre</th>
                             <th>Tipo</th>
                             <th>Fecha</th>
@@ -39,7 +44,6 @@
                         <tbody>
                         <c:forEach var="e" items="${listaCatalogo}">
                             <tr>
-                                <td class="text-id" >${e.id}</td>
                                 <td class="fw-bold">${e.nombre}</td>
                                 <td><span class="badge-tipo">${e.tipo}</span></td>
                                 <td class="text-description" >${e.fecha}</td>
@@ -101,6 +105,40 @@
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-save w-100">GUARDAR CAMBIOS</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="modalGuardar" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <form action="/eventos/guardar" method="POST" class="modal-content custom-modal">
+            <div class="modal-body p-4">
+                <div class="mb-3">
+                    <label class="form-label">Nombre del Evento</label>
+                    <input type="text" name="nombre" class="form-control" required placeholder="Ej: Reclutamiento Masivo L1">
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Tipo</label>
+                        <select name="tipo" class="form-select">
+                            <option value="Reclutamiento">Reclutamiento Presencial</option>
+                            <option value="Motivacion">Experiencia Gratuita / Motivación</option>
+                            <option value="Festividad">Festividad (Navidad, Halloween, etc.)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Fecha</label>
+                        <input type="date" name="fecha" class="form-control" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Descripción</label>
+                    <textarea name="descripcion" class="form-control" rows="3"  placeholder="Detalles del evento..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-save w-100">GUARDAR</button>
             </div>
         </form>
     </div>
