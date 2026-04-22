@@ -19,29 +19,6 @@ public class EventoController {
     @Autowired
     private JdbcTemplate jdbcTemplate; // Cambiamos Repository por JdbcTemplate
 
-    @GetMapping("/")
-    public String login() {
-        return "login";
-    }
-
-    @GetMapping("/main")
-    public String irMain() {
-        return "main";
-    }
-    @GetMapping("/publicidad") //@CODEX
-    public String mostrarPublicidad() {
-        return "publicidad";
-    }
-
-    @GetMapping("/gestion")
-    public String irGestion() {
-        // Retorna el nombre del archivo JSP: gestion.jsp
-        return "gestion";
-    }
-    @GetMapping("/contacto")
-    public String mostrarFormulario() {
-        return "contacto";
-    }
     @GetMapping("/catalogo")
     public String listar(Model model) {
         String sql = "SELECT * FROM evento";
@@ -50,6 +27,7 @@ public class EventoController {
         model.addAttribute("listaCatalogo", lista);
         return "/catalogo-crud";
     }
+
     @PostMapping("/catalogo/actualizar")
     public String actualizar(@RequestParam int id, @RequestParam String nombre,
                              @RequestParam String tipo, @RequestParam String fecha,
@@ -58,6 +36,7 @@ public class EventoController {
         jdbcTemplate.update(sql, nombre, tipo, fecha, descripcion, id);
         return "redirect:/catalogo";
     }
+
     // ELIMINAR (DELETE por ID)
     @GetMapping("/catalogo/eliminar/{id}")
     public String eliminar(@PathVariable int id) {
@@ -65,6 +44,7 @@ public class EventoController {
         jdbcTemplate.update(sql, id);
         return "redirect:/catalogo";
     }
+
     @PostMapping("/eventos/guardar")
     public String guardar(@RequestParam String nombre,
                           @RequestParam String tipo,
@@ -74,7 +54,6 @@ public class EventoController {
         // SQL para insertar. El ID no se pone porque es AUTO_INCREMENT en la BD
         String sql = "INSERT INTO evento (nombre, tipo, fecha, descripcion) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql, nombre, tipo, fecha, descripcion);
-
         return "redirect:/catalogo";
     }
 }
