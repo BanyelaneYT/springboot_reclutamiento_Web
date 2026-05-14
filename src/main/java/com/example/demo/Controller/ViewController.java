@@ -28,4 +28,9 @@ public class ViewController {
     public String mostrarFormulario() {
         return "contacto";
     }
+
+    @GetMapping("/postular")
+    public String mostrarPostulacion() {
+        return "postular"; // Retorna postular.jsp
+    }
 }
