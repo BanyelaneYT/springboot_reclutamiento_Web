@@ -1,150 +1,81 @@
 package com.example.demo.model;
 
 public class Preg_Recluta {
-    private int Id;
-    private int Dni;
-    private String Nombre;
-    private int Edad;
-    private int Res1;
-    private int Res2;
-    private int Res3;
-    private int Res4;
-    private int Res5;
-    private int Res6;
-    private int Res7;
-    private int Res8;
-    private String Ubicacion;
-    private String Estado;
-    public void Preg_Recluta(){};
+    private int id;
+    private int dni;
+    private String nombre;
+    private int edad;
+    private int res1;
+    private int res2;
+    private int res3;
+    private int res4;
+    private int res5;
+    private int res6;
+    private int res7;
+    private int res8;
+    private String ubicacion;
+    private String estado;
 
-    public Preg_Recluta( String estado, String ubicacion, int res8, int res7, int res6, int res5, int res4, int res3, int res2, int res1, int edad, String nombre, int dni, int id) {
-        Estado = estado;
-        Ubicacion = ubicacion;
-        Res8 = res8;
-        Res7 = res7;
-        Res6 = res6;
-        Res5 = res5;
-        Res4 = res4;
-        Res3 = res3;
-        Res2 = res2;
-        Res1 = res1;
-        Edad = edad;
-        Nombre = nombre;
-        Dni = dni;
-        Id = id;
-    }
-    //getters
-    public int getId() {
-        return Id;
+    // Constructor vacío obligatorio para RowMapper
+    public Preg_Recluta() {}
+
+    public Preg_Recluta(int id, int dni, String nombre, int edad, int res1, int res2, int res3, int res4, int res5, int res6, int res7, int res8, String ubicacion, String estado) {
+        this.id = id;
+        this.dni = dni;
+        this.nombre = nombre;
+        this.edad = edad;
+        this.res1 = res1;
+        this.res2 = res2;
+        this.res3 = res3;
+        this.res4 = res4;
+        this.res5 = res5;
+        this.res6 = res6;
+        this.res7 = res7;
+        this.res8 = res8;
+        this.ubicacion = ubicacion;
+        this.estado = estado;
     }
 
-    public int getDni() {
-        return Dni;
-    }
+    // GETTERS Y SETTERS EN MINÚSCULAS (Estándar)
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public String getNombre() {
-        return Nombre;
-    }
+    public int getDni() { return dni; }
+    public void setDni(int dni) { this.dni = dni; }
 
-    public int getEdad() {
-        return Edad;
-    }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public int getRes1() {
-        return Res1;
-    }
+    public int getEdad() { return edad; }
+    public void setEdad(int edad) { this.edad = edad; }
 
-    public int getRes2() {
-        return Res2;
-    }
+    public int getRes1() { return res1; }
+    public void setRes1(int res1) { this.res1 = res1; }
 
-    public int getRes3() {
-        return Res3;
-    }
+    public int getRes2() { return res2; }
+    public void setRes2(int res2) { this.res2 = res2; }
 
-    public int getRes4() {
-        return Res4;
-    }
+    public int getRes3() { return res3; }
+    public void setRes3(int res3) { this.res3 = res3; }
 
-    public int getRes5() {
-        return Res5;
-    }
+    public int getRes4() { return res4; }
+    public void setRes4(int res4) { this.res4 = res4; }
 
-    public int getRes6() {
-        return Res6;
-    }
+    public int getRes5() { return res5; }
+    public void setRes5(int res5) { this.res5 = res5; }
 
-    public int getRes7() {
-        return Res7;
-    }
+    public int getRes6() { return res6; }
+    public void setRes6(int res6) { this.res6 = res6; }
 
-    public int getRes8() {
-        return Res8;
-    }
+    public int getRes7() { return res7; }
+    public void setRes7(int res7) { this.res7 = res7; }
 
-    public String getUbicacion() {
-        return Ubicacion;
-    }
+public int getRes8() { return res8; }
+public void setRes8(int res8) { this.res8 = res8; }
 
-    public String getEstado() {
-        return Estado;
-    }
+public String getUbicacion() { return ubicacion; }
+public void setUbicacion(String ubicacion) { this.ubicacion = ubicacion; }
 
-    //setters
-    public void setId(int id) {
-        Id = id;
-    }
-
-    public void setDni(int dni) {
-        Dni = dni;
-    }
-
-    public void setNombre(String nombre) {
-        Nombre = nombre;
-    }
-
-    public void setEdad(int edad) {
-        Edad = edad;
-    }
-
-    public void setRes1(int res1) {
-        Res1 = res1;
-    }
-
-    public void setRes2(int res2) {
-        Res2 = res2;
-    }
-
-    public void setRes3(int res3) {
-        Res3 = res3;
-    }
-
-    public void setRes4(int res4) {
-        Res4 = res4;
-    }
-
-    public void setRes5(int res5) {
-        Res5 = res5;
-    }
-
-    public void setRes6(int res6) {
-        Res6 = res6;
-    }
-
-    public void setRes7(int res7) {
-        Res7 = res7;
-    }
-
-    public void setRes8(int res8) {
-        Res8 = res8;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        Ubicacion = ubicacion;
-    }
-
-    public void setEstado(String estado) {
-        Estado = estado;
-    }
+public String getEstado() { return estado; }
+public void setEstado(String estado) { this.estado = estado; }
 }
-
