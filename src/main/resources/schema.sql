@@ -13,6 +13,5 @@ CREATE TABLE IF NOT EXISTS preg_recluta (
     res1 INT, res2 INT, res3 INT, res4 INT,
     res5 INT, res6 INT, res7 INT, res8 INT,
     ubicacion VARCHAR(100),
-    estado VARCHAR(50),
-    res_eva VARCHAR(255)
+    estado VARCHAR(50)
 );

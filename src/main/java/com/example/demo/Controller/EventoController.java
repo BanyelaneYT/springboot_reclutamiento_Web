@@ -19,6 +19,7 @@ public class EventoController {
     @Autowired
     private JdbcTemplate jdbcTemplate; // Cambiamos Repository por JdbcTemplate
 
+    //Evento
     @GetMapping("/catalogo")
     public String listar(Model model) {
         String sql = "SELECT * FROM evento";
