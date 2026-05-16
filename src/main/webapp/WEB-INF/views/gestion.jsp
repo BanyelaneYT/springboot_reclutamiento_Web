@@ -68,7 +68,7 @@
                     <div class="icon-box">
                         <i class="fas fa-user-tie"></i>
                     </div>
-                    <h4>Evaluación de Personal</h4>
+                    <h4>Evaluación de Postulantes</h4>
                     <p>Seguimiento de candidatos y resultados de pruebas técnicas.</p>
                 </div>
             </div>

@@ -19,7 +19,7 @@
 <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center justify-content-between">
         <div class="logo">CallypsoCall<span></span></div>
-        <a class="btn btn-sm btn-outline-light rounded-pill px-3">Ir al Sistema</a>
+        <a herf="/"class="btn btn-sm btn-outline-light rounded-pill px-3">Ir al Sistema</a>
     </div>
 </header>
 
