@@ -19,6 +19,7 @@ public class ReclutaController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    
     // 1. LISTAR POSTULANTES EN EL PANEL RR.HH.
     @GetMapping("/crudpostulante")
     public String listarPostulantes(Model model) {
