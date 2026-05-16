@@ -15,12 +15,9 @@ public class Preg_Recluta {
     private int Res8;
     private String Ubicacion;
     private String Estado;
-    private String Res_eva;
-
     public void Preg_Recluta(){};
 
-    public Preg_Recluta(String res_eva, String estado, String ubicacion, int res8, int res7, int res6, int res5, int res4, int res3, int res2, int res1, int edad, String nombre, int dni, int id) {
-        Res_eva = res_eva;
+    public Preg_Recluta( String estado, String ubicacion, int res8, int res7, int res6, int res5, int res4, int res3, int res2, int res1, int edad, String nombre, int dni, int id) {
         Estado = estado;
         Ubicacion = ubicacion;
         Res8 = res8;
@@ -93,10 +90,6 @@ public class Preg_Recluta {
         return Estado;
     }
 
-    public String getRes_eva() {
-        return Res_eva;
-    }
-
     //setters
     public void setId(int id) {
         Id = id;
@@ -152,10 +145,6 @@ public class Preg_Recluta {
 
     public void setEstado(String estado) {
         Estado = estado;
-    }
-
-    public void setRes_eva(String res_eva) {
-        Res_eva = res_eva;
     }
 }
 

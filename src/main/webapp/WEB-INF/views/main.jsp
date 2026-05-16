@@ -28,7 +28,7 @@
     <div class="hero-container">
         <h1>Callypso Call Peru</h1>
         <p>Líderes en soluciones de contact center y gestión de talento.</p>
-        <a href="/" class="btn-get-started animate__animated animate__fadeInUp">Ir al Login</a>
+        <a href="/login" class="btn-get-started animate__animated animate__fadeInUp">Ir al Login</a>
     </div>
 </section>
 
