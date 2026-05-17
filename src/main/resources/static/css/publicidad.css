@@ -3,7 +3,7 @@
     --callypso-dark: #0e0e0e;
     --callypso-gray: #252525;
 }
-body {
+.body {
     font-family: 'Raleway', sans-serif;
     background-color: var(--callypso-dark);
     color: white;

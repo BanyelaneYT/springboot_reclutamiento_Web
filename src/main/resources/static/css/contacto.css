@@ -1,6 +1,9 @@
-.body {
-    font-family: 'Poppins', sans-serif;
-    background: #e9ecef;
+/* ==========================================================================
+   ESTILOS GENERALES (Corregido: 'body' sin punto para aplicar el fondo)
+   ========================================================================== */
+
+
+html{
     margin: 0;
     padding: 0;
     display: flex;
@@ -8,23 +11,41 @@
     min-height: 100vh;
 }
 
-.container-header {
-    width: 85%;
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #e9ecef; /* Color gris intermedio que resalta el formulario */
+
 }
 
-/* contacto */
+/* ==========================================================================
+   AJUSTE DE ANCHO COMPLETO PARA HEADER (COMO LA IMAGEN)
+   ========================================================================== */
+.header-fullwidth {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 40px; /* Margen interno para que no choque al borde absoluto de la pantalla */
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
 
+/* Forzar que la lista del menú mantenga el comportamiento horizontal */
+#navbar ul {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 20px;
+}
+
+/* ==========================================================================
+   CONTENIDO PRINCIPAL DE CONTACTO
+   ========================================================================== */
 .container-contacto {
     width: 85%;
     max-width: 1200px;
-    margin: 40px auto;
+    margin: 140px auto 40px auto; /* Separación de 140px para que el header fixed-top no tape el título */
     text-align: center;
-    flex: 1; /* Empuja el footer abajo */
+    flex: 1;
     box-sizing: border-box;
 }
 
@@ -72,19 +93,18 @@ h1 {
     font-size: 14px;
 }
 
-/* formulario */
-
+/* ==========================================================================
+   FORMULARIO DE CONTACTO
+   ========================================================================== */
 .form-container {
     background: white;
     padding: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     text-align: left;
     margin-bottom: 40px;
     box-sizing: border-box;
 }
-
-
 
 .row-form-inputs {
     display: flex;
@@ -115,7 +135,7 @@ textarea {
 
 .button-container {
     display: flex;
-    justify-content: center; /* Esto centra el botón horizontalmente */
+    justify-content: center; /* Centra el botón horizontalmente */
     width: 100%;
     margin-top: 20px;
 }
@@ -142,21 +162,19 @@ button:hover {
     font-weight: bold;
 }
 
-/* footer */
-
-.footer-callypso {
-    background-color: #000000;
-    color: #ffffff;
+/* ==========================================================================
+   FOOTER SIMPLE
+   ========================================================================== */
+.footer-simple {
+    background-color: #000;
+    color: #fff;
     text-align: center;
-    padding: 24px 0;
+    padding: 20px 0;
     width: 100%;
     margin-top: auto;
-    box-sizing: border-box;
 }
 
-.footer-callypso p {
+.footer-simple p {
     margin: 0;
-    font-family: "Raleway", sans-serif;
-    font-size: 15px;
+    font-size: 14px;
 }
-

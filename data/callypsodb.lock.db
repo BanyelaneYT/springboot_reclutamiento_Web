@@ -1,6 +1,6 @@
 #FileLock
-#Sat May 16 22:45:24 PET 2026
-hostName=DESKTOP-9KA1305
-id=19e3409cb65e639ef2873e2256e9c53ab9343c16e0d
+#Sun May 17 01:11:35 CDT 2026
+hostName=CHESSMAN
+id=19e348fb372a2a553acfd6f363c20a76430a3afc1cb
 method=file
-server=192.168.75.1\:55417
+server=192.168.100.2\:52250
