@@ -1,6 +1,6 @@
 #FileLock
-#Sun May 17 01:11:35 CDT 2026
+#Sun May 17 08:51:02 CDT 2026
 hostName=CHESSMAN
-id=19e348fb372a2a553acfd6f363c20a76430a3afc1cb
+id=19e3634588e80ba9d2da3a7923c9e6cdf60d67dbfc5
 method=file
-server=192.168.100.2\:52250
+server=192.168.100.2\:60469
