@@ -1,12 +1,22 @@
+/* ==========================================================================
+   ESTILOS GENERALES Y LIMPIEZA DE COLORES OSCUROS
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 :root {
     --callypso-red: #ca0000;
     --callypso-dark: #0e0e0e;
     --callypso-gray: #252525;
 }
-.body {
+body {
     font-family: 'Raleway', sans-serif;
     background-color: var(--callypso-dark);
-    color: white;
+    color: #ffffff !important; /* Fuerza a que el texto base sea blanco puro */
+    scroll-behavior: smooth;
     padding-top: 70px;
     margin: 0;
 }
@@ -26,9 +36,10 @@
     color: white;
     margin: 0;
 }
+/* texto de fondo */
 .hero {
     height: calc(100vh - 70px);
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
+    background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)),
     url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070');
     background-size: cover;
     background-position: center;
@@ -41,9 +52,16 @@
     font-size: 3.5rem;
     font-weight: 800;
     text-transform: uppercase;
+    color: #ffffff !important;
+    text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.9);
 }
-.highlight { color: var(--callypso-red); }
-
+.hero p {
+    color: #f8f9fa !important;
+    text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.9);
+}
+.highlight {
+    color: #ff3344 !important; /* Un tono rojo ligeramente más vivo para resaltar sobre la imagen */
+}
 .work-with-us {
     padding: 80px 0;
     background-color: var(--callypso-gray);
@@ -70,7 +88,7 @@
     text-align: center;
 }
 .btn-join {
-    background-color: white;
+    background-color: #ffffff;
     color: var(--callypso-red);
     padding: 15px 40px;
     font-weight: 800;
@@ -78,4 +96,11 @@
     text-decoration: none;
     font-size: 1.2rem;
     display: inline-block;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.btn-join:hover {
+    background-color: var(--callypso-dark); /* Cambia a fondo oscuro #0e0e0e */
+    color: #ffffff !important;               /* El texto se vuelve blanco brillante */
 }
