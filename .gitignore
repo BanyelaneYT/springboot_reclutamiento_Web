@@ -33,3 +33,7 @@ data/callypsodb.lock.db
 data/callypsodb.mv.db
 ### VS Code ###
 .vscode/
+
+# Base de datos local H2
+   data/callypsodb.*
+   *.db
