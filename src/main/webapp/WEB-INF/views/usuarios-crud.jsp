@@ -8,7 +8,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Callypso | Gestión de Eventos</title>
+    <title>Callypso | Gestión de Usuarios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/css/catcrud.css">
@@ -29,7 +29,7 @@
                 <div class="d-flex content-right">
                     <button class="btn btn-dark btn-sm rounded-pill px-4" type="button"
                             data-bs-toggle="modal" data-bs-target="#modalGuardar">
-                        Ingresar nuevo evento
+                        Ingresar Nuevo Usuario
                     </button>
                 </div>
                 <h2 class="section-title">Administración de Usuarios</h2>
