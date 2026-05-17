@@ -1,5 +1,6 @@
 INSERT INTO evento (nombre, tipo, fecha, descripcion)
 SELECT 'Bienvenida Callypso', 'Motivacion', '2026-05-01', 'Evento inicial de cultura'
+FROM SYSTEM_RANGE(1, 1)
     WHERE NOT EXISTS (
     SELECT 1 FROM evento WHERE nombre = 'Bienvenida Callypso'
 );
@@ -14,6 +15,15 @@ SELECT
     4, 2, 3, 0, 0, 4, 2, 0, -- Respuestas (0-4)
     'Lima, Perú', -- Ubicación
     'Pendiente'-- Estado
-WHERE NOT EXISTS (
+FROM SYSTEM_RANGE(1, 1)
+    WHERE NOT EXISTS (
     SELECT 1 FROM preg_recluta WHERE dni = 12345678
+);
+
+--@CODEX
+INSERT INTO usuarios (correo, contrasena)
+SELECT 'admin123@gmail.com', '123456'
+FROM SYSTEM_RANGE(1, 1)
+    WHERE NOT EXISTS (
+    SELECT 1 FROM usuarios WHERE correo = 'admin123@gmail.com'
 );
