@@ -1,4 +1,7 @@
-body { font-family: "Raleway", sans-serif; color: #131313;background: rgba(14, 14, 14, 0.9); }
+body {
+    font-family: "Raleway", sans-serif;
+    color: #131313;
+    background: rgba(14, 14, 14, 0.9); }
 
 /* Sección Hero (Portada) */
 #hero {
