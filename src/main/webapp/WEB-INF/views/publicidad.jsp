@@ -7,7 +7,6 @@
     <title>Callypso Call | Publicidad y Reclutamiento</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,800" rel="stylesheet">
 
@@ -19,13 +18,13 @@
 <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center justify-content-between">
         <div class="logo">CallypsoCall<span></span></div>
-        <a herf="/"class="btn btn-sm btn-outline-light rounded-pill px-3">Ir al Sistema</a>
+        <a href="/" class="btn btn-sm btn-outline-light rounded-pill px-3">Ir al Sistema</a>
     </div>
 </header>
 
 <main>
     <section class="hero">
-        <div class="container animate__animated animate__fadeInDown">
+        <div class="container">
             <h1 class="mb-4">¡Que la armonía de las <span class="highlight">oportunidades</span> alcance su punto más alto!</h1>
             <p class="display-6 mb-5">Bienvenidos, operadores. Sus logros brillan gracias al trabajo duro en equipo.</p>
             <a class="btn btn-outline-light btn-lg rounded-pill px-5">Ver Beneficios</a>
@@ -36,27 +35,31 @@
         <div class="container text-center">
             <h2 class="mb-5 display-4 fw-bold">Trabaja en <span class="highlight">Callypso Call</span></h2>
             <div class="row g-4">
-                <div class="col-md-4 animate__animated animate__zoomIn">
+
+                <div class="col-md-4">
                     <div class="card-benefit">
                         <i class="fas fa-chart-line icon-red"></i>
                         <h3>Crecimiento</h3>
                         <p>Inicia tu línea de carrera profesional en el sector de ventas más grande de Lima.</p>
                     </div>
                 </div>
-                <div class="col-md-4 animate__animated animate__zoomIn" style="animation-delay: 0.2s;">
+
+                <div class="col-md-4">
                     <div class="card-benefit">
                         <i class="fas fa-medal icon-red"></i>
                         <h3>Comisiones</h3>
                         <p>Bonos ilimitados y premios por desempeño que reconocen tu esfuerzo diario.</p>
                     </div>
                 </div>
-                <div class="col-md-4 animate__animated animate__zoomIn" style="animation-delay: 0.4s;">
+
+                <div class="col-md-4">
                     <div class="card-benefit">
                         <i class="fas fa-users icon-red"></i>
                         <h3>Cultura</h3>
                         <p>Ambiente motivador diseñado para operadores que buscan alcanzar el éxito.</p>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -74,9 +77,7 @@
     <div class="footer-call">
         <div class="container">
             <h2 class="text-white mb-4">¿Listo para empezar tu camino al éxito?</h2>
-            <a class="btn-join shadow-lg animate__animated animate__pulse animate__infinite">
-                POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i>
-            </a>
+            <a class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
             <p class="mt-4 text-white-50">Callypso Call Peru | Sede Lima 2026</p>
         </div>
     </div>
