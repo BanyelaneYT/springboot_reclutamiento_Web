@@ -38,9 +38,10 @@ body {
 
 /* contacto */
 .container-contacto {
+    margin-top: 40px; /* Separación de 140px para que el header fixed-top no tape el título */
     width: 85%;
     max-width: 1200px;
-    margin: 140px auto 40px auto; /* Separación de 140px para que el header fixed-top no tape el título */
+    margin: 40px auto 20px auto; /* Separación de 140px para que el header fixed-top no tape el título */
     text-align: center;
     flex: 1; /* Obliga al footer a irse al fondo de la pantalla si hay poco contenido */
     box-sizing: border-box;
