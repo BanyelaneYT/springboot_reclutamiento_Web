@@ -28,6 +28,8 @@ target/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
-
+### Base de datos local H2 ###
+data/callypsodb.lock.db
+data/callypsodb.mv.db
 ### VS Code ###
 .vscode/
