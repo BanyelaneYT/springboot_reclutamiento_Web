@@ -8,27 +8,35 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Raleway:400,700,800" rel="stylesheet">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/Header.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
-    <style>
-        </style>
 </head>
-
 <body>
-
+<!-- Header -->    
 <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-        <div class="logo">Callypso<span>Call</span></div>
+        <a href="/" class="logo">
+            CallypsoCall
+        </a>
+        
+        <nav id="navbar" class="navbar">
+            <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
+                <li><a class="nav-link" href="/publicidad">Servicios</a></li>
+                <li><a class="nav-link" href="/contacto">Contacto</a></li>
+                <li><a class="nav-link" href="#">Eventos</a></li>
+                <li><a class="nav-link" href="/postular">Postular</a></li>
+                <li><a class="getstarted" href="/login">Login ></a></li>
+            </ul>
+        </nav>
     </div>
 </header>
-
+<!-- Fin Header -->
 <section id="hero" class="animate__animated animate__fadeIn">
     <div class="hero-container">
         <h1>Callypso Call Peru</h1>
         <p>Líderes en soluciones de contact center y gestión de talento.</p>
-        <a href="/crudpostulantes" class="btn-get-started animate__animated animate__fadeInUp">Ir al Login</a>
     </div>
 </section>
 
@@ -69,8 +77,9 @@
             </div>
         </div>
     </section>
+     <a href="/postular" class="btn-get-started animate_animated animate_fadeInUp">Postular Ahora</a>
 </main>
-
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.6530691879566!2d-77.0761327!3d-11.998490600000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105cf12fbe94e0d%3A0xe46a76fd32a0b8c2!2sCallypso%20Peru%20S.A.C!5e0!3m2!1ses-419!2spe!4v1778990251231!5m2!1ses-419!2spe" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 <footer class="bg-black text-white text-center py-4">
     <p>&copy; 2026 Callypso Call Peru. Todos los derechos reservados.</p>
 </footer>

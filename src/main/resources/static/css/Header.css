@@ -1,0 +1,51 @@
+/* Header General */
+#header { 
+    background: #b10000; /* El rojo exacto de tu imagen */
+    padding: 15px 0; 
+    color: white; 
+    transition: all 0.5s; 
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos del Logo */
+#header .logo { 
+    font-size: 24px; 
+    font-weight: 700; 
+    color: #ffffff;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+#header .logo span { 
+    font-size: 14px; 
+    display: block; /* Hace que "& Asociados" vaya abajo si es necesario */
+    font-weight: 300;
+}
+
+/* Menú de Navegación */
+#navbar ul {
+    gap: 30px; /* Espaciado entre cada opción del menú */
+}
+
+#navbar .nav-link {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px 0;
+    transition: 0.3s;
+}
+
+/* El Botón Blanco "Cotiza >" */
+#navbar .getstarted {
+    background: #ffffff;
+    color: #b10000; /* Texto rojo dentro del botón */
+    font-weight: 700;
+    font-size: 15px;
+    padding: 10px 25px;
+    border-radius: 50px; /* Bordes completamente redondeados */
+    text-decoration: none;
+    transition: 0.3s;
+    display: inline-block;
+    margin-left: 15px;
+}
