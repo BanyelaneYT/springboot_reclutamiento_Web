@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="login-card">
-    <h2>Callypso Call</h2>
+    <h2>CALLYPSOCALL</h2>
     <input type="text" placeholder="Usuario">
     <input type="password" placeholder="Contraseña">
     <form action="/#" method="GET">
