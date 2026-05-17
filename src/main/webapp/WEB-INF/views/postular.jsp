@@ -180,7 +180,7 @@
     </div>
 
     <div class="mt-4">
-        <a href="/" class="text-decoration-none text-secondary">← Volver a la página principal</a>
+        <a href="redirect:/" class="text-decoration-none text-secondary">← Volver a la página principal</a>
     </div>
 </div>
 
