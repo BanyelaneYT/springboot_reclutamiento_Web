@@ -9,25 +9,36 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,800" rel="stylesheet">
-
+    <link rel="stylesheet" href="/css/Header.css">
     <link rel="stylesheet" href="/css/publicidad.css">
 </head>
 
 <body>
-
-<header id="header" class="fixed-top">
+<!-- Header -->    
+<header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-        <div class="logo">CallypsoCall<span></span></div>
-        <a href="/" class="btn btn-sm btn-outline-light rounded-pill px-3">Ir al Sistema</a>
+        <a href="/" class="logo">
+            CallypsoCall
+        </a>
+        
+        <nav id="navbar" class="navbar">
+            <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
+                <li><a class="nav-link" href="/publicidad">Servicios</a></li>
+                <li><a class="nav-link" href="/contacto">Contacto</a></li>
+                <li><a class="nav-link" href="#">Eventos</a></li>
+                <li><a class="nav-link" href="/postular">Postular</a></li>
+                <li><a class="getstarted" href="/login">Login ></a></li>
+            </ul>
+        </nav>
     </div>
 </header>
+<!-- Fin Header -->
 
 <main>
     <section class="hero">
         <div class="container">
             <h1 class="mb-4">¡Que la armonía de las <span class="highlight">oportunidades</span> alcance su punto más alto!</h1>
             <p class="display-6 mb-5">Bienvenidos, operadores. Sus logros brillan gracias al trabajo duro en equipo.</p>
-            <a class="btn btn-outline-light btn-lg rounded-pill px-5">Ver Beneficios</a>
         </div>
     </section>
 
@@ -70,6 +81,32 @@
             <p class="fs-5 mb-4">Únete a nuestras campañas masivas en la sede de Los Olivos.</p>
             <div class="d-inline-block p-3 border rounded border-danger">
                 <span class="fw-bold">Sueldo Base + Altas Comisiones + Planilla</span>
+            </div>
+        </div>
+    </section>
+    <section class="work-with-us py-5 text-white text-center border-top border-danger">
+        <div class="container">
+            <h2 class="mb-4">Se parte de <span class="highlight">Callypso Call</span></h2>
+            <div class="row g-4">
+
+                <div class="col-md-4">
+                    <div class="card-image">
+                        <img src="https://callypsocallperu.com/assets/img/gallery/7.jpg" class="img-fluid" alt="Galería 4">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card-image">
+                        <img src="https://callypsocallperu.com/assets/img/gallery/5.jpg" class="img-fluid" alt="Galería 4">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card-image">
+                        <img src="https://callypsocallperu.com/assets/img/gallery/1.jpg" class="img-fluid" alt="Galería 4">
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
