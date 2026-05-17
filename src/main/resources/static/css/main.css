@@ -3,7 +3,7 @@ body { font-family: "Raleway", sans-serif; color: #131313;background: rgba(14, 1
 /* Sección Hero (Portada) */
 #hero {
     width: 100%; height: 80vh;
-    background: linear-gradient(rgba(188, 0, 0, 0.062), rgba(163, 3, 3, 0.068)),
+    background: linear-gradient(rgba(188, 0, 0, 0.062), rgba(0, 0, 0, 0.253)),
     url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1920&q=80') center center;
     background-size: cover;
     display: flex; align-items: center; justify-content: center;
@@ -17,16 +17,25 @@ body { font-family: "Raleway", sans-serif; color: #131313;background: rgba(14, 1
     font-weight: 500; font-size: 16px; letter-spacing: 1px;
     display: inline-block; padding: 12px 40px; border-radius: 50px;
     transition: 0.5s; margin: 10px; color: #fff;
-    background: #710000; text-decoration: none;
+    background: #c90000; text-decoration: none;
     border: 2px solid #710000;
 }
-.btn-get-started:hover { background: #c70000; color: #fff; border-color: #fff; }
-
 /* Servicios / Info */
-.services { padding: 60px 0; }
+.services { padding: 30px 0; }
 .section-title { text-align: center; padding-bottom: 30px;color: white }
-.section-title h2 { font-size: 32px; font-weight: bold; text-transform: uppercase; color: #9c0000; }
+.section-title h2 { font-size: 32px; font-weight: bold; text-transform: uppercase; color: #ff0000; }
 .tarjeta h4 { color: black;}
-.tarjeta i { color: #9f0000;}
+.tarjeta i { color: #ff0000;}
 .tarjeta p {color: black; margin-bottom: 0;}
 .tarjeta{ padding: 24px;height: 100%;background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);}
+
+/* Estilos para la galería de imágenes */
+.gallery-item {
+    overflow: hidden;
+    width: 100%;
+}
+.gallery-item img {
+    width: 100%;
+    height: 200px; /* Ajusta esta altura en píxeles si quieres que se vean más altas o bajas */
+    display: block; /* Quita el espacio blanco extra que traen las imágenes por defecto abajo */
+}
