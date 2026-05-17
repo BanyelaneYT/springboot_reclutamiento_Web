@@ -9,7 +9,10 @@ public class ViewController {
     public String login() {
         return "login";
     }
-
+    @GetMapping("/")
+    public String Main() {
+        return "main";
+    }
     @GetMapping("/main")
     public String irMain() {
         return "main";
