@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -18,32 +18,31 @@ public class ReclutaController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
-    // 1. LISTAR RECLUTAS (Para el panel de gestión)
-    @GetMapping("/reclutas")
-    public String listarReclutas(Model model) {
-        String sql = "SELECT * FROM preg_recluta";
+    
+    // 1. LISTAR POSTULANTES EN EL PANEL RR.HH.
+    @GetMapping("/crudpostulante")
+    public String listarPostulantes(Model model) {
+        String sql = "SELECT * FROM preg_recluta ORDER BY id DESC";
         List<Preg_Recluta> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Preg_Recluta.class));
-        model.addAttribute("listaReclutas", lista);
-        return "gestion"; // Puedes usar gestion o crear una vista específica
+        model.addAttribute("listaPostulantes", lista);
+        return "crudpostulantes"; // Redirige a crudpostulantes.jsp
     }
 
-    // 2. GUARDAR CON VALIDACIÓN DE DNI Y EVALUACIÓN AUTOMÁTICA
+    // 2. GUARDAR POSTULANTE (CON FILTRO DE DNI Y EVALUACIÓN AUTOMÁTICA)
     @PostMapping("/reclutar/guardar")
-    public String guardar(@ModelAttribute Preg_Recluta recluta, Model model) {
+    public String guardar(@ModelAttribute Preg_Recluta recluta) {
 
-        // Lógica de Evaluación: Sumamos las respuestas (0 a 4)
+        // Sumamos las respuestas del test (0 a 4 puntos por pregunta)
         int puntajeTotal = recluta.getRes1() + recluta.getRes2() + recluta.getRes3() +
                 recluta.getRes4() + recluta.getRes5() + recluta.getRes6() +
                 recluta.getRes7() + recluta.getRes8();
 
-        // Umbral de aceptación (ejemplo: 20 puntos de 32 posibles)
-        String resultadoEvaluacion = (puntajeTotal >= 20) ? "APROBADO" : "DESAPROBADO";
-        String estadoInicial = "Pendiente";
+        // El perfil define su ESTADO directamente según el puntaje (20 puntos o más de 32 posibles)
+        String estadoFinal = (puntajeTotal >= 20) ? "APROBADO" : "DESAPROBADO";
 
-        // SQL con WHERE NOT EXISTS para evitar duplicados por DNI
-        String sql = "INSERT INTO preg_recluta (dni, nombre, edad, res1, res2, res3, res4, res5, res6, res7, res8, ubicacion, estado, res_eva) " +
-                "SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? " +
+        // SQL usando WHERE NOT EXISTS guiado por el DNI único (sin la columna res_eva)
+        String sql = "INSERT INTO preg_recluta (dni, nombre, edad, res1, res2, res3, res4, res5, res6, res7, res8, ubicacion, estado) " +
+                "SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? " +
                 "WHERE NOT EXISTS (SELECT 1 FROM preg_recluta WHERE dni = ?)";
 
         int filasAfectadas = jdbcTemplate.update(sql,
@@ -59,24 +58,46 @@ public class ReclutaController {
                 recluta.getRes7(),
                 recluta.getRes8(),
                 recluta.getUbicacion(),
-                estadoInicial,
-                resultadoEvaluacion,
-                recluta.getDni() // Para el parámetro del WHERE NOT EXISTS
+                estadoFinal, // Se guarda directamente como el estado del postulante
+                recluta.getDni()
         );
 
         if (filasAfectadas > 0) {
-            return "redirect:/contacto?exito=true";
+            return "redirect:/postular?exito=true";
         } else {
-            // Si el DNI ya existía, mandamos un error
-            return "redirect:/contacto?error=duplicado";
+            return "redirect:/postular?error=duplicado";
         }
     }
+    // 4. ACTUALIZAR ESTADO DEL POSTULANTE DESDE EL PROCESAMIENTO
+    @GetMapping("/crudpostulantes/estado/{id}/{nuevoEstado}")
+    public String actualizarEstado(@PathVariable int id, @PathVariable String nuevoEstado) {
+        // Traducimos el parámetro de la URL a los estados reales del negocio
+        String estadoDb = "";
+        switch (nuevoEstado) {
+            case "entrevista":
+                estadoDb = "ENTREVISTA";
+                break;
+            case "rechazar":
+                estadoDb = "RECHAZADO";
+                break;
+            case "pendiente":
+                estadoDb = "PENDIENTE EN EVALUACION";
+                break;
+            default:
+                estadoDb = "PENDIENTE";
+                break;
+        }
 
-    // 3. ELIMINAR RECLUTA
-    @GetMapping("/reclutas/eliminar/{id}")
+        String sql = "UPDATE preg_recluta SET estado = ? WHERE id = ?";
+        jdbcTemplate.update(sql, estadoDb, id);
+
+        return "redirect:/crudpostulante";
+    }
+    // 3. ELIMINAR POSTULANTE
+    @GetMapping("/crudpostulantes/eliminar/{id}")
     public String eliminar(@PathVariable int id) {
-        String sql = "DELETE FROM preg_recluta WHERE id=?";
+        String sql = "DELETE FROM preg_recluta WHERE id = ?";
         jdbcTemplate.update(sql, id);
-        return "redirect:/reclutas";
+        return "redirect:/crudpostulante";
     }
 }

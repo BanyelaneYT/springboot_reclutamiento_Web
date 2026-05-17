@@ -4,22 +4,24 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Callypso Call | Postulación</title>
+    <title>Callypso Call | Postulación Masiva</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Raleway:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/contacto.css">
     <style>
-        /* Ajustes específicos para las preguntas del reclutamiento */
         .pregunta-card {
-            background: #f9f9f9;
-            padding: 15px;
-            border-left: 4px solid #ca0000;
-            margin-bottom: 15px;
+            background: #ffffff;
+            padding: 20px;
+            border-left: 5px solid #ca0000;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             text-align: left;
         }
         .pregunta-card label {
             display: block;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: #0a1f44;
         }
         select {
@@ -27,67 +29,158 @@
             padding: 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
+            background-color: #fafafa;
         }
-        .error-msg { color: #ca0000; font-weight: bold; }
-        .success-msg { color: #28a745; font-weight: bold; }
+        .error-msg { color: #ca0000; font-weight: bold; background: #ffe6e6; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
+        .success-msg { color: #28a745; font-weight: bold; background: #e6ffe6; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1 style="text-transform: uppercase;">Formulario de Reclutamiento</h1>
-    <p>Completa tus datos y responde el cuestionario de cultura institucional.</p>
+<div class="container my-5">
+    <h1 style="text-transform: uppercase; font-weight: 700; color: #0a1f44;">Únete a Callypso Call</h1>
+    <p class="text-muted mb-4">Completa tu información personal y responde con total honestidad el cuestionario técnico de operaciones.</p>
 
-    <div class="form-container shadow">
+    <div class="form-container shadow-sm p-4 bg-white rounded">
+
         <c:if test="${param.exito == 'true'}">
-            <p class="success-msg">¡Postulación enviada con éxito! Pronto nos contactaremos contigo.</p>
+            <div class="success-msg">¡Tu postulación ha sido enviada con éxito! Evaluaremos tus respuestas de inmediato.</div>
         </c:if>
         <c:if test="${param.error == 'duplicado'}">
-            <p class="error-msg">Error: Este DNI ya registra una postulación activa.</p>
+            <div class="error-msg">Atención: El DNI ingresado ya cuenta con una postulación registrada en nuestra base de datos.</div>
         </c:if>
 
         <form action="/reclutar/guardar" method="post">
-            <div class="row">
-                <input type="number" name="dni" placeholder="DNI (Identificación)" required>
-                <input type="text" name="nombre" placeholder="Nombre Completo" required>
-            </div>
-            <div class="row">
-                <input type="number" name="edad" placeholder="Edad" required>
-                <input type="text" name="ubicacion" placeholder="Distrito / Ciudad" required>
-            </div>
 
-            <hr style="margin: 30px 0; opacity: 0.2;">
-            <h3 style="color: #ca0000; margin-bottom: 20px;">Cuestionario de Aptitud</h3>
-            <p style="font-size: 0.9rem; margin-bottom: 20px;">Califica del 0 (Totalmente en desacuerdo) al 4 (Totalmente de acuerdo)</p>
-
-            <div class="row">
-                <div class="col-md-6 pregunta-card">
-                    <label>1. ¿Te consideras una persona proactiva?</label>
-                    <select name="res1"><option>0</option><option>1</option><option>2</option><option>3</option><option value="4" selected>4</option></select>
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <input type="number" name="dni" class="form-control" placeholder="Número de DNI" required>
                 </div>
-                <div class="col-md-6 pregunta-card">
-                    <label>2. ¿Tienes facilidad de palabra?</label>
-                    <select name="res2"><option>0</option><option>1</option><option>2</option><option>3</option><option value="4" selected>4</option></select>
+                <div class="col-md-6">
+                    <input type="text" name="nombre" class="form-control" placeholder="Nombre y Apellidos" required>
+                </div>
+            </div>
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <input type="number" name="edad" class="form-control" placeholder="Edad" required>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="ubicacion" class="form-control" placeholder="Ciudad / Distrito de residencia" required>
                 </div>
             </div>
 
+            <hr class="my-4" style="opacity: 0.15;">
+            <h3 class="text-start mb-3" style="color: #ca0000; font-weight: 700;">Cuestionario de Aptitud</h3>
+            <p class="text-start text-muted small mb-4">Selecciona la alternativa que mejor describa tu forma de reaccionar en el entorno de trabajo.</p>
+
             <div class="row">
-                <div class="col-md-6 pregunta-card">
-                    <label>3. ¿Trabajas bien bajo presión?</label>
-                    <select name="res3"><option>0</option><option>1</option><option>2</option><option>3</option><option value="4" selected>4</option></select>
+                <div class="col-md-6">
+                    <div class="pregunta-card">
+                        <label>1. Si un usuario te interrumpe gritando en la llamada:</label>
+                        <select name="res1" required>
+                            <option value="0">Le cuelgo la llamada de inmediato</option>
+                            <option value="2">Me quedo callado esperando que termine</option>
+                            <option value="3">Le pido firmemente que se calme</option>
+                            <option value="4">Escucho con paciencia y aplico empatía</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col-md-6 pregunta-card">
-                    <label>4. ¿Manejas herramientas de oficina?</label>
-                    <select name="res4"><option>0</option><option>1</option><option>2</option><option>3</option><option value="4" selected>4</option></select>
+                <div class="col-md-6">
+                    <div class="pregunta-card">
+                        <label>2. ¿Cómo actúas frente a las metas diarias de ventas?</label>
+                        <select name="res2" required>
+                            <option value="0">Me estresan y prefiero no verlas</option>
+                            <option value="2">Intento avanzar sin presionarme</option>
+                            <option value="3">Hago lo necesario para cumplir la cuota</option>
+                            <option value="4">Me motivan a superarme y ganar más</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
-            <button type="submit" style="margin-top: 20px; width: 100%;">ENVIAR MI POSTULACIÓN</button>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="pregunta-card">
+                        <label>3. Si el cliente te hace una consulta que no conoces:</label>
+                        <select name="res3" required>
+                            <option value="0">Le invento una respuesta rápida</option>
+                            <option value="2">Le indico amablemente que no poseo el dato</option>
+                            <option value="3">Le solicito que espere en línea mientras busco</option>
+                            <option value="4">Consulto al supervisor para aprender el proceso</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="pregunta-card">
+                        <label>4. Cuando un cliente objeta que el servicio es "muy caro":</label>
+                        <select name="res4" required>
+                            <option value="0">Le doy la razón y desisto</option>
+                            <option value="2">Evito comentar sobre los costos</option>
+                            <option value="3">Le propongo un descuento inmediato</option>
+                            <option value="4">Revalorizo los beneficios exclusivos del servicio</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="pregunta-card">
+                        <label>5. ¿Cuál consideras que es tu principal fuerte al hablar?</label>
+                        <select name="res5" required>
+                            <option value="0">Hablo de manera directa y seria</option>
+                            <option value="2">Me adapto a lo que me digan</option>
+                            <option value="3">Mantengo una conversación fluida y cortés</option>
+                            <option value="4">Tengo un tono dinámico, seguro y persuasivo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="pregunta-card">
+                        <label>6. Tras recibir una respuesta negativa o rechazo continuo:</label>
+                        <select name="res6" required>
+                            <option value="0">Me desmotivo y prefiero pausar el sistema</option>
+                            <option value="2">Me tomo unos minutos para calmarme</option>
+                            <option value="3">Analizo brevemente qué se puede corregir</option>
+                            <option value="4">Paso con entusiasmo a la siguiente llamada</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="pregunta-card">
+                        <label>7. Frente a situaciones críticas de alta presión laboral:</label>
+                        <select name="res7" required>
+                            <option value="0">Suelo bloquearme bajo mucha exigencia</option>
+                            <option value="2">Expreso mi incomodidad con los compañeros</option>
+                            <option value="3">Trabajo al ritmo habitual sin acelerar</option>
+                            <option value="4">Mantengo el control absoluto y me enfoco en metas</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="pregunta-card">
+                        <label>8. ¿Cómo reaccionas cuando tu supervisor te corrige?</label>
+                        <select name="res8" required>
+                            <option value="0">Me incomoda y siento que me expone</option>
+                            <option value="2">Escucho pero sigo trabajando a mi manera</option>
+                            <option value="3">Acepto los comentarios para evitar roces</option>
+                            <option value="4">Agradezco el feedback para potenciar mis ventas</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-danger w-100 py-3 mt-3 fw-bold" style="background-color: #ca0000; border: none; font-size: 1.1rem;">
+                ENVIAR POSTULACIÓN AHORA
+            </button>
         </form>
     </div>
 
-    <div style="margin-top: 30px;">
-        <a href="/" style="color: #666; text-decoration: none;">← Volver al inicio</a>
+    <div class="mt-4">
+        <a href="/" class="text-decoration-none text-secondary">← Volver a la página principal</a>
     </div>
 </div>
 
