@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 @Controller
-public class ReclutaController {
+public class
+ReclutaController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
