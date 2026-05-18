@@ -8,68 +8,23 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/css/catcrud.css">
-    <style>
-        .badge-aprobado {
-            background-color: #28a745;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        .badge-desaprobado {
-            background-color: #dc3545;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        /* Nuevos estilos para los estados y botones de procesamiento */
-                .badge-entrevista {
-                    background-color: #0d6efd;
-                    color: white;
-                    padding: 5px 12px;
-                    border-radius: 20px;
-                    font-size: 0.8rem;
-                    font-weight: 600;
-                }
-                .badge-rechazado {
-                    background-color: #6c757d;
-                    color: white;
-                    padding: 5px 12px;
-                    border-radius: 20px;
-                    font-size: 0.8rem;
-                    font-weight: 600;
-                }
-                .badge-pendiente-eval {
-                    background-color: #ffc107;
-                    color: #212529;
-                    padding: 5px 12px;
-                    border-radius: 20px;
-                    font-size: 0.8rem;
-                    font-weight: 600;
-                }
-                .btn-procesar {
-                    font-size: 0.75rem;
-                    padding: 4px 8px;
-                    margin: 2px;
-                    font-weight: 600;
-                    border-radius: 4px;
-                }
-        th { color: #000 !important; font-weight: 700; }
-        td { color: #333 !important; vertical-align: middle; }
-    </style>
+    <link rel="stylesheet" href="/css/Header.css">
 </head>
 <body>
-
-<header id="header">
-    <div class="container d-flex justify-content-between align-items-center">
-        <h1 class="logo">Callypso<span>Call</span></h1>
-        <a href="/gestion" class="btn btn-outline-light btn-sm rounded-pill px-4">Volver al Panel</a>
+<header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+        <a href="/gestion" class="logo">
+            CallypsoCall
+        </a>
+        
+        <nav id="navbar" class="navbar">
+            <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
+                <li><a class="getstarted" href="/main">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
     </div>
 </header>
-
+<!-- Fin Header -->
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-12">

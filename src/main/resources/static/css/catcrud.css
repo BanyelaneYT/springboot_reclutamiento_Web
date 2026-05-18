@@ -5,25 +5,6 @@ body {
     font-family: 'Raleway', sans-serif;
     margin: 0;
 }
-
-/* HEADER */
-#header {
-    background: #ca0000;
-    padding: 1rem 0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-}
-
-.logo {
-    color: white;
-    font-weight: 800;
-    margin: 0;
-    text-transform: uppercase;
-}
-
-.logo span {
-    color: #333;
-}
-
 /* CARD PRINCIPAL */
 .main-card {
     background: #dfdfdf;
@@ -31,6 +12,7 @@ body {
     border-radius: 15px;
     padding: 2.5rem;
     box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    margin-top: 90px;
 }
 
 .section-title {
