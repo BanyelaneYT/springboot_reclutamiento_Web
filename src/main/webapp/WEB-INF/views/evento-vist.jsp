@@ -46,7 +46,7 @@
                         <p>2026-05-01</p>
                         <p>Evento inicial de cultura</p>
                         <div>
-                        <a class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
+                        <a href="/postular" class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                         <p>2025-12-01</p>
                         <p>Campaña de navidad</p>
                         <div>
-                            <a class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
+                            <a href="/postular" lass="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                         <p>2025-10-31</p>
                         <p>Evento de temática de Halloween</p>
                         <div>
-                            <a class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
+                            <a href="/postular" class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
                         </div>
                     </div>
                 </div>

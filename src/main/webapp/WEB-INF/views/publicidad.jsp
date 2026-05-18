@@ -114,7 +114,7 @@
     <div class="footer-call">
         <div class="container">
             <h2 class="text-white mb-4">¿Listo para empezar tu camino al éxito?</h2>
-            <a class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
+            <a href="/postular" class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
             <p class="mt-4 text-white-50">Callypso Call Peru | Sede Lima 2026</p>
         </div>
     </div>
