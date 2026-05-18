@@ -42,7 +42,6 @@
 
                 <div class="col-md-4">
                     <div class="card-benefit">
-                        <img src="https://callypsocallperu.com/assets/img/gallery/6.jpg" class="img-fluid" alt="Galería 3">
                         <h3>Bienvenida Callypso</h3>
                         <p>2026-05-01</p>
                         <p>Evento inicial de cultura</p>
@@ -54,7 +53,6 @@
 
                 <div class="col-md-4">
                     <div class="card-benefit">
-                        <img src="https://callypsocallperu.com/assets/img/gallery/7.jpg" class="img-fluid" alt="Galería 4">
                         <h3>Navidad 2025</h3>
                         <p>2025-12-01</p>
                         <p>Campaña de navidad</p>
@@ -66,7 +64,6 @@
 
                 <div class="col-md-4">
                     <div class="card-benefit">
-                        <img src="https://callypsocallperu.com/assets/img/gallery/8.jpg" class="img-fluid" alt="Galería 5"> 
                         <h3>Halloween</h3>
                         <p>2025-10-31</p>
                         <p>Evento de temática de Halloween</p>
