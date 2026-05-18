@@ -11,7 +11,7 @@
     <h2>CALLYPSOCALL</h2>
     <input type="text" placeholder="Usuario">
     <input type="password" placeholder="Contraseña">
-    <form action="/#" method="GET">
+    <form action="/gestion" method="GET">
         <button type="submit">Ingresar</button>
     </form>
 </div>

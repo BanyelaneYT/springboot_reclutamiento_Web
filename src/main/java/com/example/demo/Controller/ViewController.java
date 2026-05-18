@@ -36,4 +36,8 @@ public class ViewController {
     public String mostrarPostulacion() {
         return "postular"; // Retorna postular.jsp
     }
+    @GetMapping("/evento")
+    public String mostrarEvento() {
+        return "evento-vist"; // Retorna evento.jsp
+    }
 }
