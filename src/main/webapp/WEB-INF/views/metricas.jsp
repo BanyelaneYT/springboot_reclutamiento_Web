@@ -9,11 +9,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,800" rel="stylesheet">
-    <link rel="stylesheet" href="/css/Header.css">
+    <link rel="stylesheet" href="css/metricas.css">
+    z<link rel="stylesheet" href="css/Header.css">
 </head>
 
 <body>
-<header id="header" class="fixed-top d-flex align-items-center" style="background-color: #111;">
+<header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
         <a href="/" class="logo">CallypsoCall</a>
         <nav id="navbar" class="navbar">
