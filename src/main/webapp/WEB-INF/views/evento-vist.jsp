@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,7 +27,6 @@
                 <li><a class="nav-link" href="/publicidad">Servicios</a></li>
                 <li><a class="nav-link" href="/contacto">Contacto</a></li>
                 <li><a class="nav-link" href="/evento">Eventos</a></li>
-                <li><a class="nav-link" href="/postular">Postular</a></li>
                 <li><a class="getstarted" href="/login">Login ></a></li>
             </ul>
         </nav>
@@ -39,39 +39,20 @@
         <div class="container text-center">
             <h2 class="mb-5 display-4 fw-bold">Eventos de <span class="highlight">Callypso Call</span></h2>
             <div class="row g-4">
-
-                <div class="col-md-4">
-                    <div class="card-benefit">
-                        <h3>Bienvenida Callypso</h3>
-                        <p>2026-05-01</p>
-                        <p>Evento inicial de cultura</p>
-                        <div>
-                        <a href="/postular" class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
+                           <c:forEach var="evento" items="${listaEventos}">
+                                <div class="col-md-4">
+                                    <div class="card-benefit">
+                                        <h3>${evento.nombre}</h3>
+                                        <p>${evento.fecha}</p>
+                                        <p>${evento.descripcion}</p>
+                                        <div>
+                                            <a href="/postular" class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </div>
-                    </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="card-benefit">
-                        <h3>Navidad 2025</h3>
-                        <p>2025-12-01</p>
-                        <p>Campaña de navidad</p>
-                        <div>
-                            <a href="/postular" lass="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card-benefit">
-                        <h3>Halloween</h3>
-                        <p>2025-10-31</p>
-                        <p>Evento de temática de Halloween</p>
-                        <div>
-                            <a href="/postular" class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </div>

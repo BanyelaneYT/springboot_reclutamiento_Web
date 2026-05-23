@@ -75,7 +75,21 @@ public class ViewController {
         return "postular"; // Retorna postular.jsp
     }
     @GetMapping("/evento")
-    public String mostrarEvento() {
-        return "evento-vist"; // Retorna evento.jsp
+    public String mostrarEvento(Model model) {
+        // Consulta para obtener todos los eventos
+        String sql = "SELECT * FROM evento";
+        List<com.example.demo.model.Evento> listaEventos = jdbcTemplate.query(
+                sql,
+                new BeanPropertyRowMapper<>(com.example.demo.model.Evento.class)
+        );
+
+        // Pasamos la lista a la vista
+        model.addAttribute("listaEventos", listaEventos);
+
+        return"evento-vist"; // Retorna evento.jsp
+    }
+    @GetMapping("/metricas")
+    public String mostrarMetricas() {
+        return "metricas"; // Retorna el archivo metricas.jsp
     }
 }
