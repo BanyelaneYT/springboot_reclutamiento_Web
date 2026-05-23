@@ -4,14 +4,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Callypso | Panel de Auditoría</title>
+    <title>Callypso | Gestión de Bitácora</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/css/catcrud.css">
     <link rel="stylesheet" href="/css/Header.css">
 </head>
 <body>
-
 <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
         <a href="/gestion" class="logo">
@@ -26,90 +25,86 @@
     </div>
 </header>
 
-<div class="container-fluid content-container" style="margin-top: 100px; padding: 0 40px;">
-    <div class="row">
-        <div class="col-12">
-            <div class="card-body-postulante p-4">
+
+<div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-11">
+            <div class="main-card">
+            <div class="d-flex content-right">
+                <button class="btn btn-dark btn-sm rounded-pill px-4" type="button"
+                            data-bs-toggle="modal" data-bs-target="#modalGuardar">
+                        Ingresar nuevo evento
+                </button>
+            </div>
+                <h2 class="section-title">Administración de Bitacora</h2>
 
                 <div class="table-responsive">
-                    <table class="table table-dark table-hover align-middle m-0" id="tablaBitacora">
+                    <table class="table table-hover align-middle">
                         <thead>
                             <tr>
-                                <th style="width: 8%">ID Log</th>
-                                <th style="width: 22%"><i class="fa-solid fa-user me-2"></i>Operador (Usuario)</th>
-                                <th style="width: 22%"><i class="fa-solid fa-address-card me-2"></i>Postulante</th>
-                                <th style="width: 20%"><i class="fa-solid fa-bolt me-2"></i>Evento</th>
-                                <th><i class="fa-solid fa-paragraph me-2"></i>Acción / Descripción</th>
-                                <th style="width: 15%"><i class="fa-solid fa-calendar me-2"></i>Fecha y Hora</th>
+                                <th>ID Log</th>
+                                <th>Operador (Usuario)</th>
+                                <th>Postulante</th>
+                                <th>Evento</th>
+                                <th>Acción / Descripción</th>
+                                <th>Fecha y Hora</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="item" items="${listaBitacora}">
                                 <tr>
-                                    <td class="fw-bold" style="color: #a0aec0;">#${item.id}</td>
-                                    
-                                    <td>
+                                    <td class="fw-bold" >${item.id}</td>
+                                    <td >
                                         <c:choose>
                                             <c:when test="${not empty item.usuarioCorreo}">
-                                                <span class="badge px-3 py-2 rounded-pill" style="background-color: #2b6cb0; color: #ebf8ff;">
-                                                    <i class="fa-solid fa-user-shield me-1"></i>${item.usuarioCorreo}
-                                                </span>
+                                                <c:out value="${item.usuarioCorreo}" />
                                             </c:when>
                                             <c:otherwise>
-                                                <span class="text-muted small" style="font-style: italic;">Sistema</span>
+                                                <span class="text-muted" style="font-style: italic;">Sistema</span>
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
-
                                     <td>
                                         <c:choose>
                                             <c:when test="${not empty item.reclutaNombre}">
-                                                <span class="badge px-3 py-2 rounded-pill" style="background-color: #2c7a7b; color: #e6fffa;">
-                                                    <i class="fa-solid fa-user-tag me-1"></i>${item.reclutaNombre}
-                                                </span>
+                                                <c:out value="${item.reclutaNombre}" />
                                             </c:when>
                                             <c:otherwise>
-                                                <span class="text-muted small">-</span>
+                                                <span class="text-muted">-</span>
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
-
                                     <td>
                                         <c:choose>
                                             <c:when test="${not empty item.eventoNombre}">
-                                                <span class="badge px-3 py-2 rounded" style="background-color: #b7791f; color: #fefcbf;">
-                                                    <i class="fa-solid fa-flag me-1"></i>${item.eventoNombre}
-                                                </span>
+                                                <c:out value="${item.eventoNombre}" />
                                             </c:when>
                                             <c:otherwise>
-                                                <span class="text-muted small">-</span>
+                                                <span class="text-muted">-</span>
                                             </c:otherwise>
                                         </c:choose>
                                     </td>
-
                                     <td>
-                                        <span class="text-white fw-semibold">${item.accion}</span>
+                                        <c:out value="${item.accion}" />
                                     </td>
-
-                                    <td style="color: #cbd5e0; font-size: 0.9rem;">
-                                        <i class="fa-regular fa-clock me-1" style="color: #a0aec0;"></i> ${item.fechaRegistro}
+                                    <td>
+                                        <c:out value="${item.fechaRegistro}" />
                                     </td>
                                 </tr>
                             </c:forEach>
                             
                             <c:if test="${empty listaBitacora}">
                                 <tr>
-                                    <td colspan="6" class="text-center py-5 text-muted">
-                                        <i class="fa-solid fa-folder-open fa-2x mb-2 d-block"></i>
-                                        No se encontraron registros de auditoría en la bitácora.
+                                    <td colspan="6" class="text-center py-4 text-muted" style="border-bottom: 1px solid #2d3243;">
+                                        No hay registros de auditoría en la bitácora actualmente.
                                     </td>
                                 </tr>
                             </c:if>
                         </tbody>
                     </table>
                 </div>
-
             </div>
+            </div> 
         </div>
     </div>
 </div>

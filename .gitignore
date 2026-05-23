@@ -32,7 +32,7 @@ build/
 ### Base de datos local H2 ###
 data/callypsodb.lock.db
 data/callypsodb.mv.db
-
+data/callypsodb.trace.db
 ### VS Code ###
 .vscode/
 
