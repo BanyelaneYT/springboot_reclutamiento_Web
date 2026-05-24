@@ -6,10 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -101,4 +98,28 @@ ReclutaController {
         jdbcTemplate.update(sql, id);
         return "redirect:/crudpostulante";
     }
+
+    // Mostrar página para consultar DNI
+    @GetMapping("/consultar-estado")
+    public String mostrarConsultaEstado() {
+        return "consultar-estado";
+    }
+
+    // Procesar el DNI y buscar al postulante
+    @PostMapping("/consultar-estado")
+    public String procesarConsultaEstado(@RequestParam("dni") int dni, Model model) {
+        String sql = "SELECT * FROM preg_recluta WHERE dni = ?";
+        List<Preg_Recluta> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Preg_Recluta.class), dni);
+
+        if (!lista.isEmpty()) {
+            // Si encuentra el DNI, manda los datos a la vista de resultados
+            model.addAttribute("postulante", lista.get(0));
+            return "resultado-estado";
+        } else {
+            // Si no existe, recarga la página mostrando un error
+            model.addAttribute("error", "No se encontró ninguna postulación con este DNI.");
+            return "consultar-estado";
+        }
+    }
+
 }
