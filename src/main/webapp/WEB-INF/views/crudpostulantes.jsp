@@ -54,10 +54,24 @@
                                     <td>${postulante.edad} años</td>
                                     <td>${postulante.ubicacion}</td>
                                     <td>
-                                        <small class="text-muted">
-                                            [${postulante.res1}, ${postulante.res2}, ${postulante.res3}, ${postulante.res4},
-                                             ${postulante.res5}, ${postulante.res6}, ${postulante.res7}, ${postulante.res8}]
-                                        </small>
+                                        <c:set var="puntajeTotal" value="${postulante.res1 + postulante.res2 + postulante.res3 + postulante.res4 + postulante.res5 + postulante.res6 + postulante.res7 + postulante.res8}" />
+                                        <div class="d-flex flex-column align-items-center">
+                                            <c:choose>
+                                                <c:when test="${puntajeTotal >= 24}">
+                                                    <span class="badge bg-success text-white px-2 py-1" style="font-size: 0.8rem; font-weight: bold;">
+                                                        <i class="fas fa-check-circle me-1"></i> APROBADO
+                                                    </span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="badge bg-danger text-white px-2 py-1" style="font-size: 0.8rem; font-weight: bold;">
+                                                        <i class="fas fa-times-circle me-1"></i> DESAPROBADO
+                                                    </span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <small class="text-muted mt-1" style="font-size: 0.75rem;">
+                                                Puntaje: <strong>${puntajeTotal}/32</strong>
+                                            </small>
+                                        </div>
                                     </td>
                                     <td>
                                         <c:choose>
