@@ -22,31 +22,31 @@
         <p class="text">El estado actual de tu postulación es:</p>
 
         <c:choose>
-            <%-- CASO: APROBADO --%>
-            <c:when test="${postulante.estado == 'APROBADO' || postulante.estado == 'Aprobado'}">
-                <div class="aprobado">Aprobado</div>
-                <p>¡Felicidades! Has superado la evaluación inicial de manera exitosa.</p>
+                    <%-- CASO 1: YA SE LE GENERÓ LA ENTREVISTA O FUE APROBADO TOTALMENTE --%>
+                    <c:when test="${postulante.estado == 'ENTREVISTA' || postulante.estado == 'APROBADO'}">
+                        <div class="aprobado">Entrevista Programada</div>
+                        <p>¡Felicidades! Tu entrevista ya está agendada.</p>
 
-                <div class="box-link">
-                    <p class="m-0" style="font-size: 15px;">
-                        <strong>Link de la Entrevista (Horario 3:30pm):</strong> <br>
-                        <a href="https://meet.google.com/abc-defg-hij" target="_blank">https://meet.google.com/abc-defg-hij</a>
-                    </p>
-                </div>
-            </c:when>
+                        <div class="box-link">
+                            <p class="m-0" style="font-size: 15px;">
+                                <strong>Link de la Entrevista (Horario 3:30pm):</strong> <br>
+                                <a href="https://meet.google.com/abc-defg-hij" target="_blank">https://meet.google.com/abc-defg-hij</a>
+                            </p>
+                        </div>
+                    </c:when>
 
-            <%-- CASO: DESAPROBADO / RECHAZADO --%>
-            <c:when test="${postulante.estado == 'DESAPROBADO' || postulante.estado == 'Desaprobado' || postulante.estado == 'RECHAZADO'}">
-                <div class="desaprobado">Desaprobado</div>
-                <p>Agradecemos tu tiempo y participación. En este momento no podemos continuar con tu proceso de selección.</p>
-            </c:when>
+                    <%-- CASO 2: APROBÓ EL FORMULARIO AUTOMÁTICO, PERO ADMINISTRACIÓN AÚN NO LE GENERA EL LINK --%>
+                    <c:when test="${postulante.estado == 'PENDIENTE EN EVALUACION'}">
+                        <div class="pendiente">Aprobaste el Formulario</div>
+                        <p>¡Buen trabajo! Has superado el puntaje mínimo del test técnico. Tu postulación está <strong>pendiente a entrevista</strong>. Por favor, vuelve a consultar esta página más tarde para ver tu enlace de reunión.</p>
+                    </c:when>
 
-            <%-- CASO DEFAULT: PENDIENTE EN EVALUACIÓN --%>
-            <c:otherwise>
-                <div class="pendiente">Pendiente en Evaluación</div>
-                <p>Tu solicitud se encuentra en revisión. Te sugerimos volver a consultar los resultados más tarde.</p>
-            </c:otherwise>
-        </c:choose>
+                    <%-- CASO 3: DESAPROBÓ EL TEST O FUE RECHAZADO MANUALMENTE --%>
+                    <c:otherwise>
+                        <div class="desaprobado">Desaprobaste el formulario</div>
+                        <p>Agradecemos tu tiempo y participación. En esta ocasión no alcanzaste el puntaje necesario para continuar con el proceso de selección.</p>
+                    </c:otherwise>
+                </c:choose>
 
         <a href="/main" class="btn btn-outline-light mt-4 w-100">Volver al Inicio</a>
     </div>
