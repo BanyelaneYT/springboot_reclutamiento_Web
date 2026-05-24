@@ -56,6 +56,15 @@
                     <p>Administre los usuarios del sistema y sus permisos.</p>
                 </a>
             </div>
+            <div class="col-md-6">
+                <a href="/bitacora" class="card-module">
+                    <div class="icon-box">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h4>Gestión de Bitácora</h4>
+                    <p>Administre el historial de actividades del sistema.</p>
+                </a>
+            </div>
         </div>
     </div>
 </div>
