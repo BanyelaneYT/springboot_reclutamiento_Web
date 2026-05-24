@@ -50,13 +50,12 @@ tbody td {
 .text-id { font-size: 0.9rem; color: white; }
 
 .badge-tipo {
-    background: #7c7c7c;
-    color: #ff0000;
-    padding: 5px 12px;
-    border-radius: 20px;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #1f1f1f;
     font-size: 0.8rem;
     font-weight: 600;
-    border: 1px solid #5e5e5e;
 }
 
 .text-description {

@@ -1,5 +1,5 @@
 INSERT INTO evento (nombre, tipo, fecha, descripcion)
-SELECT 'Bienvenida Callypso', 'Motivacion', '2026-05-01', 'Evento inicial de cultura'
+SELECT 'Bienvenida Callypso', 'Practicantes', '2026-05-01', 'Evento de prácticas pre-profesionales'
 FROM SYSTEM_RANGE(1, 1)
     WHERE NOT EXISTS (
     SELECT 1 FROM evento WHERE nombre = 'Bienvenida Callypso'

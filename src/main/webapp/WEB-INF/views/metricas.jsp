@@ -29,7 +29,7 @@
 </header>
 <main style="margin-top: 100px;">
     <div class="container text-center mb-5">
-        <h2 class="display-5 fw-bold mb-4">Métricas de <span style="color: #007bff;">Rendimiento</span></h2>
+        <h2 class="display-5 fw-bold mb-4">Métricas</h2>
 
         <div class="row g-4">
             <div class="col-md-4">

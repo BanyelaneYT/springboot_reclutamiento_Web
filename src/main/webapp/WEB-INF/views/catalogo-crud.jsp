@@ -96,9 +96,9 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Tipo</label>
                         <select name="tipo" id="upd_tipo" class="form-select">
-                            <option value="Motivacion">Motivación</option>
-                            <option value="Reclutamiento">Reclutamiento</option>
-                            <option value="Festividad">Festividad</option>
+                            <option value="feria_laboral">Feria Laboral</option>
+                            <option value="practicas_universitarias">Prácticas Universitarias</option>
+                            <option value="evento_tematico">Evento Temático (Navidad, Halloween, etc.)</option>
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -130,9 +130,9 @@
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Tipo</label>
                         <select name="tipo" class="form-select">
-                            <option value="Reclutamiento">Reclutamiento Presencial</option>
-                            <option value="Motivacion">Experiencia Gratuita / Motivación</option>
-                            <option value="Festividad">Festividad (Navidad, Halloween, etc.)</option>
+                            <option value="feria_laboral">Feria Laboral</option>
+                            <option value="practicas_universitarias">Prácticas Universitarias</option>
+                            <option value="evento_tematico">Evento Temático (Navidad, Halloween, etc.)</option>
                         </select>
                     </div>
                     <div class="col-md-6 mb-3">
