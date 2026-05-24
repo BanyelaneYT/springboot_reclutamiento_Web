@@ -36,7 +36,6 @@
                     <table class="table table-striped table-hover table-bordered align-middle text-center mt-3">
                         <thead class="table-light">
                             <tr>
-                                <th>ID</th>
                                 <th>DNI</th>
                                 <th>Nombre Completo</th>
                                 <th>Edad</th>
@@ -50,7 +49,6 @@
                         <tbody>
                             <c:forEach var="postulante" items="${listaPostulantes}">
                                 <tr>
-                                    <td><strong>${postulante.id}</strong></td>
                                     <td>${postulante.dni}</td>
                                     <td class="text-start fw-bold">${postulante.nombre}</td>
                                     <td>${postulante.edad} años</td>
@@ -75,7 +73,7 @@
                                                 <span class="badge-pendiente-eval"><i class="fas fa-hourglass-half me-1"></i> PEND. EVALUACIÓN</span>
                                             </c:when>
                                             <c:otherwise>
-                                                <span class="badge-desaprobado"><i class="fas fa-times-circle me-1"></i> DESAPROBADO</span> </c:otherwise>
+                                                <span class="badge-desaprobado"><i class="fas fa-times-circle me-1"></i> RECHAZADO</span> </c:otherwise>
                                         </c:choose>
                                     </td>
 
@@ -90,9 +88,9 @@
                                                onclick="return confirm('¿Seguro que deseas rechazar a este postulante?');">
                                                <i class="fas fa-ban me-1"></i> Rechazar
                                             </a>
-                                            <a href="/crudpostulantes/estado/${postulante.id}/pendiente"
-                                               class="btn btn-warning btn-procesar btn-sm w-100">
-                                               <i class="fas fa-undo me-1"></i> Pendiente en Evaluación
+                                            <a href="/crudpostulantes/estado/${postulante.id}/aprobar"
+                                               class="btn btn-success btn-procesar btn-sm w-100">
+                                               <i class="fas fa-check me-1"></i> Aprobar
                                             </a>
                                         </div>
                                     </td>

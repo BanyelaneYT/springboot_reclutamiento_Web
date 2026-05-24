@@ -39,7 +39,7 @@ ReclutaController {
                 recluta.getRes7() + recluta.getRes8();
 
         // El perfil define su ESTADO directamente según el puntaje (20 puntos o más de 32 posibles)
-        String estadoFinal = (puntajeTotal >= 20) ? "APROBADO" : "DESAPROBADO";
+        String estadoFinal = (puntajeTotal >= 20) ? "PENDIENTE EN EVALUACION" : "RECHAZADO";
 
         // SQL usando WHERE NOT EXISTS guiado por el DNI único (sin la columna res_eva)
         String sql = "INSERT INTO preg_recluta (dni, nombre, edad, res1, res2, res3, res4, res5, res6, res7, res8, ubicacion, estado) " +
@@ -81,8 +81,8 @@ ReclutaController {
             case "rechazar":
                 estadoDb = "RECHAZADO";
                 break;
-            case "pendiente":
-                estadoDb = "PENDIENTE EN EVALUACION";
+            case "aprobar":
+                estadoDb = "APROBADO";
                 break;
             default:
                 estadoDb = "PENDIENTE";
