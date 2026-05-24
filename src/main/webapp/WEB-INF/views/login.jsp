@@ -23,5 +23,10 @@
     <button type="submit">Ingresar</button>
     </form>
 </div>
+
+<div style="margin-top: 15px; text-align: center;">
+    <a href="/consultar-estado" style="color: #007bff; text-decoration: none; font-weight: bold;">¿Postulaste? Revisar solicitud</a>
+</div>
+
 </body>
 </html>
