@@ -21,8 +21,7 @@
             <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
                 <li><a class="nav-link" href="/publicidad">Servicios</a></li>
                 <li><a class="nav-link" href="/contacto">Contacto</a></li>
-                <li><a class="nav-link" href="#">Eventos</a></li>
-                <li><a class="nav-link" href="/postular">Postular</a></li>
+                <li><a class="nav-link" href="/evento">Eventos</a></li>
                 <li><a class="getstarted" href="/login">Login ></a></li>
             </ul>
         </nav>

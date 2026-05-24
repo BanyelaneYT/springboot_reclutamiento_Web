@@ -22,3 +22,15 @@ CREATE TABLE IF NOT EXISTS usuarios (
     correo VARCHAR(255),
     contrasena VARCHAR(255)
     );
+
+CREATE TABLE IF NOT EXISTS bitacora (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT,
+    id_recluta INT,
+    id_evento INT,
+    accion VARCHAR(255),
+    fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE SET NULL,
+    FOREIGN KEY (id_recluta) REFERENCES preg_recluta(id) ON DELETE SET NULL,
+    FOREIGN KEY (id_evento) REFERENCES evento(id) ON DELETE SET NULL
+);

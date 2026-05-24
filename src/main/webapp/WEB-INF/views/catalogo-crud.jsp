@@ -8,15 +8,23 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/css/catcrud.css">
+    <link rel="stylesheet" href="/css/Header.css">
 </head>
 <body>
-
-<header id="header">
-    <div class="container d-flex justify-content-between align-items-center">
-        <h1 class="logo">CallypsoCall</h1>
-        <a href="/main" class="btn btn-outline-light btn-sm rounded-pill px-4">Volver al Inicio</a>
+<header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+        <a href="/gestion" class="logo">
+            CallypsoCall
+        </a>
+        
+        <nav id="navbar" class="navbar">
+            <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
+                <li><a class="getstarted" href="/main">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
     </div>
 </header>
+<!-- Fin Header -->
 
 <div class="container py-5">
     <div class="row justify-content-center">

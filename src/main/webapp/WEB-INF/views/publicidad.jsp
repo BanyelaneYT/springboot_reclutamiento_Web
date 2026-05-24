@@ -25,8 +25,7 @@
             <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
                 <li><a class="nav-link" href="/publicidad">Servicios</a></li>
                 <li><a class="nav-link" href="/contacto">Contacto</a></li>
-                <li><a class="nav-link" href="#">Eventos</a></li>
-                <li><a class="nav-link" href="/postular">Postular</a></li>
+                <li><a class="nav-link" href="/evento">Eventos</a></li>
                 <li><a class="getstarted" href="/login">Login ></a></li>
             </ul>
         </nav>
@@ -114,7 +113,7 @@
     <div class="footer-call">
         <div class="container">
             <h2 class="text-white mb-4">¿Listo para empezar tu camino al éxito?</h2>
-            <a class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
+            <a href="/postular" class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
             <p class="mt-4 text-white-50">Callypso Call Peru | Sede Lima 2026</p>
         </div>
     </div>

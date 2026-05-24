@@ -9,48 +9,24 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/css/gestion.css">
+    <link rel="stylesheet" href="/css/Header.css">
 </head>
 <body>
-
-<div class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-        <h1 class="logo">Callypso<span>CALL</span></h1>
+<header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+        <a href="/gestion" class="logo">
+            CallypsoCall
+        </a>
+        
+        <nav id="navbar" class="navbar">
+            <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
+                <li><a class="getstarted" href="/main">Cerrar Sesión</a></li>
+            </ul>
+        </nav>
     </div>
-    <ul class="nav-links">
-        <li>
-            <a href="/gestion" class="active">
-                <i class="fas fa-home"></i>
-                <span>Inicio</span>
-            </a>
-        </li>
-        <li>
-            <a href="/catalogo">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Eventos</span>
-            </a>
-        </li>
-        <li>
-            <a href="/reclutamiento">
-                <i class="fas fa-users-cog"></i>
-                <span>Reclutamiento</span>
-            </a>
-        </li>
-        <li>
-            <a href="/">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Cerrar Sesión</span>
-            </a>
-        </li>
-    </ul>
-</div>
-
-<div class="main-content" id="main-content">
-    <nav class="navbar-custom">
-        <button class="toggle-btn" id="toggle-btn">
-            <i class="fas fa-bars"></i>
-        </button>
-    </nav>
-
+</header>
+<!-- Fin Header -->
+<div class="main-content" id="main-content">        
     <div class="container-fluid p-4">
         <div class="row g-4">
             <div class="col-md-6">
@@ -62,32 +38,35 @@
                     <p>Administre convocatorias, ferias y festividades institucionales.</p>
                 </a>
             </div>
-
             <div class="col-md-6">
-                <div href="/evaluaciones" class="card-module">
+                <a href="/crudpostulante" class="card-module">
+                    <div class="icon-box">
+                        <i class="fas fas fa-user-tie"></i>
+                    </div>
+                    <h4>Gestión de Postulantes</h4>
+                    <p>Administre los postulantes y su información personal.</p>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="/usuarios" class="card-module">
                     <div class="icon-box">
                         <i class="fas fa-user-tie"></i>
                     </div>
-                    <h4>Evaluación de Postulantes</h4>
-                    <p>Seguimiento de candidatos y resultados de pruebas técnicas.</p>
-                </div>
+                    <h4>Gestión de Usuarios</h4>
+                    <p>Administre los usuarios del sistema y sus permisos.</p>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="/bitacora" class="card-module">
+                    <div class="icon-box">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h4>Gestión de Bitácora</h4>
+                    <p>Administre el historial de actividades del sistema.</p>
+                </a>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    const toggleBtn = document.getElementById('toggle-btn');
-    const sidebar = document.getElementById('sidebar');
-    const mainContent = document.getElementById('main-content');
-
-    toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('active');
-        mainContent.classList.toggle('active');
-    });
-
-
-    
-</script>
 </body>
 </html>

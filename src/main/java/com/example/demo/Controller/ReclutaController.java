@@ -6,15 +6,13 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-public class ReclutaController {
+public class
+ReclutaController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -38,7 +36,7 @@ public class ReclutaController {
                 recluta.getRes7() + recluta.getRes8();
 
         // El perfil define su ESTADO directamente según el puntaje (20 puntos o más de 32 posibles)
-        String estadoFinal = (puntajeTotal >= 20) ? "APROBADO" : "DESAPROBADO";
+        String estadoFinal = (puntajeTotal >= 20) ? "PENDIENTE EN EVALUACION" : "RECHAZADO";
 
         // SQL usando WHERE NOT EXISTS guiado por el DNI único (sin la columna res_eva)
         String sql = "INSERT INTO preg_recluta (dni, nombre, edad, res1, res2, res3, res4, res5, res6, res7, res8, ubicacion, estado) " +
@@ -80,8 +78,8 @@ public class ReclutaController {
             case "rechazar":
                 estadoDb = "RECHAZADO";
                 break;
-            case "pendiente":
-                estadoDb = "PENDIENTE EN EVALUACION";
+            case "aprobar":
+                estadoDb = "APROBADO";
                 break;
             default:
                 estadoDb = "PENDIENTE";
@@ -100,4 +98,28 @@ public class ReclutaController {
         jdbcTemplate.update(sql, id);
         return "redirect:/crudpostulante";
     }
+
+    // Mostrar página para consultar DNI
+    @GetMapping("/consultar-estado")
+    public String mostrarConsultaEstado() {
+        return "consultar-estado";
+    }
+
+    // Procesar el DNI y buscar al postulante
+    @PostMapping("/consultar-estado")
+    public String procesarConsultaEstado(@RequestParam("dni") int dni, Model model) {
+        String sql = "SELECT * FROM preg_recluta WHERE dni = ?";
+        List<Preg_Recluta> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Preg_Recluta.class), dni);
+
+        if (!lista.isEmpty()) {
+            // Si encuentra el DNI, manda los datos a la vista de resultados
+            model.addAttribute("postulante", lista.get(0));
+            return "resultado-estado";
+        } else {
+            // Si no existe, recarga la página mostrando un error
+            model.addAttribute("error", "No se encontró ninguna postulación con este DNI.");
+            return "consultar-estado";
+        }
+    }
+
 }
