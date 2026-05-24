@@ -15,11 +15,13 @@ public class Preg_Recluta {
     private int res8;
     private String ubicacion;
     private String estado;
+    private Integer id_evento; // Nuevo atributo
+    private String nombreEvento; // Para almacenar el nombre recuperado por SQL JOIN
 
     // Constructor vacío obligatorio para RowMapper
     public Preg_Recluta() {}
 
-    public Preg_Recluta(int id, int dni, String nombre, int edad, int res1, int res2, int res3, int res4, int res5, int res6, int res7, int res8, String ubicacion, String estado) {
+    public Preg_Recluta(int id, int dni, String nombre, int edad, int res1, int res2, int res3, int res4, int res5, int res6, int res7, int res8, String ubicacion, String estado, Integer id_evento, String nombreEvento) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
@@ -34,9 +36,16 @@ public class Preg_Recluta {
         this.res8 = res8;
         this.ubicacion = ubicacion;
         this.estado = estado;
+        this.id_evento = id_evento;
+        this.nombreEvento=nombreEvento;
     }
 
     // GETTERS Y SETTERS EN MINÚSCULAS (Estándar)
+    public Integer getId_evento() { return id_evento; }
+    public void setId_evento(Integer id_evento) { this.id_evento = id_evento; }
+
+    public String getNombreEvento() { return nombreEvento; }
+    public void setNombreEvento(String nombreEvento) { this.nombreEvento = nombreEvento; }
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 

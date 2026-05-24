@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BitacoraController {
@@ -16,38 +18,25 @@ public class BitacoraController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // 1. LISTAR HISTORIAL DE BITÁCORA
-    // Usamos List<Map<String, Object>> para hacer JOINs y mostrar nombres reales en la vista JSP
+    // 1. LISTAR HISTORIAL DE BITÁCORA CON ESTADO DEL RECLUTA
     @GetMapping("/bitacora")
     public String listarBitacora(Model model) {
         String sql = "SELECT b.id, " +
-                     "       u.correo AS usuarioCorreo, " +
-                     "       r.nombre AS reclutaNombre, " +
-                     "       e.nombre AS eventoNombre, " +
-                     "       b.accion, " +
-                     "       b.fecha_registro AS fechaRegistro " +
-                     "FROM bitacora b " +
-                     "LEFT JOIN usuarios u ON b.id_usuario = u.id " +
-                     "LEFT JOIN preg_recluta r ON b.id_recluta = r.id " +
-                     "LEFT JOIN evento e ON b.id_evento = e.id " +
-                     "ORDER BY b.fecha_registro DESC";
+                "       b.id_usuario AS idUsuario, " +
+                "       b.id_recluta AS idRecluta, " +
+                "       u.correo AS usuarioCorreo, " +
+                "       r.nombre AS reclutaNombre, " +
+                "       r.estado AS reclutaEstado, " + // Se pintará el estado actual en tiempo real
+                "       b.accion, " +
+                "       b.fecha_registro AS fechaRegistro " +
+                "FROM bitacora b " +
+                "LEFT JOIN usuarios u ON b.id_usuario = u.id " +
+                "LEFT JOIN preg_recluta r ON b.id_recluta = r.id " +
+                "ORDER BY b.fecha_registro DESC";
 
         List<Map<String, Object>> listaHistorial = jdbcTemplate.queryForList(sql);
         model.addAttribute("listaBitacora", listaHistorial);
-        
-        return "bitacora-list"; // Redirige a bitacora-list.jsp
-    }
 
-    // 2. ELIMINAR UN REGISTRO DE LA BITÁCORA (Opcional por auditoría)
-    @GetMapping("/bitacora/eliminar/{id}")
-    public String eliminar(@PathVariable int id) {
-        String sql = "DELETE FROM bitacora WHERE id = ?";
-        jdbcTemplate.update(sql, id);
-        return "redirect:/bitacora";
-    }
-
-    public void registrarAccion(Integer idUsuario, Integer idRecluta, Integer idEvento, String accion) {
-        String sql = "INSERT INTO bitacora (id_usuario, id_recluta, id_evento, accion) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, idUsuario, idRecluta, idEvento, accion);
+        return "bitacora-list";
     }
 }

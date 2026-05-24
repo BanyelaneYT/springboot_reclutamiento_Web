@@ -71,8 +71,18 @@ public class ViewController {
     }
 
     @GetMapping("/postular")
-    public String mostrarPostulacion() {
-        return "postular"; // Retorna postular.jsp
+    public String mostrarFormularioPostular(Model model) {
+        // Consulta normal
+        String sql = "SELECT * FROM evento";
+
+        // Mapea automáticamente las columnas a los atributos del objeto Evento (en minúsculas)
+        List<com.example.demo.model.Evento> eventos = jdbcTemplate.query(
+                sql,
+                new BeanPropertyRowMapper<>(com.example.demo.model.Evento.class)
+        );
+
+        model.addAttribute("listaEventos", eventos);
+        return "postular";
     }
     @GetMapping("/evento")
     public String mostrarEvento(Model model) {
