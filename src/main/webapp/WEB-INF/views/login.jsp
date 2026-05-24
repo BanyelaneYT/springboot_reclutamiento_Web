@@ -21,12 +21,12 @@
     <input type="text" placeholder="Correo" name="correo" required>
     <input type="password" placeholder="Contraseña" name="contrasena" required>
     <button type="submit">Ingresar</button>
-    </form>
-</div>
+    <br/>
+    <div style="margin-top: 15px; text-align: center;">
+        <a href="/consultar-estado" style="color: #007bff; text-decoration: none; font-weight: bold;">¿Postulaste? Revisar solicitud</a>
+    </div>
 
-<div style="margin-top: 15px; text-align: center;">
-    <a href="/consultar-estado" style="color: #007bff; text-decoration: none; font-weight: bold;">¿Postulaste? Revisar solicitud</a>
-</div>
+    </form>
 
 </body>
 </html>
