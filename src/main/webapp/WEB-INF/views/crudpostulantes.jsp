@@ -40,7 +40,8 @@
                                 <th>Nombre Completo</th>
                                 <th>Edad</th>
                                 <th>Ubicación</th>
-                                <th>Respuestas [1-8]</th>
+                                <th>Evento</th>
+                                <th>Resultado de preguntas</th>
                                 <th>Estado</th>
                                 <th>Procesamiento</th>
                                 <th>Acciones</th>
@@ -53,6 +54,16 @@
                                     <td class="text-start fw-bold">${postulante.nombre}</td>
                                     <td>${postulante.edad} años</td>
                                     <td>${postulante.ubicacion}</td>
+                                    <td>
+                                                    <c:choose>
+                                                        <c:when test="${not empty postulante.nombreEvento}">
+                                                            <span class="text-dark fw-semibold">${postulante.nombreEvento}</span>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <span class="text-muted small">Sin evento</span>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
                                     <td>
                                         <c:set var="puntajeTotal" value="${postulante.res1 + postulante.res2 + postulante.res3 + postulante.res4 + postulante.res5 + postulante.res6 + postulante.res7 + postulante.res8}" />
                                         <div class="d-flex flex-column align-items-center">

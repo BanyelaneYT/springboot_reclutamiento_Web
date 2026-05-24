@@ -58,6 +58,16 @@
                     <input type="text" name="ubicacion" class="form-control" placeholder="Ciudad / Distrito de residencia" required>
                 </div>
             </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <select name="id_evento" class="form-select" style="height: 50px;" required>
+                        <option value="">Seleccione el Evento al que postula</option>
+                        <c:forEach var="evento" items="${listaEventos}">
+                            <option value="${evento.id}">${evento.nombre}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
 
             <hr class="my-4" style="opacity: 0.15;">
             <h3 class="text-start mb-3" style="color: #ca0000; font-weight: 700;">Cuestionario de Aptitud</h3>
