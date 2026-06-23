@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.model.Preg_Recluta;
+import com.example.demo.model.UserInf;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,138 +17,127 @@ public class ReclutaController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // 1. LISTAR POSTULANTES EN EL PANEL RR.HH. (Original intacto, tal cual lo quieres)
+    // 1. LISTAR POSTULANTES EN EL PANEL RR.HH.
     @GetMapping("/crudpostulante")
     public String listarPostulantes(Model model) {
-        // Usamos LEFT JOIN para traer el nombre del evento, si es que tiene uno asignado
-        String sql = "SELECT p.*, e.nombre AS nombreEvento " +
-                "FROM preg_recluta p " +
-                "LEFT JOIN evento e ON p.id_evento = e.id";
+        // Usa la tabla 'user_inf' y realiza un LEFT JOIN con 'categoria_puestos'
+        String sql = "SELECT u.*, c.nombre AS nombrePuesto " +
+                "FROM user_inf u " +
+                "LEFT JOIN categoria_puestos c ON u.puesto = c.id";
 
-        List<Preg_Recluta> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Preg_Recluta.class));
+        List<UserInf> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(UserInf.class));
         model.addAttribute("listaPostulantes", lista);
         return "crudpostulantes";
     }
 
     // 2. GUARDAR POSTULANTE (CON FILTRO DE DNI Y EVALUACIÓN AUTOMÁTICA)
     @PostMapping("/reclutar/guardar")
-    public String guardar(@ModelAttribute Preg_Recluta recluta) {
+    public String guardarPostulante(@RequestParam int dni,
+                                    @RequestParam String nombre,
+                                    @RequestParam int edad,
+                                    @RequestParam int puesto, // ID de la categoria_puestos elegido
+                                    @RequestParam int res1,
+                                    @RequestParam int res2,
+                                    @RequestParam int res8) {
 
-        // Sumamos las respuestas del test (0 a 4 puntos por pregunta)
-        int puntajeTotal = recluta.getRes1() + recluta.getRes2() + recluta.getRes3() +
-                recluta.getRes4() + recluta.getRes5() + recluta.getRes6() +
-                recluta.getRes7() + recluta.getRes8();
+        // Validar si ya existe el DNI en la tabla de información de usuario
+        String sqlCheck = "SELECT COUNT(*) FROM user_inf WHERE dni = ?";
+        Integer count = jdbcTemplate.queryForObject(sqlCheck, Integer.class, dni);
 
-        // El perfil define su ESTADO directamente según el puntaje (24 puntos o más de 32 posibles)
-        String estadoFinal = (puntajeTotal >= 24) ? "PENDIENTE EN EVALUACION" : "RECHAZADO";
-
-        // SQL usando WHERE NOT EXISTS guiado por el DNI único
-        String sql = "INSERT INTO preg_recluta (dni, nombre, edad, res1, res2, res3, res4, res5, res6, res7, res8, ubicacion, estado, id_evento) " +
-                "SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? " +
-                "WHERE NOT EXISTS (SELECT 1 FROM preg_recluta WHERE dni = ?)";
-
-        int filasAfectadas = jdbcTemplate.update(sql,
-                recluta.getDni(),
-                recluta.getNombre(),
-                recluta.getEdad(),
-                recluta.getRes1(),
-                recluta.getRes2(),
-                recluta.getRes3(),
-                recluta.getRes4(),
-                recluta.getRes5(),
-                recluta.getRes6(),
-                recluta.getRes7(),
-                recluta.getRes8(),
-                recluta.getUbicacion(),
-                estadoFinal,
-                recluta.getId_evento(), // Captura el id del select de postular.jsp
-                recluta.getDni()
-        );
-
-        // COMPROBACIÓN CRÍTICA: Solo operar bitácora si la inserción fue real
-        if (filasAfectadas > 0) {
-            try {
-                // Obtener el ID generado de este nuevo recluta para enlazarlo en la bitácora
-                String sqlId = "SELECT id FROM preg_recluta WHERE dni = ?";
-                Integer nuevoIdRecluta = jdbcTemplate.queryForObject(sqlId, Integer.class, recluta.getDni());
-
-                // Insertar en la bitácora de auditoría
-                String sqlBitacora = "INSERT INTO bitacora (id_usuario, id_recluta, accion, fecha_registro) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
-                jdbcTemplate.update(sqlBitacora, null, nuevoIdRecluta, "El postulante completó el formulario de reclutamiento de manera exitosa.");
-            } catch (Exception e) {
-                // Log opcional del error en consola para que no tumbe la app si la bitácora falla
-                System.out.println("Error al registrar en bitácora: " + e.getMessage());
-            }
-
-            return "redirect:/postular?exito=true";
-        } else {
-            // Si no hubo filas afectadas, significa con seguridad que el DNI ya existía
+        if (count != null && count > 0) {
             return "redirect:/postular?error=duplicado";
         }
-    }
 
-    // 4. ACTUALIZAR ESTADO DEL POSTULANTE DESDE EL PROCESAMIENTO
-    @GetMapping("/crudpostulantes/estado/{id}/{nuevoEstado}")
-    public String actualizarEstado(@PathVariable int id, @PathVariable String nuevoEstado) {
-        String estadoDb = "";
-        String accionBitacora = "";
-        String sqlBuscar = "SELECT nombre FROM preg_recluta WHERE id = ?";
-        String nombreRecluta = jdbcTemplate.queryForObject(sqlBuscar, String.class, id);
+        // Evaluación de puntaje basado en respuestas (Ejemplo: la opción 4 otorga 5 puntos)
+        int puntajeTotal = 0;
+        if (res1 == 4) puntajeTotal += 5;
+        if (res2 == 4) puntajeTotal += 5;
+        if (res8 == 4) puntajeTotal += 5;
 
-        switch (nuevoEstado) {
-            case "entrevista":
-                estadoDb = "ENTREVISTA";
-                accionBitacora = "Se cambió el estado del postulante '" + nombreRecluta + "' a ENTREVISTA.";
-                break;
-            case "rechazar":
-                estadoDb = "RECHAZADO";
-                accionBitacora = "Se cambió el estado del postulante '" + nombreRecluta + "' a RECHAZADO.";
-                break;
-            case "aprobar":
-                estadoDb = "APROBADO";
-                accionBitacora = "Se cambió el estado del postulante '" + nombreRecluta + "' a APROBADO.";
-                break;
-            default:
-                estadoDb = "PENDIENTE";
-                accionBitacora = "Se cambió el estado del postulante '" + nombreRecluta + "' a PENDIENTE.";
-                break;
+        // Determinar estado inicial automático
+        String estadoInicial = (puntajeTotal >= 10) ? "PENDIENTE EN EVALUACION" : "RECHAZADO";
+
+        // Paso A: Insertar los datos personales en 'user_inf' (usando la columna 'puesto')
+        String sqlUser = "INSERT INTO user_inf (dni, nombre, edad, puesto, estado) VALUES (?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sqlUser, dni, nombre, edad, puesto, estadoInicial);
+
+        // Obtener el ID generado para el usuario recién creado
+        String sqlGetId = "SELECT id FROM user_inf WHERE dni = ? ORDER BY id DESC LIMIT 1";
+        Integer idUsuarioGen = jdbcTemplate.queryForObject(sqlGetId, Integer.class, dni);
+
+        if (idUsuarioGen != null) {
+            // Paso B: Insertar las respuestas en 'preg_recluta' enlazado mediante 'idUser'
+            String sqlPreg = "INSERT INTO preg_recluta (idUser, res1, res2, res3, res4, res5, res6, res7, res8, estado) " +
+                    "VALUES (?, ?, ?, 0, 0, 0, 0, 0, ?, ?)";
+            jdbcTemplate.update(sqlPreg, idUsuarioGen, res1, res2, res8, estadoInicial);
         }
 
-        String sql = "UPDATE preg_recluta SET estado = ? WHERE id = ?";
-        jdbcTemplate.update(sql, estadoDb, id);
+        return "redirect:/consultar-estado";
+    }
 
-        // CORREGIDO: Se quitó el 'null' intermedio redundante que duplicaba los parámetros
+    // 3. ACTUALIZAR ESTADO DESDE EL PANEL DE CONTROL (Y registrar en Bitácora)
+    @GetMapping("/crudpostulantes/estado/{id}/{accion}")
+    public String cambiarEstado(@PathVariable int id, @PathVariable String accion) {
+        String estadoDb = "";
+        String accionBitacora = "";
+
+        if (accion.equals("entrevista")) {
+            estadoDb = "ENTREVISTA";
+            accionBitacora = "Citó al candidato a entrevista virtual";
+        } else if (accion.equals("aprobar")) {
+            estadoDb = "APROBADO";
+            accionBitacora = "Aprobó la postulación para contratación";
+        } else if (accion.equals("rechazar")) {
+            estadoDb = "RECHAZADO";
+            accionBitacora = "Rechazó al postulante en la revisión manual";
+        }
+
+        // Actualiza el estado principal en 'user_inf'
+        String sqlUpdateUser = "UPDATE user_inf SET estado = ? WHERE id = ?";
+        jdbcTemplate.update(sqlUpdateUser, estadoDb, id);
+
+        // Sincroniza el estado en la tabla de preguntas 'preg_recluta' (antiguo idUser)
+        String sqlUpdatePreg = "UPDATE preg_recluta SET estado = ? WHERE idUser = ?";
+        jdbcTemplate.update(sqlUpdatePreg, estadoDb, id);
+
+        // Registro de auditoría en bitácora (apuntando al id de user_inf)
         String sqlBitacora = "INSERT INTO bitacora (id_usuario, id_recluta, accion, fecha_registro) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
         jdbcTemplate.update(sqlBitacora, null, id, accionBitacora);
 
         return "redirect:/crudpostulante";
     }
 
-    // 3. ELIMINAR POSTULANTE
+    // 4. ELIMINAR POSTULANTE COMPLETO
     @GetMapping("/crudpostulantes/eliminar/{id}")
     public String eliminar(@PathVariable int id) {
-        String sql = "DELETE FROM preg_recluta WHERE id = ?";
-        jdbcTemplate.update(sql, id);
+        // Elimina primero los registros hijos en 'preg_recluta' para evitar fallos de llaves foráneas
+        String sqlDelPreg = "DELETE FROM preg_recluta WHERE idUser = ?";
+        jdbcTemplate.update(sqlDelPreg, id);
+
+        // Elimina de la tabla principal 'user_inf'
+        String sqlDelUser = "DELETE FROM user_inf WHERE id = ?";
+        jdbcTemplate.update(sqlDelUser, id);
+
         return "redirect:/crudpostulante";
     }
 
-    // Mostrar página para consultar DNI
+    // 5. MOSTRAR PÁGINA PARA CONSULTAR DNI
     @GetMapping("/consultar-estado")
     public String mostrarConsultaEstado() {
         return "consultar-estado";
     }
 
-    // Procesar el DNI y buscar al postulante
+    // 6. PROCESAR EL DNI Y BUSCAR AL POSTULANTE
     @PostMapping("/consultar-estado")
     public String procesarConsultaEstado(@RequestParam("dni") int dni, Model model) {
-        String sql = "SELECT * FROM preg_recluta WHERE dni = ?";
-        List<Preg_Recluta> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Preg_Recluta.class), dni);
+        String sql = "SELECT * FROM user_inf WHERE dni = ?";
+        List<UserInf> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(UserInf.class), dni);
 
         if (!lista.isEmpty()) {
             model.addAttribute("postulante", lista.get(0));
             return "resultado-estado";
         } else {
-            model.addAttribute("error", "No se encontró ninguna postulación con este DNI.");
+            model.addAttribute("error", "No se encontró ninguna postulación con el DNI ingresado.");
             return "consultar-estado";
         }
     }
