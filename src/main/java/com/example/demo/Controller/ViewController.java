@@ -1,8 +1,7 @@
-//@CODEX login
-
 package com.example.demo.Controller;
 
 import com.example.demo.model.Usuarios;
+import com.example.demo.model.CategoriaPuestos; // Cambiado de Evento a CategoriaPuestos
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,7 +17,7 @@ import java.util.List;
 public class ViewController {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate; // Permite consultar la BD H2
+    private JdbcTemplate jdbcTemplate; // Permite consultar la BD
 
     @GetMapping("/login")
     public String login() {
@@ -42,20 +41,23 @@ public class ViewController {
         if (!lista.isEmpty()) {
             return "redirect:/gestion";
         } else {
-            //Si está vacía, las credenciales no existen o están mal escritas
+            // Si está vacía, las credenciales no existen o están mal escritas
             model.addAttribute("error", "Correo electrónico o contraseña incorrectos.");
-            return "login"; //Recarga la misma página mostrando el error
+            return "login"; // Recarga la misma página mostrando el error
         }
     }
+
     @GetMapping("/")
     public String Main() {
         return "main";
     }
+
     @GetMapping("/main")
     public String irMain() {
         return "main";
     }
-    @GetMapping("/publicidad") //@CODEX
+
+    @GetMapping("/publicidad")
     public String mostrarPublicidad() {
         return "publicidad";
     }
@@ -65,6 +67,7 @@ public class ViewController {
         // Retorna el nombre del archivo JSP: gestion.jsp
         return "gestion";
     }
+
     @GetMapping("/contacto")
     public String mostrarFormulario() {
         return "contacto";
@@ -72,32 +75,36 @@ public class ViewController {
 
     @GetMapping("/postular")
     public String mostrarFormularioPostular(Model model) {
-        // Consulta normal
-        String sql = "SELECT * FROM evento";
+        // Consulta adaptada a la nueva tabla con alias camelCase para el row mapper
+        String sql = "SELECT id, nombre, tipo, descripcion, pres_rem AS presRem, horario, estado, pago FROM categoria_puestos WHERE estado = 1";
 
-        // Mapea automáticamente las columnas a los atributos del objeto Evento (en minúsculas)
-        List<com.example.demo.model.Evento> eventos = jdbcTemplate.query(
+        // Mapea automáticamente a la clase CategoriaPuestos
+        List<CategoriaPuestos> puestosActivos = jdbcTemplate.query(
                 sql,
-                new BeanPropertyRowMapper<>(com.example.demo.model.Evento.class)
+                new BeanPropertyRowMapper<>(CategoriaPuestos.class)
         );
 
-        model.addAttribute("listaEventos", eventos);
+        // Enviamos la lista de puestos disponibles para que el postulante seleccione uno en el formulario
+        model.addAttribute("listaCatalogo", puestosActivos);
         return "postular";
     }
+
     @GetMapping("/evento")
     public String mostrarEvento(Model model) {
-        // Consulta para obtener todos los eventos
-        String sql = "SELECT * FROM evento";
-        List<com.example.demo.model.Evento> listaEventos = jdbcTemplate.query(
+        // Traemos todas las categorías de puestos vigentes para la vista pública de convocatorias
+        String sql = "SELECT id, nombre, tipo, descripcion, pres_rem AS presRem, horario, estado, pago FROM categoria_puestos";
+
+        List<CategoriaPuestos> listaPuestos = jdbcTemplate.query(
                 sql,
-                new BeanPropertyRowMapper<>(com.example.demo.model.Evento.class)
+                new BeanPropertyRowMapper<>(CategoriaPuestos.class)
         );
 
-        // Pasamos la lista a la vista
-        model.addAttribute("listaEventos", listaEventos);
+        // Pasamos la lista a la vista pública usando el atributo esperado en tus JSPs actualizados
+        model.addAttribute("listaCatalogo", listaPuestos);
 
-        return"evento-vist"; // Retorna evento.jsp
+        return "puestos-vist"; // Retorna evento-vist.jsp (puestos-vist)
     }
+
     @GetMapping("/metricas")
     public String mostrarMetricas() {
         return "metricas"; // Retorna el archivo metricas.jsp

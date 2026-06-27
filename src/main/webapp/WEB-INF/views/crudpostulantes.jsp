@@ -13,10 +13,7 @@
 <body>
 <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
-        <a href="/gestion" class="logo">
-            CallypsoCall
-        </a>
-        
+        <a href="/gestion" class="logo">CallypsoCall</a>
         <nav id="navbar" class="navbar">
             <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
                 <li><a class="getstarted" href="/main">Cerrar Sesión</a></li>
@@ -24,98 +21,63 @@
         </nav>
     </div>
 </header>
-<!-- Fin Header -->
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-12">
-            <div class="main-card">
-                <h2 class="section-title">Control de Postulantes</h2>
-                <p class="text-center text-muted mb-4">Lista de aspirantes en base a las respuestas del cuestionario técnico.</p>
 
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover table-bordered align-middle text-center mt-3">
-                        <thead class="table-light">
+<div class="container-fluid CRUD-CATALOGO shadow-panel-recluta">
+    <div class="row min-vh-100">
+        <div class="col-md-12 content-pane">
+            <div class="container-fluid px-4 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
+                    <h2 class="title-panel m-0"><i class="fas fa-users-cog me-2"></i> Evaluación y Control de Candidatos</h2>
+                </div>
+
+                <div class="table-responsive shadow-lg rounded-4 overflow-hidden">
+                    <table class="table table-hover align-middle m-0 text-white">
+                        <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>DNI</th>
-                                <th>Nombre Completo</th>
+                                <th>Postulante</th>
                                 <th>Edad</th>
-                                <th>Ubicación</th>
-                                <th>Evento</th>
-                                <th>Resultado de preguntas</th>
-                                <th>Estado</th>
-                                <th>Procesamiento</th>
-                                <th>Acciones</th>
+                                <th>Puesto Solicitado</th>
+                                <th>Estado de Solicitud</th>
+                                <th class="text-center">Cambiar Estado</th>
+                                <th>Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="postulante" items="${listaPostulantes}">
                                 <tr>
+                                    <td class="fw-bold text-accent">${postulante.id}</td>
                                     <td>${postulante.dni}</td>
-                                    <td class="text-start fw-bold">${postulante.nombre}</td>
+                                    <td class="fw-bold">${postulante.nombre}</td>
                                     <td>${postulante.edad} años</td>
-                                    <td>${postulante.ubicacion}</td>
-                                    <td>
-                                                    <c:choose>
-                                                        <c:when test="${not empty postulante.nombreEvento}">
-                                                            <span class="text-dark fw-semibold">${postulante.nombreEvento}</span>
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <span class="text-muted small">Sin evento</span>
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                </td>
-                                    <td>
-                                        <c:set var="puntajeTotal" value="${postulante.res1 + postulante.res2 + postulante.res3 + postulante.res4 + postulante.res5 + postulante.res6 + postulante.res7 + postulante.res8}" />
-                                        <div class="d-flex flex-column align-items-center">
-                                            <c:choose>
-                                                <c:when test="${puntajeTotal >= 24}">
-                                                    <span class="badge bg-success text-white px-2 py-1" style="font-size: 0.8rem; font-weight: bold;">
-                                                        <i class="fas fa-check-circle me-1"></i> APROBADO
-                                                    </span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <span class="badge bg-danger text-white px-2 py-1" style="font-size: 0.8rem; font-weight: bold;">
-                                                        <i class="fas fa-times-circle me-1"></i> DESAPROBADO
-                                                    </span>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <small class="text-muted mt-1" style="font-size: 0.75rem;">
-                                                Puntaje: <strong>${puntajeTotal}/32</strong>
-                                            </small>
-                                        </div>
-                                    </td>
+                                    <td><span class="badge bg-dark">${postulante.nombrePuesto}</span></td>
                                     <td>
                                         <c:choose>
-                                            <c:when test="${postulante.estado == 'APROBADO'}">
-                                                <span class="badge-aprobado"><i class="fas fa-check-circle me-1"></i> APROBADO</span> </c:when>
-                                            <c:when test="${postulante.estado == 'ENTREVISTA'}">
-                                                <span class="badge-entrevista"><i class="fas fa-calendar-alt me-1"></i> ENTREVISTA</span>
-                                            </c:when>
-                                            <c:when test="${postulante.estado == 'RECHAZADO'}">
-                                                <span class="badge-rechazado"><i class="fas fa-user-times me-1"></i> RECHAZADO</span>
-                                            </c:when>
                                             <c:when test="${postulante.estado == 'PENDIENTE EN EVALUACION'}">
-                                                <span class="badge-pendiente-eval"><i class="fas fa-hourglass-half me-1"></i> PEND. EVALUACIÓN</span>
+                                                <span class="badge bg-warning text-dark"><i class="fas fa-clock me-1"></i>En Evaluación</span>
+                                            </c:when>
+                                            <c:when test="${postulante.estado == 'ENTREVISTA'}">
+                                                <span class="badge bg-info text-dark"><i class="fas fa-calendar-alt me-1"></i>Citado a Entrevista</span>
+                                            </c:when>
+                                            <c:when test="${postulante.estado == 'APROBADO'}">
+                                                <span class="badge bg-success"><i class="fas fa-check-circle me-1"></i>Aprobado</span>
                                             </c:when>
                                             <c:otherwise>
-                                                <span class="badge-desaprobado"><i class="fas fa-times-circle me-1"></i> RECHAZADO</span> </c:otherwise>
+                                                <span class="badge bg-danger"><i class="fas fa-times-circle me-1"></i>Rechazado</span>
+                                            </c:otherwise>
                                         </c:choose>
                                     </td>
-
                                     <td>
-                                        <div class="d-flex flex-column align-items-center">
-                                            <a href="/crudpostulantes/estado/${postulante.id}/entrevista"
-                                               class="btn btn-primary btn-procesar btn-sm w-100">
-                                               <i class="fas fa-user-check me-1"></i> Generar Entrevista
+                                        <div class="d-flex justify-content-center gap-2">
+                                            <a href="/crudpostulantes/estado/${postulante.id}/entrevista" class="btn btn-sm btn-outline-info text-white">
+                                                <i class="fas fa-video me-1"></i> Citar
                                             </a>
-                                            <a href="/crudpostulantes/estado/${postulante.id}/rechazar"
-                                               class="btn btn-secondary btn-procesar btn-sm w-100"
-                                               onclick="return confirm('¿Seguro que deseas rechazar a este postulante?');">
-                                               <i class="fas fa-ban me-1"></i> Rechazar
+                                            <a href="/crudpostulantes/estado/${postulante.id}/aprobar" class="btn btn-sm btn-outline-success text-white">
+                                                <i class="fas fa-check me-1"></i> Aprobar
                                             </a>
-                                            <a href="/crudpostulantes/estado/${postulante.id}/aprobar"
-                                               class="btn btn-success btn-procesar btn-sm w-100">
-                                               <i class="fas fa-check me-1"></i> Aprobar
+                                            <a href="/crudpostulantes/estado/${postulante.id}/rechazar" class="btn btn-sm btn-outline-danger text-white">
+                                                <i class="fas fa-ban me-1"></i> Rechazar
                                             </a>
                                         </div>
                                     </td>
@@ -123,7 +85,7 @@
                                         <div class="action-buttons">
                                             <a href="/crudpostulantes/eliminar/${postulante.id}"
                                                class="btn-action btn-delete"
-                                               onclick="return confirm('¿Deseas eliminar la postulación de este candidato?');">
+                                               onclick="return confirm('¿Deseas eliminar permanentemente esta postulación?');">
                                                 <i class="fas fa-trash-alt"></i>
                                             </a>
                                         </div>
@@ -132,7 +94,7 @@
                             </c:forEach>
                             <c:if test="${empty listaPostulantes}">
                                 <tr>
-                                    <td colspan="9" class="text-center py-4 text-muted">No hay postulaciones registradas en este momento.</td>
+                                    <td colspan="8" class="text-center py-4 text-muted">No hay postulaciones registradas en este momento.</td>
                                 </tr>
                             </c:if>
                         </tbody>
@@ -143,7 +105,6 @@
         </div>
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
