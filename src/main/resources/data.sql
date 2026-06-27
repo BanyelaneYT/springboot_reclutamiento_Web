@@ -8,8 +8,7 @@ FROM SYSTEM_RANGE(1, 1)
 
 INSERT INTO preg_recluta (dni, nombre, edad,
     res1, res2, res3, res4, res5, res6, res7, res8,
-    ubicacion, estado
-)
+    ubicacion, estado)
 SELECT
     12345678, -- DNI
     'Juan Martinez Perez', -- Nombre
@@ -31,14 +30,14 @@ FROM SYSTEM_RANGE(1, 1)
 );
 
 INSERT INTO bitacora (id_usuario, id_recluta, accion, fecha_registro)
-SELECT 
+SELECT
     (SELECT id FROM usuarios WHERE correo = 'admin123@gmail.com'),
     (SELECT id FROM preg_recluta WHERE dni = 12345678),
     'Registro inicial de recluta en evento de bienvenida',
     CURRENT_TIMESTAMP()
 FROM SYSTEM_RANGE(1, 1)
 WHERE NOT EXISTS (
-    SELECT 1 FROM bitacora 
+    SELECT 1 FROM bitacora
     WHERE id_usuario = (SELECT id FROM usuarios WHERE correo = 'admin123@gmail.com')
       AND id_recluta = (SELECT id FROM preg_recluta WHERE dni = 12345678)
 );
