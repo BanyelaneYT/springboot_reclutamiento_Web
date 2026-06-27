@@ -65,6 +65,15 @@
                     <p>Administre el historial de actividades del sistema.</p>
                 </a>
             </div>
+            <div class="col-md-6">
+                <a href="/metricas" class="card-module">
+                    <div class="icon-box">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h4>Metricas</h4>
+                       <p>Metricas</p>
+                </a>
+            </div>
         </div>
     </div>
 </div>

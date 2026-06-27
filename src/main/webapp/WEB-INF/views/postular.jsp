@@ -14,146 +14,64 @@
 <body>
 <header id="header" class="fixed-top d-flex align-items-center">
     <div class="header-fullwidth d-flex align-items-center justify-content-between">
-        <a href="/" class="logo">
-            CallypsoCall
-        </a>
-        <nav id="navbar" class="navbar">
-            <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
-                <li><a class="nav-link" href="/publicidad">Servicios</a></li>
-                <li><a class="nav-link" href="/contacto">Contacto</a></li>
-                <li><a class="nav-link" href="/evento">Eventos</a></li>
-                <li><a class="getstarted" href="/login">Login ></a></li>
-            </ul>
-        </nav>
+        <a href="/" class="logo">CallypsoCall</a>
     </div>
-</header><br/>
-<div class="container my-5">
-    <h1 style="text-transform: uppercase; font-weight: 400; color: #0a1f44; margin-top: 50px;"><Big>Únete a Callypso Call</Big></h1>
-    <p class="text-muted mb-4">Completa tu información personal y responde con total honestidad el cuestionario técnico de operaciones.</p>
+</header>
 
-    <div class="form-container shadow-sm p-4 bg-white rounded">
+<div class="container container-postular">
+    <div class="form-container shadow-lg">
+        <h2 class="text-center text-white mb-4 fw-bold style-title-postular">FICHA DE POSTULACIÓN TÉCNICA</h2>
 
-        <c:if test="${param.exito == 'true'}">
-            <div class="success-msg">¡Tu postulación ha sido enviada con éxito! Evaluaremos tus respuestas de inmediato.</div>
-        </c:if>
         <c:if test="${param.error == 'duplicado'}">
-            <div class="error-msg">Atención: El DNI ingresado ya cuenta con una postulación registrada en nuestra base de datos.</div>
+            <div class="alert alert-danger text-center fw-bold">Usted ya cuenta con una postulación activa vinculada a este DNI.</div>
         </c:if>
 
-        <form action="/reclutar/guardar" method="post">
-
-            <div class="row">
-                <div class="col-md-6">
-                    <input type="number" name="dni" class="form-control" placeholder="Número de DNI" required>
+        <form action="/reclutar/guardar" method="POST">
+            <input type="hidden" name="idQuest" value="1"> <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label text-white">Nombres y Apellidos Completos</label>
+                    <input type="text" class="form-control" name="nombre" placeholder="Ingrese nombre completo" required>
                 </div>
-                <div class="col-md-6">
-                    <input type="text" name="nombre" class="form-control" placeholder="Nombre y Apellidos" required>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label text-white">Documento de Identidad (DNI)</label>
+                    <input type="number" class="form-control" name="dni" placeholder="DNI de 8 dígitos" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label text-white">Edad</label>
+                    <input type="number" class="form-control" name="edad" placeholder="Edad actual" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label text-white">Puesto al que Postula</label>
+                    <select name="puesto" class="form-select" required>
+                        <option value="1">Asesor Call Center - Ventas España</option>
+                        <option value="2">Atención al Cliente - Turno Mañana</option>
+                    </select>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <input type="number" name="edad" class="form-control" placeholder="Edad" required>
-                </div>
-                <div class="col-md-6">
-                    <input type="text" name="ubicacion" class="form-control" placeholder="Ciudad / Distrito de residencia" required>
-                </div>
-            </div>
 
-            <hr class="my-4" style="opacity: 0.15;">
-            <h3 class="text-start mb-3" style="color: #ca0000; font-weight: 700;">Cuestionario de Aptitud</h3>
-            <p class="text-start text-muted small mb-4">Selecciona la alternativa que mejor describa tu forma de reaccionar en el entorno de trabajo.</p>
+            <hr style="border-color: #ca0000; margin: 30px 0;">
+            <h4 class="text-white mb-4"><i class="fas fa-clipboard-check me-2"></i> Evaluación Psicotécnica y Comercial</h4>
 
             <div class="row">
                 <div class="col-md-6">
                     <div class="pregunta-card">
-                        <label>1. Si un usuario te interrumpe gritando en la llamada:</label>
+                        <label>1. Si un cliente te corta abruptamente la llamada diciendo "No me interesa", ¿qué haces?</label>
                         <select name="res1" required>
-                            <option value="0">Seleccione una opción</option>
-                            <option value="1">Le cuelgo la llamada de inmediato</option>
-                            <option value="2">Me quedo callado esperando que termine</option>
-                            <option value="3">Le pido firmemente que se calme</option>
-                            <option value="4">Escucho con paciencia y aplico empatía</option>
+                            <option value="1">Me molesto y no insisto</option>
+                            <option value="2">Paso inmediatamente a la siguiente llamada sin importar</option>
+                            <option value="3">Intento registrar qué le molestó para mejorar</option>
+                            <option value="4">Mantengo la calma y aplico una técnica de rebatir objeciones antes que cuelgue</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="pregunta-card">
-                        <label>2. ¿Cómo actúas frente a las metas diarias de ventas?</label>
+                        <label>2. ¿Cuál consideras que es la clave principal para cerrar una venta difícil?</label>
                         <select name="res2" required>
-                            <option value="0">Seleccione una opción</option>
-                            <option value="1">Me estresan y prefiero no verlas</option>
-                            <option value="2">Intento avanzar sin presionarme</option>
-                            <option value="3">Hago lo necesario para cumplir la cuota</option>
-                            <option value="4">Me motivan a superarme y ganar más</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="pregunta-card">
-                        <label>3. Si el cliente te hace una consulta que no conoces:</label>
-                        <select name="res3" required>
-                            <option value="0">Seleccione una opción</option>
-                            <option value="1">Le invento una respuesta rápida</option>
-                            <option value="2">Le indico amablemente que no poseo el dato</option>
-                            <option value="3">Le solicito que espere en línea mientras busco</option>
-                            <option value="4">Consulto al supervisor para aprender el proceso</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="pregunta-card">
-                        <label>4. Cuando un cliente objeta que el servicio es "muy caro":</label>
-                        <select name="res4" required>
-                            <option value="0">Seleccione una opción</option>
-                            <option value="1">Le doy la razón y desisto</option>
-                            <option value="2">Evito comentar sobre los costos</option>
-                            <option value="3">Le propongo un descuento inmediato</option>
-                            <option value="4">Revalorizo los beneficios exclusivos del servicio</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="pregunta-card">
-                        <label>5. ¿Cuál consideras que es tu principal fuerte al hablar?</label>
-                        <select name="res5" required>
-                            <option value="0">Seleccione una opción</option>
-                            <option value="1">Hablo de manera directa y seria</option>
-                            <option value="2">Me adapto a lo que me digan</option>
-                            <option value="3">Mantengo una conversación fluida y cortés</option>
-                            <option value="4">Tengo un tono dinámico, seguro y persuasivo</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="pregunta-card">
-                        <label>6. Tras recibir una respuesta negativa o rechazo continuo:</label>
-                        <select name="res6" required>
-                            <option value="0">Seleccione una opción</option>
-                            <option value="1">Me desmotivo y prefiero pausar el sistema</option>
-                            <option value="2">Me tomo unos minutos para calmarme</option>
-                            <option value="3">Analizo brevemente qué se puede corregir</option>
-                            <option value="4">Paso con entusiasmo a la siguiente llamada</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="pregunta-card">
-                        <label>7. Frente a situaciones críticas de alta presión laboral:</label>
-                        <select name="res7" required>
-                            <option value="0">Seleccione una opción</option>
-                            <option value="1">Suelo bloquearme bajo mucha exigencia</option>
-                            <option value="2">Expreso mi incomodidad con los compañeros</option>
-                            <option value="3">Trabajo al ritmo habitual sin acelerar</option>
-                            <option value="4">Mantengo el control absoluto y me enfoco en metas</option>
+                            <option value="1">Hablar rápido sin dejar interrupciones</option>
+                            <option value="2">Ofrecer rebajas o descuentos desesperadamente</option>
+                            <option value="3">Escuchar con atención las necesidades reales del cliente</option>
+                            <option value="4">Generar un sentido de urgencia absoluto y confianza</option>
                         </select>
                     </div>
                 </div>
@@ -161,7 +79,6 @@
                     <div class="pregunta-card">
                         <label>8. ¿Cómo reaccionas cuando tu supervisor te corrige?</label>
                         <select name="res8" required>
-                            <option value="0">Seleccione una opción</option>
                             <option value="1">Me incomoda y siento que me expone</option>
                             <option value="2">Escucho pero sigo trabajando a mi manera</option>
                             <option value="3">Acepto los comentarios para evitar roces</option>
