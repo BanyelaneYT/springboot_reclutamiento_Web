@@ -5,6 +5,9 @@ body { font-family: 'Segoe UI', sans-serif;
 .login-card { background: rgba(0, 0, 0, 0.829); padding: 40px;
     border-radius: 8px; box-shadow: 0 4px 12px rgb(255, 0, 0);
     text-align: center; width: 300px; }
+.general-card { background: rgba(0, 0, 0, 0.829); padding: 40px;
+    border-radius: 8px; box-shadow: 0 4px 12px rgb(255, 0, 0);
+    text-align: center; width: 700px; }
 h2 { color: #ffffff; margin-bottom: 20px; }
 input { width: 100%; padding: 10px; margin: 10px 0;
     border: 1px solid #ffffff; border-radius: 4px;
