@@ -14,8 +14,16 @@
 </head>
 <body>
 <header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
+    <div class="header-fullwidth d-flex align-items-center justify-content-between">
         <a href="/" class="logo">CallypsoCall</a>
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/evento">Convocatorias</a></li>
+                <li><a href="/contacto">Contacto</a></li>
+                <li><a href="/login" class="btn-login-header">Login</a></li>
+            </ul>
+        </nav>
     </div>
 </header>
 
