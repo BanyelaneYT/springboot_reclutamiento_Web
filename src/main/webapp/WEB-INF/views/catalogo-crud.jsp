@@ -26,13 +26,12 @@
     <div class="container-fluid CRUD-CATALOGO" style="padding-top: 110px;">
         <div class="row min-vh-100">
             <div class="col-md-12 content-pane">
+         
                 <div class="container-fluid px-4">
 
                     <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
-                        <h2 class="title-panel m-0 text-white"><i class="fas fa-briefcase me-2"></i> Mantenimiento de Categoría de Puestos</h2>
-                        <button class="btn btn-add shadow-lg" data-bs-toggle="modal" data-bs-target="#modalAgregar">
-                            <i class="fas fa-plus-circle me-2"></i>NUEVO PUESTO
-                        </button>
+                        <h2 class="title-panel m-0 text-white">Mantenimiento de Categoría de Puestos</h2>
+                        <button class="btn btn-save shadow-lg" data-bs-toggle="modal" data-bs-target="#modalAgregar">NUEVO PUESTO</button>
                     </div>
 
                     <div class="table-responsive shadow-lg rounded-4 overflow-hidden">
@@ -46,15 +45,15 @@
                                     <th>Horario</th>
                                     <th>Sueldo/Pago</th>
                                     <th>Estado</th>
-                                    <th class="text-center" colspan="2">Acciones</th>
+                                    <th class="text-center">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <c:forEach var="puesto" items="${listaCatalogo}">
                                     <tr>
-                                        <td class="fw-bold text-accent">${puesto.id}</td>
+                                        <td class="fw-bold text-id">${puesto.id}</td>
                                         <td>${puesto.nombre}</td>
-                                        <td><span class="badge bg-secondary">${puesto.tipo}</span></td>
+                                        <td><span class="badge bg-secondary badge-tipo">${puesto.tipo}</span></td>
                                         <td>${puesto.presRem}</td>
                                         <td>${puesto.horario}</td>
                                         <td class="text-success fw-bold">S/. ${puesto.pago}</td>
@@ -65,15 +64,15 @@
                                             </c:choose>
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalActualizar"
-                                                    onclick="llenarDatosModal('${puesto.id}', '${puesto.nombre}', '${puesto.tipo}', '${puesto.descripcion}', '${puesto.presRem}', '${puesto.horario}', '${puesto.estado}', '${puesto.pago}')">
-                                                <i class="fas fa-edit"></i>
-                                            </button>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="/catalogo/eliminar/${puesto.id}" class="btn-action btn-delete" onclick="return confirm('¿Eliminar este puesto?');">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
+                                            <div class="action-buttons">
+                                                <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalActualizar"
+                                                        onclick="llenarDatosModal('${puesto.id}', '${puesto.nombre}', '${puesto.tipo}', '${puesto.descripcion}', '${puesto.presRem}', '${puesto.horario}', '${puesto.estado}', '${puesto.pago}')">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <a href="/catalogo/eliminar/${puesto.id}" class="btn-action btn-delete" onclick="return confirm('¿Eliminar este puesto?');">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </a>
+                                            </div>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -88,7 +87,7 @@
 
     <div class="modal fade" id="modalAgregar" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <form action="/catalogo/guardar" method="POST" class="modal-content text-white">
+            <form action="/catalogo/guardar" method="POST" class="modal-content custom-modal text-white">
                 <div class="modal-header">
                     <h5 class="modal-title"><i class="fas fa-folder-plus me-2"></i> Registrar Nuevo Puesto</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -141,7 +140,7 @@
 
     <div class="modal fade" id="modalActualizar" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <form action="/catalogo/actualizar" method="POST" class="modal-content text-white">
+            <form action="/catalogo/actualizar" method="POST" class="modal-content custom-modal text-white">
                 <input type="hidden" name="id" id="upd_id">
                 <div class="modal-header">
                     <h5 class="modal-title"><i class="fas fa-edit me-2"></i> Modificar Puesto</h5>
