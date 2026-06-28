@@ -4,98 +4,145 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Callypso Call | Postulación Masiva</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Raleway:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Callypso Call | Postulación</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/contacto.css">
     <link rel="stylesheet" href="/css/postular.css">
-    <link rel="stylesheet" href="/css/Header.css">
 </head>
 <body>
-<header id="header" class="fixed-top d-flex align-items-center">
-    <div class="header-fullwidth d-flex align-items-center justify-content-between">
-        <a href="/" class="logo">CallypsoCall</a>
-    </div>
-</header>
+<div class="container mt-5">
+    <div class="form-container p-5 shadow-lg bg-dark text-white rounded">
+        <h2 class="text-center mb-4">FICHA DE POSTULACIÓN TÉCNICA</h2>
 
-<div class="container container-postular">
-    <div class="form-container shadow-lg">
-        <h2 class="text-center text-white mb-4 fw-bold style-title-postular">FICHA DE POSTULACIÓN TÉCNICA</h2>
-
-        <c:if test="${param.error == 'duplicado'}">
-            <div class="alert alert-danger text-center fw-bold">Usted ya cuenta con una postulación activa vinculada a este DNI.</div>
-        </c:if>
+        <form action="/postular" method="GET" class="mb-4">
+            <div class="mb-3">
+                <label class="text-white fw-bold">Puesto al que postula:</label>
+                <div class="input-group">
+                    <select name="puestoId" class="form-select" required>
+                        <option value="">-- Selecciona un puesto --</option>
+                        <c:forEach var="puesto" items="${listaCatalogo}">
+                            <option value="${puesto.id}" ${puesto.id == puestoSeleccionadoId ? 'selected' : ''}>
+                                ${puesto.nombre} (${puesto.presRem})
+                            </option>
+                        </c:forEach>
+                    </select>
+                    <button type="submit" class="btn btn-warning">Cargar Preguntas</button>
+                </div>
+            </div>
+        </form>
 
         <form action="/reclutar/guardar" method="POST">
-            <input type="hidden" name="idQuest" value="1"> <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label class="form-label text-white">Nombres y Apellidos Completos</label>
-                    <input type="text" class="form-control" name="nombre" placeholder="Ingrese nombre completo" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label class="form-label text-white">Documento de Identidad (DNI)</label>
-                    <input type="number" class="form-control" name="dni" placeholder="DNI de 8 dígitos" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label class="form-label text-white">Edad</label>
-                    <input type="number" class="form-control" name="edad" placeholder="Edad actual" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label class="form-label text-white">Puesto al que Postula</label>
-                    <select name="puesto" class="form-select" required>
-                        <option value="1">Asesor Call Center - Ventas España</option>
-                        <option value="2">Atención al Cliente - Turno Mañana</option>
-                    </select>
-                </div>
-            </div>
-
-            <hr style="border-color: #ca0000; margin: 30px 0;">
-            <h4 class="text-white mb-4"><i class="fas fa-clipboard-check me-2"></i> Evaluación Psicotécnica y Comercial</h4>
+            <input type="hidden" name="puesto" value="${puestoSeleccionadoId}">
 
             <div class="row">
-                <div class="col-md-6">
-                    <div class="pregunta-card">
-                        <label>1. Si un cliente te corta abruptamente la llamada diciendo "No me interesa", ¿qué haces?</label>
-                        <select name="res1" required>
-                            <option value="1">Me molesto y no insisto</option>
-                            <option value="2">Paso inmediatamente a la siguiente llamada sin importar</option>
-                            <option value="3">Intento registrar qué le molestó para mejorar</option>
-                            <option value="4">Mantengo la calma y aplico una técnica de rebatir objeciones antes que cuelgue</option>
-                        </select>
-                    </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Nombres Completos</label>
+                    <input type="text" class="form-control" name="nombre" required>
                 </div>
-                <div class="col-md-6">
-                    <div class="pregunta-card">
-                        <label>2. ¿Cuál consideras que es la clave principal para cerrar una venta difícil?</label>
-                        <select name="res2" required>
-                            <option value="1">Hablar rápido sin dejar interrupciones</option>
-                            <option value="2">Ofrecer rebajas o descuentos desesperadamente</option>
-                            <option value="3">Escuchar con atención las necesidades reales del cliente</option>
-                            <option value="4">Generar un sentido de urgencia absoluto y confianza</option>
-                        </select>
-                    </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">DNI</label>
+                    <input type="number" class="form-control" name="dni" required>
                 </div>
-                <div class="col-md-6">
-                    <div class="pregunta-card">
-                        <label>8. ¿Cómo reaccionas cuando tu supervisor te corrige?</label>
-                        <select name="res8" required>
-                            <option value="1">Me incomoda y siento que me expone</option>
-                            <option value="2">Escucho pero sigo trabajando a mi manera</option>
-                            <option value="3">Acepto los comentarios para evitar roces</option>
-                            <option value="4">Agradezco el feedback para potenciar mis ventas</option>
-                        </select>
-                    </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Edad</label>
+                    <input type="number" class="form-control" name="edad" required>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-danger w-100 py-3 mt-3 fw-bold" style="background-color: #ca0000; border: none; font-size: 1.1rem;">
-                ENVIAR POSTULACIÓN AHORA
-            </button>
+            <c:if test="${not empty puestoSeleccionadoId}">
+                <div id="seccionPreguntas" class="mt-4">
+                    <h4 class="text-warning mb-3">Evaluación Específica del Puesto</h4>
+                    <div class="row">
+
+                        <c:choose>
+                            <c:when test="${not empty preguntasPuesto}">
+
+                                <%-- Evaluamos e imprimimos cada pregunta si existe en el objeto --%>
+                                <c:if test="${not empty preguntasPuesto.preg1}">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 bg-secondary rounded text-white">
+                                            <label class="form-label fw-bold">1. ${preguntasPuesto.preg1}</label>
+                                            <input type="text" name="res1" class="form-control" placeholder="Escriba su respuesta aquí..." required>
+                                        </div>
+                                    </div>
+                                </c:if>
+
+                                <c:if test="${not empty preguntasPuesto.preg2}">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 bg-secondary rounded text-white">
+                                            <label class="form-label fw-bold">2. ${preguntasPuesto.preg2}</label>
+                                            <input type="text" name="res2" class="form-control" placeholder="Escriba su respuesta aquí...">
+                                        </div>
+                                    </div>
+                                </c:if>
+
+                                <c:if test="${not empty preguntasPuesto.preg3}">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 bg-secondary rounded text-white">
+                                            <label class="form-label fw-bold">3. ${preguntasPuesto.preg3}</label>
+                                            <input type="text" name="res3" class="form-control" placeholder="Escriba su respuesta aquí...">
+                                        </div>
+                                    </div>
+                                </c:if>
+
+                                <c:if test="${not empty preguntasPuesto.preg4}">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 bg-secondary rounded text-white">
+                                            <label class="form-label fw-bold">4. ${preguntasPuesto.preg4}</label>
+                                            <input type="text" name="res4" class="form-control" placeholder="Escriba su respuesta aquí...">
+                                        </div>
+                                    </div>
+                                </c:if>
+
+                                <c:if test="${not empty preguntasPuesto.preg5}">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 bg-secondary rounded text-white">
+                                            <label class="form-label fw-bold">5. ${preguntasPuesto.preg5}</label>
+                                            <input type="text" name="res5" class="form-control" placeholder="Escriba su respuesta aquí...">
+                                        </div>
+                                    </div>
+                                </c:if>
+
+                                <c:if test="${not empty preguntasPuesto.preg6}">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 bg-secondary rounded text-white">
+                                            <label class="form-label fw-bold">6. ${preguntasPuesto.preg6}</label>
+                                            <input type="text" name="res6" class="form-control" placeholder="Escriba su respuesta aquí...">
+                                        </div>
+                                    </div>
+                                </c:if>
+
+                                <c:if test="${not empty preguntasPuesto.preg7}">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 bg-secondary rounded text-white">
+                                            <label class="form-label fw-bold">7. ${preguntasPuesto.preg7}</label>
+                                            <input type="text" name="res7" class="form-control" placeholder="Escriba su respuesta aquí...">
+                                        </div>
+                                    </div>
+                                </c:if>
+
+                                <c:if test="${not empty preguntasPuesto.preg8}">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="p-3 bg-secondary rounded text-white">
+                                            <label class="form-label fw-bold">8. ${preguntasPuesto.preg8}</label>
+                                            <input type="text" name="res8" class="form-control" placeholder="Escriba su respuesta aquí...">
+                                        </div>
+                                    </div>
+                                </c:if>
+
+                            </c:when>
+                            <c:otherwise>
+                                <p class="text-muted ps-3">Este puesto no cuenta con preguntas de evaluación registradas.</p>
+                            </c:otherwise>
+                        </c:choose>
+
+                    </div>
+                </div>
+            </c:if>
+
+            <button type="submit" class="btn btn-danger w-100 py-3 mt-4">ENVIAR POSTULACIÓN</button>
         </form>
     </div>
 </div>
-<footer class="footer-simple">
-    <p>&copy; 2026 Callypso Call Peru. Todos los derechos reservados.</p>
-</footer>
 </body>
 </html>

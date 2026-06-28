@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.model.Questions;
 import com.example.demo.model.Usuarios;
 import com.example.demo.model.CategoriaPuestos; // Cambiado de Evento a CategoriaPuestos
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,18 +75,25 @@ public class ViewController {
     }
 
     @GetMapping("/postular")
-    public String mostrarFormularioPostular(Model model) {
-        // Consulta adaptada a la nueva tabla con alias camelCase para el row mapper
-        String sql = "SELECT id, nombre, tipo, descripcion, pres_rem AS presRem, horario, estado, pago FROM categoria_puestos WHERE estado = 1";
-
-        // Mapea automáticamente a la clase CategoriaPuestos
-        List<CategoriaPuestos> puestosActivos = jdbcTemplate.query(
-                sql,
-                new BeanPropertyRowMapper<>(CategoriaPuestos.class)
-        );
-
-        // Enviamos la lista de puestos disponibles para que el postulante seleccione uno en el formulario
+    public String mostrarFormularioPostular(@RequestParam(required = false) Integer puestoId, Model model) {
+        // 1. Cargar la lista completa de puestos activos para el select box
+        String sqlPuestos = "SELECT id, nombre, tipo, descripcion, pres_rem AS presRem, horario, estado, pago FROM categoria_puestos WHERE estado = 1";
+        List<CategoriaPuestos> puestosActivos = jdbcTemplate.query(sqlPuestos, new BeanPropertyRowMapper<>(CategoriaPuestos.class));
         model.addAttribute("listaCatalogo", puestosActivos);
+
+        // 2. Enviar el ID del puesto seleccionado
+        model.addAttribute("puestoSeleccionadoId", puestoId);
+
+        // 3. PURE JAVA: Si hay un puesto seleccionado, traer sus preguntas directamente desde la base de datos
+        if (puestoId != null) {
+            String sqlPreguntas = "SELECT * FROM questions WHERE id_puesto = ? AND estado = 'Activo' LIMIT 1";
+            List<Questions> listaPreguntas = jdbcTemplate.query(sqlPreguntas, new BeanPropertyRowMapper<>(Questions.class), puestoId);
+
+            if (!listaPreguntas.isEmpty()) {
+                model.addAttribute("preguntasPuesto", listaPreguntas.get(0));
+            }
+        }
+
         return "postular";
     }
 

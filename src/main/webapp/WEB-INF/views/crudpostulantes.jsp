@@ -11,100 +11,111 @@
     <link rel="stylesheet" href="/css/Header.css">
 </head>
 <body>
-<header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-        <a href="/gestion" class="logo">CallypsoCall</a>
-        <nav id="navbar" class="navbar">
-            <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
-                <li><a class="getstarted" href="/main">Cerrar Sesión</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
 
-<div class="container-fluid CRUD-CATALOGO shadow-panel-recluta">
-    <div class="row min-vh-100">
-        <div class="col-md-12 content-pane">
-            <div class="container-fluid px-4 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
-                    <h2 class="title-panel m-0"><i class="fas fa-users-cog me-2"></i> Evaluación y Control de Candidatos</h2>
-                </div>
+    <header id="header" class="fixed-top d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
+            <a href="/gestion" class="logo">CallypsoCall</a>
+            <nav id="navbar" class="navbar">
+                <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
+                    <li><a class="getstarted" href="/main">Cerrar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-                <div class="table-responsive shadow-lg rounded-4 overflow-hidden">
-                    <table class="table table-hover align-middle m-0 text-white">
+    <div class="container mt-5 pt-5">
+        <div class="mb-4">
+            <h2 class="text-white">Evaluación y Control de Candidatos</h2>
+        </div>
+
+        <div class="row">
+            <div class="${(not empty respuestasSeleccionadas || not empty idPostulanteCitar) ? 'col-md-7' : 'col-md-12'}">
+                <div class="table-responsive bg-dark p-3 rounded shadow">
+                    <table class="table table-dark table-hover align-middle">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>DNI</th>
                                 <th>Postulante</th>
-                                <th>Edad</th>
-                                <th>Puesto Solicitado</th>
-                                <th>Estado de Solicitud</th>
-                                <th class="text-center">Cambiar Estado</th>
-                                <th>Eliminar</th>
+                                <th>Puesto</th>
+                                <th>Estado</th>
+                                <th>Respuestas</th>
+                                <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="postulante" items="${listaPostulantes}">
-                                <tr>
-                                    <td class="fw-bold text-accent">${postulante.id}</td>
+                                <tr class="${idPostulanteVer == postulante.id || idPostulanteCitar == postulante.id ? 'table-active' : ''}">
+                                    <td>${postulante.id}</td>
                                     <td>${postulante.dni}</td>
                                     <td class="fw-bold">${postulante.nombre}</td>
-                                    <td>${postulante.edad} años</td>
-                                    <td><span class="badge bg-dark">${postulante.nombrePuesto}</span></td>
+                                    <td class="text-accent">${postulante.nombrePuesto}</td>
+                                    <td><span class="badge bg-warning text-dark">${postulante.estado}</span></td>
                                     <td>
-                                        <c:choose>
-                                            <c:when test="${postulante.estado == 'PENDIENTE EN EVALUACION'}">
-                                                <span class="badge bg-warning text-dark"><i class="fas fa-clock me-1"></i>En Evaluación</span>
-                                            </c:when>
-                                            <c:when test="${postulante.estado == 'ENTREVISTA'}">
-                                                <span class="badge bg-info text-dark"><i class="fas fa-calendar-alt me-1"></i>Citado a Entrevista</span>
-                                            </c:when>
-                                            <c:when test="${postulante.estado == 'APROBADO'}">
-                                                <span class="badge bg-success"><i class="fas fa-check-circle me-1"></i>Aprobado</span>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span class="badge bg-danger"><i class="fas fa-times-circle me-1"></i>Rechazado</span>
-                                            </c:otherwise>
-                                        </c:choose>
+                                        <a href="/crudpostulantes?verRespuestasId=${postulante.id}" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-eye"></i> Ver Respuestas
+                                        </a>
                                     </td>
-                                    <td>
-                                        <div class="d-flex justify-content-center gap-2">
-                                            <a href="/crudpostulantes/estado/${postulante.id}/entrevista" class="btn btn-sm btn-outline-info text-white">
-                                                <i class="fas fa-video me-1"></i> Citar
-                                            </a>
-                                            <a href="/crudpostulantes/estado/${postulante.id}/aprobar" class="btn btn-sm btn-outline-success text-white">
-                                                <i class="fas fa-check me-1"></i> Aprobar
-                                            </a>
-                                            <a href="/crudpostulantes/estado/${postulante.id}/rechazar" class="btn btn-sm btn-outline-danger text-white">
-                                                <i class="fas fa-ban me-1"></i> Rechazar
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="action-buttons">
-                                            <a href="/crudpostulantes/eliminar/${postulante.id}"
-                                               class="btn-action btn-delete"
-                                               onclick="return confirm('¿Deseas eliminar permanentemente esta postulación?');">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a>
+                                    <td class="text-center">
+                                        <div class="btn-group">
+                                            <a href="/crudpostulantes?citarId=${postulante.id}" class="btn btn-sm btn-info text-white">Citar</a>
+                                            <a href="/crudpostulantes/estado/${postulante.id}/aprobar" class="btn btn-sm btn-success">Aprobar</a>
+                                            <a href="/crudpostulantes/estado/${postulante.id}/rechazar" class="btn btn-sm btn-danger">Rechazar</a>
                                         </div>
                                     </td>
                                 </tr>
                             </c:forEach>
-                            <c:if test="${empty listaPostulantes}">
-                                <tr>
-                                    <td colspan="8" class="text-center py-4 text-muted">No hay postulaciones registradas en este momento.</td>
-                                </tr>
-                            </c:if>
                         </tbody>
                     </table>
                 </div>
-
             </div>
+
+            <c:if test="${not empty respuestasSeleccionadas}">
+                <div class="col-md-5">
+                    <div class="card bg-dark text-white p-4 rounded shadow border border-secondary">
+                        <div class="d-flex justify-content-between align-items-center mb-3 border-bottom border-secondary pb-2">
+                            <h4 class="text-accent m-0">Respuestas (ID: ${idPostulanteVer})</h4>
+                            <a href="/crudpostulantes" class="btn-close btn-close-white"></a>
+                        </div>
+                        <div style="max-height: 450px; overflow-y: auto;" class="pe-2">
+                            <c:forEach var="i" begin="1" end="8">
+                                <c:set var="pregKey" value="PREG${i}"/>
+                                <c:set var="resKey" value="RES${i}"/>
+                                <c:if test="${not empty respuestasSeleccionadas[pregKey]}">
+                                    <div class="mb-3 bg-secondary p-2 rounded">
+                                        <p class="mb-1 text-warning small"><strong>Pregunta ${i}:</strong> ${respuestasSeleccionadas[pregKey]}</p>
+                                        <p class="mb-0 text-white"><strong>R:</strong> ${respuestasSeleccionadas[resKey]}</p>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
+
+            <c:if test="${not empty idPostulanteCitar}">
+                <div class="col-md-5">
+                    <div class="card bg-dark text-white p-4 rounded shadow border border-secondary">
+                        <div class="d-flex justify-content-between align-items-center mb-3 border-bottom border-secondary pb-2">
+                            <h4 class="text-success m-0">Agendar Entrevista (ID: ${idPostulanteCitar})</h4>
+                            <a href="/crudpostulantes" class="btn-close btn-close-white"></a>
+                        </div>
+                        <form action="/crudpostulantes/agendar-cita" method="POST">
+                            <input type="hidden" name="idUser" value="${idPostulanteCitar}">
+                            <div class="mb-3">
+                                <label class="form-label">Enlace de Google Meet</label>
+                                <input type="url" name="linkMeet" class="form-control bg-secondary text-white border-0" required placeholder="https://meet.google.com/abc-defg-hij">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Fecha y Hora Programada</label>
+                                <input type="datetime-local" name="fechaHora" class="form-control bg-secondary text-white border-0" required>
+                            </div>
+                            <button type="submit" class="btn btn-save w-100 mt-3">AGENDAR ENTREVISTA</button>
+                        </form>
+                    </div>
+                </div>
+            </c:if>
         </div>
     </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

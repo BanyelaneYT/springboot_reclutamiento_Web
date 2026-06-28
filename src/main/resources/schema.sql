@@ -11,16 +11,11 @@ CREATE TABLE IF NOT EXISTS categoria_puestos (
 
 CREATE TABLE IF NOT EXISTS questions (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(150),
-    preg1 VARCHAR(255),
-    preg2 VARCHAR(255),
-    preg3 VARCHAR(255),
-    preg4 VARCHAR(255),
-    preg5 VARCHAR(255),
-    preg6 VARCHAR(255),
-    preg7 VARCHAR(255),
-    preg8 VARCHAR(255),
-    estado VARCHAR(50)
+    id_puesto INT, -- Enlazado a categoria_puestos
+    preg1 VARCHAR(255), preg2 VARCHAR(255), preg3 VARCHAR(255),
+    preg4 VARCHAR(255), preg5 VARCHAR(255), preg6 VARCHAR(255),
+    preg7 VARCHAR(255), preg8 VARCHAR(255), estado VARCHAR(50),
+    FOREIGN KEY (id_puesto) REFERENCES categoria_puestos(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS user_inf (
@@ -36,10 +31,20 @@ CREATE TABLE IF NOT EXISTS user_inf (
 CREATE TABLE IF NOT EXISTS preg_recluta (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_user INT,
-    res1 INT, res2 INT, res3 INT, res4 INT,
-    res5 INT, res6 INT, res7 INT, res8 INT,
-    estado VARCHAR(100)
+    res1 TEXT, res2 TEXT, res3 TEXT, res4 TEXT,
+    res5 TEXT, res6 TEXT, res7 TEXT, res8 TEXT,
+    estado VARCHAR(100),
+    FOREIGN KEY (id_user) REFERENCES user_inf(id) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS citas_entrevista (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT,
+    link_meet VARCHAR(255),
+    fecha_hora_entrevista DATETIME,
+    FOREIGN KEY (id_user) REFERENCES user_inf(id) ON DELETE CASCADE
+);
+
 --@CODEX
 CREATE TABLE IF NOT EXISTS usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,

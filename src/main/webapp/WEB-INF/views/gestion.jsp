@@ -39,7 +39,7 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <a href="/crudpostulante" class="card-module">
+                <a href="/crudpostulantes" class="card-module">
                     <div class="icon-box">
                         <i class="fas fas fa-user-tie"></i>
                     </div>
@@ -63,6 +63,15 @@
                     </div>
                     <h4>Gestión de Bitácora</h4>
                     <p>Administre el historial de actividades del sistema.</p>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="/preguntas" class="card-module">
+                    <div class="icon-box">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h4>Gestión de Preguntas</h4>
+                    <p>Administra las preguntas por puesto.</p>
                 </a>
             </div>
             <div class="col-md-6">

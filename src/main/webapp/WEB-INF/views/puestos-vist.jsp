@@ -36,7 +36,9 @@
                                     <span class="fs-5 fw-bold text-success">Sueldo: S/. ${puesto.pago}</span>
                                 </div>
                                 <div>
-                                    <a href="/postular" class="btn-join shadow-lg w-100">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
+                                    <a href="/postular?puestoId=${puesto.id}" class="btn-join shadow-lg w-100">
+                                        POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
