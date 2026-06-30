@@ -27,7 +27,23 @@
         <div class="mb-4">
             <h2 class="text-white">Evaluación y Control de Candidatos</h2>
         </div>
+        <c:if test="${param.error != null}">
+            <div class="alert alert-danger">
+                <c:choose>
+                    <c:when test="${param.error == 'idInvalido'}">ID de postulante inválido.</c:when>
+                    <c:when test="${param.error == 'linkInvalido'}">El enlace de Meet es obligatorio.</c:when>
+                    <c:when test="${param.error == 'fechaInvalida'}">La fecha y hora son obligatorias.</c:when>
+                    <c:when test="${param.error == 'errorGeneral'}">Error al agendar la cita. Inténtalo nuevamente.</c:when>
+                    <c:otherwise>Error desconocido.</c:otherwise>
+                </c:choose>
+            </div>
+        </c:if>
 
+        <c:if test="${param.success != null}">
+            <div class="alert alert-success">
+                ¡Entrevista agendada correctamente!
+            </div>
+        </c:if>
         <div class="row">
             <div class="${(not empty respuestasSeleccionadas || not empty idPostulanteCitar) ? 'col-md-7' : 'col-md-12'}">
                 <div class="table-responsive bg-dark p-3 rounded shadow">
@@ -38,6 +54,7 @@
                                 <th>DNI</th>
                                 <th>Postulante</th>
                                 <th>Puesto</th>
+                                <th>Cuestionario</th>
                                 <th>Estado</th>
                                 <th>Respuestas</th>
                                 <th class="text-center">Acciones</th>
@@ -50,6 +67,16 @@
                                     <td>${postulante.dni}</td>
                                     <td class="fw-bold">${postulante.nombre}</td>
                                     <td class="text-accent">${postulante.nombrePuesto}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${postulante.idQuest > 0}">
+                                                <span class="badge bg-secondary">ID: ${postulante.idQuest}</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="text-muted small">No aplica</span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
                                     <td><span class="badge bg-warning text-dark">${postulante.estado}</span></td>
                                     <td>
                                         <a href="/crudpostulantes?verRespuestasId=${postulante.id}" class="btn btn-sm btn-primary">
@@ -101,7 +128,7 @@
                             <a href="/crudpostulantes" class="btn-close btn-close-white"></a>
                         </div>
                         <form action="/crudpostulantes/agendar-cita" method="POST">
-                            <input type="hidden" name="idUser" value="${idPostulanteCitar}">
+                            <input type="hidden" name="idUser" value="${idPostulanteCitar}" required>
                             <div class="mb-3">
                                 <label class="form-label">Enlace de Google Meet</label>
                                 <input type="url" name="linkMeet" class="form-control bg-secondary text-white border-0" required placeholder="https://meet.google.com/abc-defg-hij">
