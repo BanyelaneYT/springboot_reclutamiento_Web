@@ -123,7 +123,7 @@
         </form>
 
         <form action="/postular/guardar" method="POST">
-            <input type="hidden" name="idPuesto" value="${puestoSeleccionadoId}">
+            <input type="hidden" name="puesto" value="${puestoSeleccionadoId}">
 
             <h4 class="mb-4 pb-2 border-bottom border-secondary" style="font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 18px;">
                 <i class="fas fa-user me-2" style="color: #e03a3c;"></i>Datos Personales

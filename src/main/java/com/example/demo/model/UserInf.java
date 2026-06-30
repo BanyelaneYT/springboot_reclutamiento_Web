@@ -5,7 +5,7 @@ public class UserInf {
     private int dni;
     private String nombre;
     private int edad;
-    private int idQuest;
+    private Integer idQuest;
     private int puesto;
     private String estado;
 
@@ -23,8 +23,8 @@ public class UserInf {
     public void setNombre(String nombre) { this.nombre = nombre; }
     public int getEdad() { return edad; }
     public void setEdad(int edad) { this.edad = edad; }
-    public int getIdQuest() { return idQuest; }
-    public void setIdQuest(int idQuest) { this.idQuest = idQuest; }
+    public Integer getIdQuest() { return idQuest; }
+    public void setIdQuest(Integer idQuest) { this.idQuest = idQuest; }
     public int getPuesto() { return puesto; }
     public void setPuesto(int puesto) { this.puesto = puesto; }
     public String getEstado() { return estado; }
