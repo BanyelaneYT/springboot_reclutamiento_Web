@@ -75,25 +75,33 @@ public class ViewController {
     }
 
     @GetMapping("/postular")
-    public String mostrarFormularioPostular(@RequestParam(required = false) Integer puestoId, Model model) {
-        // 1. Cargar la lista completa de puestos activos para el select box
-        String sqlPuestos = "SELECT id, nombre, tipo, descripcion, pres_rem AS presRem, horario, estado, pago FROM categoria_puestos WHERE estado = 1";
-        List<CategoriaPuestos> puestosActivos = jdbcTemplate.query(sqlPuestos, new BeanPropertyRowMapper<>(CategoriaPuestos.class));
-        model.addAttribute("listaCatalogo", puestosActivos);
+    public String mostrarPostulacion(
+            @RequestParam(value = "puestoId", required = false) Integer puestoId,
+            Model model) {
 
-        // 2. Enviar el ID del puesto seleccionado
-        model.addAttribute("puestoSeleccionadoId", puestoId);
+        // Listar todos los puestos para el combobox superior
+        List<CategoriaPuestos> puestos = jdbcTemplate.query(
+                "SELECT * FROM categoria_puestos WHERE estado = 1",
+                new BeanPropertyRowMapper<>(CategoriaPuestos.class)
+        );
+        model.addAttribute("puestos", puestos);
 
-        // 3. PURE JAVA: Si hay un puesto seleccionado, traer sus preguntas directamente desde la base de datos
         if (puestoId != null) {
-            String sqlPreguntas = "SELECT * FROM questions WHERE id_puesto = ? AND estado = 'Activo' LIMIT 1";
-            List<Questions> listaPreguntas = jdbcTemplate.query(sqlPreguntas, new BeanPropertyRowMapper<>(Questions.class), puestoId);
+            model.addAttribute("puestoSeleccionadoId", puestoId);
+
+            // Buscar las preguntas asociadas al puesto
+            String sqlQuest = "SELECT * FROM questions WHERE id_puesto = ? LIMIT 1";
+            List<Questions> listaPreguntas = jdbcTemplate.query(sqlQuest, new BeanPropertyRowMapper<>(Questions.class), puestoId);
 
             if (!listaPreguntas.isEmpty()) {
-                model.addAttribute("preguntasPuesto", listaPreguntas.get(0));
+                model.addAttribute("preguntas", listaPreguntas.get(0));
+            } else {
+                // SI NO HAY PREGUNTAS, enviamos un objeto vacío con un nombre para evitar el NullPointerException en el JSP
+                Questions vacia = new Questions();
+                vacia.setNombre("General (Sin preguntas específicas)");
+                model.addAttribute("preguntas", vacia);
             }
         }
-
         return "postular";
     }
 

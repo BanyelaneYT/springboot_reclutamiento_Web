@@ -10,14 +10,14 @@
     <link rel="stylesheet" href="/css/catcrud.css">
     <link rel="stylesheet" href="/css/Header.css">
 </head>
-<body>
+<body class="bg-dark text-white">
 
-    <header id="header" class="fixed-top d-flex align-items-center">
+    <header id="header" class="fixed-top d-flex align-items-center mb-4">
         <div class="container d-flex align-items-center justify-content-between">
-            <a href="/gestion" class="logo">CallypsoCall</a>
+            <a href="/gestion" class="logo text-decoration-none text-white fw-bold fs-4">CallypsoCall</a>
             <nav id="navbar" class="navbar">
                 <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
-                    <li><a class="getstarted" href="/main">Cerrar Sesión</a></li>
+                    <li><a class="btn btn-outline-light btn-sm" href="/main">Cerrar Sesión</a></li>
                 </ul>
             </nav>
         </div>
@@ -25,13 +25,13 @@
 
     <div class="container mt-5 pt-5">
         <div class="mb-4">
-            <h2 class="text-white">Evaluación y Control de Candidatos</h2>
+            <h2>Evaluación y Control de Candidatos</h2>
         </div>
 
         <div class="row">
             <div class="${(not empty respuestasSeleccionadas || not empty idPostulanteCitar) ? 'col-md-7' : 'col-md-12'}">
-                <div class="table-responsive bg-dark p-3 rounded shadow">
-                    <table class="table table-dark table-hover align-middle">
+                <div class="table-responsive bg-secondary bg-opacity-10 p-3 rounded shadow border border-secondary">
+                    <table class="table table-dark table-hover align-middle m-0">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -49,8 +49,23 @@
                                     <td>${postulante.id}</td>
                                     <td>${postulante.dni}</td>
                                     <td class="fw-bold">${postulante.nombre}</td>
-                                    <td class="text-accent">${postulante.nombrePuesto}</td>
-                                    <td><span class="badge bg-warning text-dark">${postulante.estado}</span></td>
+                                    <td class="text-info">${postulante.nombrePuesto}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${postulante.estado == 'APROBADO'}">
+                                                <span class="badge bg-success">${postulante.estado}</span>
+                                            </c:when>
+                                            <c:when test="${postulante.estado == 'RECHAZADO'}">
+                                                <span class="badge bg-danger">${postulante.estado}</span>
+                                            </c:when>
+                                            <c:when test="${postulante.estado == 'ENTREVISTA'}">
+                                                <span class="badge bg-info text-dark">${postulante.estado}</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span class="badge bg-warning text-dark">${postulante.estado}</span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
                                     <td>
                                         <a href="/crudpostulantes?verRespuestasId=${postulante.id}" class="btn btn-sm btn-primary">
                                             <i class="fas fa-eye"></i> Ver Respuestas
@@ -74,15 +89,15 @@
                 <div class="col-md-5">
                     <div class="card bg-dark text-white p-4 rounded shadow border border-secondary">
                         <div class="d-flex justify-content-between align-items-center mb-3 border-bottom border-secondary pb-2">
-                            <h4 class="text-accent m-0">Respuestas (ID: ${idPostulanteVer})</h4>
+                            <h4 class="text-info m-0">Respuestas (ID: ${idPostulanteVer})</h4>
                             <a href="/crudpostulantes" class="btn-close btn-close-white"></a>
                         </div>
                         <div style="max-height: 450px; overflow-y: auto;" class="pe-2">
                             <c:forEach var="i" begin="1" end="8">
-                                <c:set var="pregKey" value="PREG${i}"/>
-                                <c:set var="resKey" value="RES${i}"/>
-                                <c:if test="${not empty respuestasSeleccionadas[pregKey]}">
-                                    <div class="mb-3 bg-secondary p-2 rounded">
+                                <c:set var="pregKey" value="preg${i}"/>
+                                <c:set var="resKey" value="res${i}"/>
+                                <c:if test="${not empty respuestasSeleccionadas and not empty respuestasSeleccionadas[pregKey]}">
+                                    <div class="mb-3 bg-secondary bg-opacity-25 p-3 rounded border border-secondary">
                                         <p class="mb-1 text-warning small"><strong>Pregunta ${i}:</strong> ${respuestasSeleccionadas[pregKey]}</p>
                                         <p class="mb-0 text-white"><strong>R:</strong> ${respuestasSeleccionadas[resKey]}</p>
                                     </div>
@@ -103,14 +118,14 @@
                         <form action="/crudpostulantes/agendar-cita" method="POST">
                             <input type="hidden" name="idUser" value="${idPostulanteCitar}">
                             <div class="mb-3">
-                                <label class="form-label">Enlace de Google Meet</label>
+                                <label class="form-label small text-white-50">Enlace de Google Meet</label>
                                 <input type="url" name="linkMeet" class="form-control bg-secondary text-white border-0" required placeholder="https://meet.google.com/abc-defg-hij">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Fecha y Hora Programada</label>
+                                <label class="form-label small text-white-50">Fecha y Hora Programada</label>
                                 <input type="datetime-local" name="fechaHora" class="form-control bg-secondary text-white border-0" required>
                             </div>
-                            <button type="submit" class="btn btn-save w-100 mt-3">AGENDAR ENTREVISTA</button>
+                            <button type="submit" class="btn btn-success w-100 mt-3">AGENDAR ENTREVISTA</button>
                         </form>
                     </div>
                 </div>

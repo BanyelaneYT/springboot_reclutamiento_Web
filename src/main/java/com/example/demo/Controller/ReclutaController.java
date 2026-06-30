@@ -21,18 +21,29 @@ public class ReclutaController {
 
     @GetMapping("/crudpostulantes")
     public String listarPostulantes(
-            @RequestParam(value = "verRespuestasId", required = false) Integer verRespuestasId,
-            @RequestParam(value = "citarId", required = false) Integer citarId,
+            @RequestParam Map<String, String> params,
             Model model) {
 
-        // 1. Carga normal de la lista de postulantes
+        Integer verRespuestasId = null;
+        Integer citarId = null;
+
+        try {
+            if (params.containsKey("verRespuestasId") && !params.get("verRespuestasId").isEmpty()) {
+                verRespuestasId = Integer.parseInt(params.get("verRespuestasId"));
+            }
+            if (params.containsKey("citarId") && !params.get("citarId").isEmpty()) {
+                citarId = Integer.parseInt(params.get("citarId"));
+            }
+        } catch (NumberFormatException e) {
+            // Ignorar errores de conversión
+        }
+
         String sql = "SELECT u.*, c.nombre AS nombrePuesto " +
                 "FROM user_inf u " +
                 "LEFT JOIN categoria_puestos c ON u.puesto = c.id";
         List<UserInf> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(UserInf.class));
         model.addAttribute("listaPostulantes", lista);
 
-        // 2. PURO JAVA: Si solicitó ver respuestas, cargarlas directamente al modelo
         if (verRespuestasId != null) {
             String sqlRespuestas = "SELECT q.preg1, r.res1, q.preg2, r.res2, q.preg3, r.res3, q.preg4, r.res4, " +
                     "q.preg5, r.res5, q.preg6, r.res6, q.preg7, r.res7, q.preg8, r.res8 " +
@@ -44,10 +55,13 @@ public class ReclutaController {
             if (!res.isEmpty()) {
                 model.addAttribute("respuestasSeleccionadas", res.get(0));
                 model.addAttribute("idPostulanteVer", verRespuestasId);
+            } else {
+                model.addAttribute("respuestasSeleccionadas", null);
             }
+        } else {
+            model.addAttribute("respuestasSeleccionadas", null);
         }
 
-        // 3. PURO JAVA: Si solicitó citar, pasar el ID para habilitar el formulario
         if (citarId != null) {
             model.addAttribute("idPostulanteCitar", citarId);
         }
@@ -55,7 +69,6 @@ public class ReclutaController {
         return "crudpostulantes";
     }
 
-    // API para retornar las preguntas asignadas a un puesto mediante AJAX
     @GetMapping("/api/preguntas-por-puesto/{idPuesto}")
     @ResponseBody
     public List<Questions> obtenerPreguntasPorPuesto(@PathVariable int idPuesto) {
@@ -63,7 +76,6 @@ public class ReclutaController {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Questions.class), idPuesto);
     }
 
-    // Endpoint para ver las respuestas en ventana modal o JSON
     @GetMapping("/crudpostulantes/respuestas/{idUser}")
     @ResponseBody
     public Map<String, Object> verRespuestas(@PathVariable int idUser) {
@@ -77,60 +89,112 @@ public class ReclutaController {
         return res.isEmpty() ? null : res.get(0);
     }
 
-    // Guardado de postulante modificado para respuestas abiertas en String
-    @PostMapping("/reclutar/guardar")
-    public String guardarPostulante(@RequestParam int dni, @RequestParam String nombre,
-                                    @RequestParam int edad, @RequestParam int puesto,
-                                    @RequestParam(defaultValue="") String res1, @RequestParam(defaultValue="") String res2,
-                                    @RequestParam(defaultValue="") String res3, @RequestParam(defaultValue="") String res4,
-                                    @RequestParam(defaultValue="") String res5, @RequestParam(defaultValue="") String res6,
-                                    @RequestParam(defaultValue="") String res7, @RequestParam(defaultValue="") String res8) {
+    // CORREGIDO: Solución al error de id_quest NULL de la base de datos
+    @PostMapping("/postular/guardar")
+    public String guardarPostulacion(@RequestParam Map<String, String> todasLasParams) {
+        try {
+            // 1. Validar y recuperar el DNI como int
+            String dniStr = todasLasParams.get("dni");
+            if (dniStr == null || dniStr.trim().isEmpty()) {
+                return "redirect:/postular?error=dni_vacio";
+            }
+            int dni = Integer.parseInt(dniStr.trim());
 
-        String sqlCheck = "SELECT COUNT(*) FROM user_inf WHERE dni = ?";
-        Integer count = jdbcTemplate.queryForObject(sqlCheck, Integer.class, dni);
-        if (count != null && count > 0) {
-            return "redirect:/postular?error=duplicado";
+            // 2. Leer nombre, edad y puesto
+            String nombre = todasLasParams.get("nombre");
+            int idPuesto = Integer.parseInt(todasLasParams.get("puesto"));
+
+            int edad = 18;
+            if (todasLasParams.containsKey("edad") && !todasLasParams.get("edad").isEmpty()) {
+                edad = Integer.parseInt(todasLasParams.get("edad"));
+            }
+
+            // 3. Obtener el id_quest asociado al puesto
+            Integer idQuestReal = null;
+            try {
+                String sqlBuscarQuest = "SELECT id FROM questions WHERE id_puesto = ? LIMIT 1";
+                idQuestReal = jdbcTemplate.queryForObject(sqlBuscarQuest, Integer.class, idPuesto);
+            } catch (Exception e) {
+                idQuestReal = null; // Permite guardar nulo si el puesto no tiene cuestionario
+            }
+
+            // 4. Registrar al postulante en user_inf
+            String sqlUser = "INSERT INTO user_inf (dni, nombre, edad, id_quest, puesto, estado) VALUES (?, ?, ?, ?, ?, ?)";
+            jdbcTemplate.update(sqlUser, dni, nombre, edad, idQuestReal, idPuesto, "PENDIENTE EN EVALUACION");
+
+            // 5. Recuperar el último ID autonumérico insertado
+            Integer idUser = jdbcTemplate.queryForObject("SELECT LAST_INSERT_ID()", Integer.class);
+
+            // 6. Registrar respuestas convirtiendo de forma segura cualquier "" en "No aplica"
+            String sqlPreg = "INSERT INTO preg_recluta (id_user, res1, res2, res3, res4, res5, res6, res7, res8, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            jdbcTemplate.update(sqlPreg,
+                    idUser,
+                    obtenerValorSeguro(todasLasParams.get("res1")),
+                    obtenerValorSeguro(todasLasParams.get("res2")),
+                    obtenerValorSeguro(todasLasParams.get("res3")),
+                    obtenerValorSeguro(todasLasParams.get("res4")),
+                    obtenerValorSeguro(todasLasParams.get("res5")),
+                    obtenerValorSeguro(todasLasParams.get("res6")),
+                    obtenerValorSeguro(todasLasParams.get("res7")),
+                    obtenerValorSeguro(todasLasParams.get("res8")),
+                    "PENDIENTE EN EVALUACION"
+            );
+
+        } catch (Exception e) {
+            System.err.println("Error al procesar la postulación: ");
+            e.printStackTrace();
+            return "redirect:/postular?error=true";
         }
 
-        // Las respuestas abiertas quedan en estado "PENDIENTE EN EVALUACION" para revisión manual de RRHH
-        String estadoInicial = "PENDIENTE EN EVALUACION";
-
-        String sqlUser = "INSERT INTO user_inf (dni, nombre, edad, puesto, estado) VALUES (?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sqlUser, dni, nombre, edad, puesto, estadoInicial);
-
-        String sqlGetId = "SELECT id FROM user_inf WHERE dni = ? ORDER BY id DESC LIMIT 1";
-        Integer idUsuarioGen = jdbcTemplate.queryForObject(sqlGetId, Integer.class, dni);
-
-        if (idUsuarioGen != null) {
-            String sqlPreg = "INSERT INTO preg_recluta (id_user, res1, res2, res3, res4, res5, res6, res7, res8, estado) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            jdbcTemplate.update(sqlPreg, idUsuarioGen, res1, res2, res3, res4, res5, res6, res7, res8, estadoInicial);
-        }
-
-        return "redirect:/consultar-estado";
+        return "redirect:/crudpostulantes";
     }
 
-    // Agendar entrevista guardando el link y la fecha en la nueva tabla
+    // Función auxiliar interna para evitar NumberFormatException en las respuestas vacías
+    private String obtenerValorSeguro(String valor) {
+        if (valor == null || valor.trim().isEmpty()) {
+            return "No aplica";
+        }
+        return valor.trim();
+    }
     @PostMapping("/crudpostulantes/agendar-cita")
-    public String agendarCita(@RequestParam int idUser,
-                              @RequestParam String linkMeet,
-                              @RequestParam String fechaHora) {
+    public String agendarCita(@RequestParam Map<String, String> params) {
+        try {
+            String idUserStr = params.get("idUser");
+            String linkMeet = params.get("linkMeet");
+            String fechaHora = params.get("fechaHora");
 
-        String sqlUpdateUser = "UPDATE user_inf SET estado = 'ENTREVISTA' WHERE id = ?";
-        jdbcTemplate.update(sqlUpdateUser, idUser);
-        jdbcTemplate.update("UPDATE preg_recluta SET estado = 'ENTREVISTA' WHERE id_user = ?", idUser);
+            if (idUserStr == null || linkMeet == null || fechaHora == null || idUserStr.isEmpty()) {
+                return "redirect:/crudpostulantes?error=Incompletos";
+            }
 
-        // Limpiar citas previas del usuario si existieran y registrar la nueva
-        jdbcTemplate.update("DELETE FROM citas_entrevista WHERE id_user = ?", idUser);
-        String sqlCita = "INSERT INTO citas_entrevista (id_user, link_meet, fecha_hora_entrevista) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sqlCita, idUser, linkMeet, fechaHora);
+            int idUser = Integer.parseInt(idUserStr);
+
+            String sqlUpdateUser = "UPDATE user_inf SET estado = 'ENTREVISTA' WHERE id = ?";
+            jdbcTemplate.update(sqlUpdateUser, idUser);
+
+            jdbcTemplate.update("UPDATE preg_recluta SET estado = 'ENTREVISTA' WHERE id_user = ?", idUser);
+            jdbcTemplate.update("DELETE FROM citas_entrevista WHERE id_user = ?", idUser);
+
+            String sqlCita = "INSERT INTO citas_entrevista (id_user, link_meet, fecha_hora_entrevista) VALUES (?, ?, ?)";
+            jdbcTemplate.update(sqlCita, idUser, linkMeet, fechaHora);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/crudpostulantes?error=Exception";
+        }
 
         return "redirect:/crudpostulantes";
     }
 
     @GetMapping("/crudpostulantes/estado/{id}/{accion}")
-    public String cambiarEstado(@PathVariable int id, @PathVariable String accion) {
-        String estadoDb = accion.equals("aprobar") ? "APROBADO" : "RECHAZADO";
+    public String cambiarEstado(@PathVariable("id") int id, @PathVariable("accion") String accion) {
+        String estadoDb = "RECHAZADO";
+        if ("aprobar".equalsIgnoreCase(accion)) {
+            estadoDb = "APROBADO";
+        } else if ("rechazar".equalsIgnoreCase(accion)) {
+            estadoDb = "RECHAZADO";
+        }
+
         jdbcTemplate.update("UPDATE user_inf SET estado = ? WHERE id = ?", estadoDb, id);
         jdbcTemplate.update("UPDATE preg_recluta SET estado = ? WHERE id_user = ?", estadoDb, id);
         return "redirect:/crudpostulantes";
@@ -148,7 +212,6 @@ public class ReclutaController {
 
     @PostMapping("/consultar-estado")
     public String procesarConsultaEstado(@RequestParam("dni") int dni, Model model) {
-        // Obtenemos los datos cruzados con la cita programada si existe
         String sql = "SELECT u.*, ce.link_meet, ce.fecha_hora_entrevista, " +
                 "CASE WHEN ce.fecha_hora_entrevista <= NOW() THEN 1 ELSE 0 END as LINKHABILITADO " +
                 "FROM user_inf u " +

@@ -1,43 +1,62 @@
-        .pregunta-card {
-        background: #ffffff;
-        padding: 20px;
-        border-left: 5px solid #ca0000;
-        margin-bottom: 20px;
-        border-radius: 4px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        text-align: left;
+body {
+            background-color: #1d1d1d;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
         }
-        /* Oculta las flechas en Chrome, Safari, Edge y Opera */
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        .my-4 {
-            margin-top: 0.5rem !important;
-            margin-bottom: 0.5rem !important;
-        }
-        .container {
-            margin: 60px auto 20px auto; /* Separación de 140px para que el header fixed-top no tape el título */
-            flex: 1; /* Obliga al footer a irse al fondo de la pantalla si hay poco contenido */
-            box-sizing: border-box;
-        }
-        /* Oculta las flechas en Firefox */
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
-        .pregunta-card label {
-            display: block;
-            font-weight: 600;
+        .page-title {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #fff;
             margin-bottom: 10px;
-            color: #0a1f44;
         }
-        select {
+        .form-container input[type="text"],
+        .form-container input[type="number"],
+        .form-container select {
             width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            background-color: #fafafa;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 15px;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 14px;
         }
-        .error-msg { color: #ca0000; font-weight: bold; background: #ffe6e6; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
-        .success-msg { color: #28a745; font-weight: bold; background: #e6ffe6; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
+        .form-container input:focus,
+        .form-container select:focus {
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            box-shadow: none;
+        }
+        .form-container select option {
+            background: #1d1d1d;
+            color: #fff;
+        }
+        .question-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 6px;
+            height: 100%;
+        }
+        .question-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #e5e5e5;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .btn-submit-call {
+            background: #e03a3c;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .btn-submit-call:hover {
+            background: #ca2a2c;
+        }
