@@ -38,14 +38,8 @@
                 </c:choose>
             </div>
         </c:if>
-
-        <c:if test="${param.success != null}">
-            <div class="alert alert-success">
-                ¡Entrevista agendada correctamente!
-            </div>
-        </c:if>
         <div class="row">
-            <div class="${(not empty respuestasSeleccionadas || not empty idPostulanteCitar) ? 'col-md-7' : 'col-md-12'}">
+            <div class="col-12">
                 <div class="table-responsive bg-dark p-3 rounded shadow">
                     <table class="table table-dark table-hover align-middle">
                         <thead>
@@ -54,38 +48,21 @@
                                 <th>DNI</th>
                                 <th>Postulante</th>
                                 <th>Puesto</th>
-                                <th>Cuestionario</th>
                                 <th>Estado</th>
-                                <th>Respuestas</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="postulante" items="${listaPostulantes}">
-                                <tr class="${idPostulanteVer == postulante.id || idPostulanteCitar == postulante.id ? 'table-active' : ''}">
+                                <tr class="${idPostulanteCitar == postulante.id ? 'table-active' : ''}">
                                     <td>${postulante.id}</td>
                                     <td>${postulante.dni}</td>
                                     <td class="fw-bold">${postulante.nombre}</td>
                                     <td class="text-accent">${postulante.nombrePuesto}</td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${postulante.idQuest > 0}">
-                                                <span class="badge bg-secondary">ID: ${postulante.idQuest}</span>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span class="text-muted small">No aplica</span>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
                                     <td><span class="badge bg-warning text-dark">${postulante.estado}</span></td>
-                                    <td>
-                                        <a href="/crudpostulantes?verRespuestasId=${postulante.id}" class="btn btn-sm btn-primary">
-                                            <i class="fas fa-eye"></i> Ver Respuestas
-                                        </a>
-                                    </td>
                                     <td class="text-center">
                                         <div class="btn-group">
-                                            <a href="/crudpostulantes?citarId=${postulante.id}" class="btn btn-sm btn-info text-white">Citar</a>
+                                            <button type="button" class="btn btn-sm btn-info text-white btn-citar" data-bs-toggle="modal" data-bs-target="#citaModal" data-id="${postulante.id}" data-name="${postulante.nombre}">Citar</button>
                                             <a href="/crudpostulantes/estado/${postulante.id}/aprobar" class="btn btn-sm btn-success">Aprobar</a>
                                             <a href="/crudpostulantes/estado/${postulante.id}/rechazar" class="btn btn-sm btn-danger">Rechazar</a>
                                         </div>
@@ -96,53 +73,36 @@
                     </table>
                 </div>
             </div>
-
-            <c:if test="${not empty respuestasSeleccionadas}">
-                <div class="col-md-5">
-                    <div class="card bg-dark text-white p-4 rounded shadow border border-secondary">
-                        <div class="d-flex justify-content-between align-items-center mb-3 border-bottom border-secondary pb-2">
-                            <h4 class="text-accent m-0">Respuestas (ID: ${idPostulanteVer})</h4>
-                            <a href="/crudpostulantes" class="btn-close btn-close-white"></a>
-                        </div>
-                        <div style="max-height: 450px; overflow-y: auto;" class="pe-2">
-                            <c:forEach var="i" begin="1" end="8">
-                                <c:set var="pregKey" value="PREG${i}"/>
-                                <c:set var="resKey" value="RES${i}"/>
-                                <c:if test="${not empty respuestasSeleccionadas[pregKey]}">
-                                    <div class="mb-3 bg-secondary p-2 rounded">
-                                        <p class="mb-1 text-warning small"><strong>Pregunta ${i}:</strong> ${respuestasSeleccionadas[pregKey]}</p>
-                                        <p class="mb-0 text-white"><strong>R:</strong> ${respuestasSeleccionadas[resKey]}</p>
-                                    </div>
-                                </c:if>
-                            </c:forEach>
-                        </div>
-                    </div>
-                </div>
-            </c:if>
-
-            <c:if test="${not empty idPostulanteCitar}">
-                <div class="col-md-5">
-                    <div class="card bg-dark text-white p-4 rounded shadow border border-secondary">
-                        <div class="d-flex justify-content-between align-items-center mb-3 border-bottom border-secondary pb-2">
-                            <h4 class="text-success m-0">Agendar Entrevista (ID: ${idPostulanteCitar})</h4>
-                            <a href="/crudpostulantes" class="btn-close btn-close-white"></a>
-                        </div>
-                        <form action="/crudpostulantes/agendar-cita" method="POST">
-                            <input type="hidden" name="idUser" value="${idPostulanteCitar}" required>
-                            <div class="mb-3">
-                                <label class="form-label">Enlace de Google Meet</label>
-                                <input type="url" name="linkMeet" class="form-control bg-secondary text-white border-0" required placeholder="https://meet.google.com/abc-defg-hij">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Fecha y Hora Programada</label>
-                                <input type="datetime-local" name="fechaHora" class="form-control bg-secondary text-white border-0" required>
-                            </div>
-                            <button type="submit" class="btn btn-save w-100 mt-3">AGENDAR ENTREVISTA</button>
-                        </form>
-                    </div>
-                </div>
-            </c:if>
         </div>
     </div>
+
+    <div class="modal fade" id="citaModal" tabindex="-1" aria-labelledby="citaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header border-bottom border-secondary">
+                    <h5 class="modal-title" id="citaModalLabel">Agendar Entrevista</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <form action="/crudpostulantes/agendar-cita" method="POST">
+                    <div class="modal-body">
+                        <input type="hidden" id="idUserInput" name="idUser" value="" />
+                        <div class="mb-3">
+                            <label class="form-label">Enlace de Google Meet</label>
+                            <input type="url" name="linkMeet" class="form-control bg-secondary text-white border-0" required placeholder="https://meet.google.com/abc-defg-hij" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Fecha y Hora Programada</label>
+                            <input type="datetime-local" name="fechaHora" class="form-control bg-secondary text-white border-0" required />
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top border-secondary">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-save">AGENDAR ENTREVISTA</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

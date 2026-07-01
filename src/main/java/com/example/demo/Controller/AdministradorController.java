@@ -3,7 +3,7 @@
 
 package com.example.demo.Controller;
 
-import com.example.demo.model.Usuarios;
+import com.example.demo.model.Administrador;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-public class UsuariosController {
+public class AdministradorController {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -26,7 +26,7 @@ public class UsuariosController {
     @GetMapping("/usuarios")
     public String usuario(Model model) {
         String sql = "SELECT * FROM usuarios";
-        List<Usuarios> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Usuarios>(Usuarios.class));
+        List<Administrador> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Administrador>(Administrador.class));
 
         model.addAttribute("listaUsuarios", lista);
         return "usuarios-crud";
@@ -36,14 +36,14 @@ public class UsuariosController {
     @PostMapping("/usuarios/actualizar")
     public String actualizar(@RequestParam int id, @RequestParam String correo,
                              @RequestParam String contrasena) {
-        String sql = "UPDATE usuarios SET correo=?, contrasena=? WHERE id=?";
+        String sql = "UPDATE administradores SET correo=?, contrasena=? WHERE id=?";
         jdbcTemplate.update(sql, correo, contrasena, id);
         return "redirect:/usuarios";
     }
     //ELIMINAR (DELETE)
     @GetMapping("/usuarios/eliminar/{id}")
     public String eliminar(@PathVariable int id) {
-        String sql = "DELETE from usuarios WHERE id=?";
+        String sql = "DELETE from administradores WHERE id=?";
         jdbcTemplate.update(sql, id);
         return "redirect:/usuarios";
     }
@@ -52,7 +52,7 @@ public class UsuariosController {
     @PostMapping("/usuarios/guardar")
     public String guardar(@RequestParam String correo,
                           @RequestParam String contrasena){
-        String sql = "INSERT INTO usuarios (correo, contrasena) VALUES (?, ?)";
+        String sql = "INSERT INTO administradores (correo, contrasena) VALUES (?, ?)";
         jdbcTemplate.update(sql, correo, contrasena);
         return "redirect:/usuarios";
     }
