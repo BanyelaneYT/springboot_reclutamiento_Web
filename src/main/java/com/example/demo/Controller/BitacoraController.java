@@ -26,7 +26,7 @@ public class BitacoraController {
                 "       b.accion, " +
                 "       b.fecha_registro AS fechaRegistro " +
                 "FROM bitacora b " +
-                "LEFT JOIN usuarios u ON b.id_usuario = u.id " +
+                "LEFT JOIN administradores u ON b.id_usuario = u.id " +
                 "LEFT JOIN user_inf r ON b.id_recluta = r.id " +
                 "ORDER BY b.fecha_registro DESC";
 

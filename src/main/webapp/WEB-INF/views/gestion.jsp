@@ -66,15 +66,6 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <a href="/preguntas" class="card-module">
-                    <div class="icon-box">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <h4>Gestión de Preguntas</h4>
-                    <p>Administra las preguntas por puesto.</p>
-                </a>
-            </div>
-            <div class="col-md-6">
                 <a href="/metricas" class="card-module">
                     <div class="icon-box">
                         <i class="fas fa-user-tie"></i>

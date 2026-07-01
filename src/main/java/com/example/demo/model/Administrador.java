@@ -3,16 +3,16 @@
 
 package com.example.demo.model;
 
-public class Usuarios {
+public class Administrador {
 
     private Integer id;
     private String correo;
     private String contrasena;
 
-    public Usuarios() {
+    public Administrador() {
     }
     //Constructor
-    public Usuarios(Integer id, String correo, String contrasena) {
+    public Administrador(Integer id, String correo, String contrasena) {
         this.id = id;
         this.correo = correo;
         this.contrasena = contrasena;

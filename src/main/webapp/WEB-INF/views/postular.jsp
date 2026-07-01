@@ -111,7 +111,7 @@
                 <label class="fw-bold mb-2" style="color: #e03a3c; font-size: 14px; letter-spacing: 0.5px;">PUESTO AL QUE POSTULA:</label>
                 <div class="input-group">
                     <select name="puestoId" onchange="this.form.submit()" required>
-                        <option value="">-- Selecciona un puesto laboral para cargar las preguntas --</option>
+                <option value="">-- Selecciona un puesto laboral --</option>
                         <c:forEach var="puesto" items="${listaCatalogo}">
                             <option value="${puesto.id}" ${puesto.id == puestoSeleccionadoId ? 'selected' : ''}>
                                 ${puesto.nombre} (${puesto.presRem} | ${puesto.tipo})
@@ -143,97 +143,6 @@
                     <input type="number" name="edad" required placeholder="Ej. 24" min="18" max="99">
                 </div>
             </div>
-
-            <c:if test="${not empty puestoSeleccionadoId}">
-                <h4 class="mb-4 pb-2 border-bottom border-secondary" style="font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 18px;">
-                    <i class="fas fa-file-alt me-2" style="color: #e03a3c;"></i>Evaluación de Aptitud Técnica
-                </h4>
-
-                <div class="row g-4">
-                    <c:choose>
-                        <c:when test="${not empty preguntasPuesto}">
-
-                            <c:if test="${not empty preguntasPuesto.preg1}">
-                                <div class="col-md-6">
-                                    <div class="question-box">
-                                        <label class="question-label">1. ${preguntasPuesto.preg1}</label>
-                                        <input type="text" name="res1" required placeholder="Escriba su respuesta obligatoria...">
-                                    </div>
-                                </div>
-                            </c:if>
-
-                            <c:if test="${not empty preguntasPuesto.preg2}">
-                                <div class="col-md-6">
-                                    <div class="question-box">
-                                        <label class="question-label">2. ${preguntasPuesto.preg2}</label>
-                                        <input type="text" name="res2" placeholder="Respuesta opcional...">
-                                    </div>
-                                </div>
-                            </c:if>
-
-                            <c:if test="${not empty preguntasPuesto.preg3}">
-                                <div class="col-md-6">
-                                    <div class="question-box">
-                                        <label class="question-label">3. ${preguntasPuesto.preg3}</label>
-                                        <input type="text" name="res3" placeholder="Respuesta opcional...">
-                                    </div>
-                                </div>
-                            </c:if>
-
-                            <c:if test="${not empty preguntasPuesto.preg4}">
-                                <div class="col-md-6">
-                                    <div class="question-box">
-                                        <label class="question-label">4. ${preguntasPuesto.preg4}</label>
-                                        <input type="text" name="res4" placeholder="Respuesta opcional...">
-                                    </div>
-                                </div>
-                            </c:if>
-
-                            <c:if test="${not empty preguntasPuesto.preg5}">
-                                <div class="col-md-6">
-                                    <div class="question-box">
-                                        <label class="question-label">5. ${preguntasPuesto.preg5}</label>
-                                        <input type="text" name="res5" placeholder="Respuesta opcional...">
-                                    </div>
-                                </div>
-                            </c:if>
-
-                            <c:if test="${not empty preguntasPuesto.preg6}">
-                                <div class="col-md-6">
-                                    <div class="question-box">
-                                        <label class="question-label">6. ${preguntasPuesto.preg6}</label>
-                                        <input type="text" name="res6" placeholder="Respuesta opcional...">
-                                    </div>
-                                </div>
-                            </c:if>
-
-                            <c:if test="${not empty preguntasPuesto.preg7}">
-                                <div class="col-md-6">
-                                    <div class="question-box">
-                                        <label class="question-label">7. ${preguntasPuesto.preg7}</label>
-                                        <input type="text" name="res7" placeholder="Respuesta opcional...">
-                                    </div>
-                                </div>
-                            </c:if>
-
-                            <c:if test="${not empty preguntasPuesto.preg8}">
-                                <div class="col-md-6">
-                                    <div class="question-box">
-                                        <label class="question-label">8. ${preguntasPuesto.preg8}</label>
-                                        <input type="text" name="res8" placeholder="Respuesta opcional...">
-                                    </div>
-                                </div>
-                            </c:if>
-
-                        </c:when>
-                        <c:otherwise>
-                            <div class="col-12 text-center py-3">
-                                <p class="text-white-50 m-0"><i class="fas fa-info-circle me-2"></i>Este puesto no requiere responder preguntas de evaluación previas. Puede proceder al envío.</p>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
-                </div>
-            </c:if>
 
             <div class="mt-5">
                 <button type="submit" class="btn-submit-call">

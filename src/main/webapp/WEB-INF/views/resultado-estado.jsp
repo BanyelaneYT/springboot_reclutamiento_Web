@@ -40,7 +40,7 @@
                 <%-- CASO 2: EN EVALUACIÓN --%>
                 <c:when test="${postulante.ESTADO == 'PENDIENTE EN EVALUACION'}">
                     <div class="text-info h2">En Evaluación Manual</div>
-                    <p>Tus respuestas han sido guardadas con éxito. Recursos Humanos está revisando tus datos.</p>
+                    <p>Tu postulación ha sido recibida con éxito. Recursos Humanos está revisando tus datos.</p>
                 </c:when>
 
                 <%-- CASO 3: PROCESO APROBADO --%>
