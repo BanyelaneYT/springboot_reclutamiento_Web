@@ -3,10 +3,9 @@
 
 package com.example.demo.Controller;
 
+import com.example.demo.Service.AdministradorService;
 import com.example.demo.model.Administrador;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,13 +19,12 @@ import java.util.List;
 public class AdministradorController {
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private AdministradorService administradorService;
 
     //Usuarios
     @GetMapping("/usuarios")
     public String usuario(Model model) {
-        String sql = "SELECT * FROM usuarios";
-        List<Administrador> lista = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Administrador>(Administrador.class));
+        List<Administrador> lista = administradorService.listarUsuarios();
 
         model.addAttribute("listaUsuarios", lista);
         return "usuarios-crud";
@@ -36,15 +34,13 @@ public class AdministradorController {
     @PostMapping("/usuarios/actualizar")
     public String actualizar(@RequestParam int id, @RequestParam String correo,
                              @RequestParam String contrasena) {
-        String sql = "UPDATE administradores SET correo=?, contrasena=? WHERE id=?";
-        jdbcTemplate.update(sql, correo, contrasena, id);
+        administradorService.actualizarUsuario(id, correo, contrasena);
         return "redirect:/usuarios";
     }
     //ELIMINAR (DELETE)
     @GetMapping("/usuarios/eliminar/{id}")
     public String eliminar(@PathVariable int id) {
-        String sql = "DELETE from administradores WHERE id=?";
-        jdbcTemplate.update(sql, id);
+        administradorService.eliminarUsuario(id);
         return "redirect:/usuarios";
     }
 
@@ -52,8 +48,7 @@ public class AdministradorController {
     @PostMapping("/usuarios/guardar")
     public String guardar(@RequestParam String correo,
                           @RequestParam String contrasena){
-        String sql = "INSERT INTO administradores (correo, contrasena) VALUES (?, ?)";
-        jdbcTemplate.update(sql, correo, contrasena);
+        administradorService.guardarUsuario(correo, contrasena);
         return "redirect:/usuarios";
     }
 }
