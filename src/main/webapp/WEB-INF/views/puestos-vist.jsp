@@ -37,9 +37,9 @@
                         <div class="col-md-4">
                             <div class="card-benefit p-4 shadow">
                                 <h3 class="text-accent mb-2">${puesto.nombre}</h3>
-                                <p class="text-white-50 mb-1"><i class="fas fa-map-marker-alt me-2"></i>${puesto.presRem} | ${puesto.tipo}</p>
-                                <p class="text-white-50 mb-3"><i class="fas fa-clock me-2"></i>${puesto.horario}</p>
-                                <p class="text-white text-start" style="font-size: 0.95rem;">${puesto.descripcion}</p>
+                                <p class="text-black-50 mb-1"><i class="fas fa-map-marker-alt me-2"></i>${puesto.presRem} | ${puesto.tipo}</p>
+                                <p class="text-black-50 mb-3"><i class="fas fa-clock me-2"></i>${puesto.horario}</p>
+                                <p class="text-black text-start" style="font-size: 0.95rem;">${puesto.descripcion}</p>
                                 <div class="mt-4 mb-3">
                                     <span class="fs-5 fw-bold text-success">Sueldo: S/. ${puesto.pago}</span>
                                 </div>

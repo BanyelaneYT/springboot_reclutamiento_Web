@@ -64,10 +64,7 @@
                                                 data-bs-toggle="modal" data-bs-target="#modalUpdate">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <a href="/usuarios/eliminar/${e.id}" class="btn-action btn-delete"
-                                           onclick="return confirm('¿Deseas eliminar este usuario?')">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </a>
+                                        <!-- Eliminación de usuarios deshabilitada -->
                                     </div>
                                 </td>
                             </tr>

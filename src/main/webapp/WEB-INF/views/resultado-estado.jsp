@@ -11,21 +11,21 @@
 <body>
     <div class="d-flex align-items-center" style="height: 100vh;">
 
-        <div class="general-card text-center" style="max-width: 500px; color: white;">
-            <h3>Hola, ${postulante.NOMBRE}</h3>
-            <p class="text-white-50">El estado de tu postulación es:</p>
+        <div class="general-card text-center" style="max-width: 500px; color: rgb(0, 0, 0);">
+            <h3>Hola, ${postulante.nombre}</h3>
+            <p class="text-black-50">El estado de tu postulación es:</p>
 
             <c:choose>
                 <%-- CASO 1: ENTREVISTA PROGRAMADA --%>
-                <c:when test="${postulante.ESTADO == 'ENTREVISTA'}">
+                <c:when test="${postulante.estado == 'ENTREVISTA'}">
                     <div class="text-warning h2">Entrevista Programada</div>
-                    <p>Fecha y Hora pactada: <strong>${postulante.FECHA_HORA_ENTREVISTA}</strong></p>
+                    <p>Fecha y Hora pactada: <strong>${postulante.fecha_hora_entrevista}</strong></p>
 
                     <c:choose>
-                        <c:when test="${postulante.LINKHABILITADO == 1}">
+                        <c:when test="${postulante.linkhabilitado == 1}">
                             <div class="alert alert-success mt-3">
                                 <strong>¡El enlace ya está activo!</strong><br>
-                                <a href="${postulante.LINK_MEET}" target="_blank" class="btn btn-success mt-2">Ingresar a la Entrevista</a>
+                                <a href="${postulante.link_meet}" target="_blank" class="btn btn-success mt-2">Ingresar a la Entrevista</a>
                             </div>
                         </c:when>
                         <c:otherwise>
@@ -38,13 +38,13 @@
                 </c:when>
 
                 <%-- CASO 2: EN EVALUACIÓN --%>
-                <c:when test="${postulante.ESTADO == 'PENDIENTE EN EVALUACION'}">
+                <c:when test="${postulante.estado == 'PENDIENTE EN EVALUACION'}">
                     <div class="text-info h2">En Evaluación Manual</div>
                     <p>Tu postulación ha sido recibida con éxito. Recursos Humanos está revisando tus datos.</p>
                 </c:when>
 
                 <%-- CASO 3: PROCESO APROBADO --%>
-                <c:when test="${postulante.ESTADO == 'APROBADO'}">
+                <c:when test="${postulante.estado == 'APROBADO'}">
                     <div class="text-success h2">¡Felicitaciones! Proceso Aprobado</div>
                     <p>Nos complace informarte que tu perfil ha sido seleccionado. Por favor, acércate a nuestra sede central a la brevedad posible para la firma de tu contrato e iniciar con tu proceso de inducción. ¡Bienvenido al equipo de CallypsoCall!</p>
                 </c:when>
@@ -55,6 +55,24 @@
                     <p>Agradecemos profundamente tu participación en este proceso de selección. En esta oportunidad, tu perfil no se adecúa por completo a los criterios específicos requeridos para el puesto. Guardaremos tus datos en nuestra base de datos para futuras convocatorias. ¡Te deseamos el mayor de los éxitos en tu futuro laboral!</p>
                 </c:otherwise>
             </c:choose>
+
+            <div class="mt-4 text-start">
+                <h5 class="text-black mb-3">Detalle de Evaluación</h5>
+                <p class="mb-1"><strong>Nota:</strong>
+                    <c:choose>
+                        <c:when test="${not empty postulante.puntaje}">${postulante.puntaje} / 20</c:when>
+                        <c:otherwise>No disponible</c:otherwise>
+                    </c:choose>
+                </p>
+                <p class="mb-1"><strong>Estado:</strong> ${postulante.estado}</p>
+                <p class="mb-0"><strong>Descripción:</strong>
+                    <c:choose>
+                        <c:when test="${not empty postulante.descripcion}">${postulante.descripcion}</c:when>
+                        <c:otherwise>Sin descripción registrada.</c:otherwise>
+                    </c:choose>
+                </p>
+            </div>
+
             <div style="margin-top: 15px;">
                 <a href="/main" style="color: #007bff; text-decoration: none; font-weight: bold;">Volver al Inicio</a>
             </div>

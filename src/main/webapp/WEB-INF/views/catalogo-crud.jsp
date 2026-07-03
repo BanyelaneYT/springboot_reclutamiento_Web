@@ -69,9 +69,6 @@
                                                         onclick="llenarDatosModal('${puesto.id}', '${puesto.nombre}', '${puesto.tipo}', '${puesto.descripcion}', '${puesto.presRem}', '${puesto.horario}', '${puesto.estado}', '${puesto.pago}')">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
-                                                <a href="/catalogo/eliminar/${puesto.id}" class="btn-action btn-delete" onclick="return confirm('¿Eliminar este puesto?');">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </a>
                                             </div>
                                         </td>
                                     </tr>

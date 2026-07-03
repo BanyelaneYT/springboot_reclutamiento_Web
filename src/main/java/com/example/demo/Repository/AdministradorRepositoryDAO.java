@@ -1,7 +1,6 @@
 package com.example.demo.Repository;
 
 import com.example.demo.model.Administrador;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -11,12 +10,15 @@ import java.util.List;
 @Repository
 public class AdministradorRepositoryDAO implements AdministradorRepository {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public AdministradorRepositoryDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public List<Administrador> listarUsuarios() {
-        String sql = "SELECT * FROM usuarios";
+        String sql = "SELECT * FROM administradores";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Administrador.class));
     }
 
@@ -24,12 +26,6 @@ public class AdministradorRepositoryDAO implements AdministradorRepository {
     public void actualizarUsuario(int id, String correo, String contrasena) {
         String sql = "UPDATE administradores SET correo=?, contrasena=? WHERE id=?";
         jdbcTemplate.update(sql, correo, contrasena, id);
-    }
-
-    @Override
-    public void eliminarUsuario(int id) {
-        String sql = "DELETE FROM administradores WHERE id=?";
-        jdbcTemplate.update(sql, id);
     }
 
     @Override

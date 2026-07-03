@@ -11,4 +11,5 @@ public interface ReclutaService {
     void cambiarEstado(int id, String accion);
     void eliminar(int id);
     List<Map<String, Object>> consultarEstadoPorDni(int dni);
+    Integer registrarPostulante(int dni, String nombre, int edad, int idPuesto);
 }

@@ -14,8 +14,20 @@ CREATE TABLE IF NOT EXISTS user_inf (
     dni INT UNIQUE,
     nombre VARCHAR(150),
     edad INT,
-    puesto INT,
-    estado VARCHAR(100)
+    id_puesto INT,
+    FOREIGN KEY (id_puesto) REFERENCES categoria_puestos(id) ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS postulante_eva (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT,
+    id_puesto INT,
+    puntaje INT DEFAULT 0,
+    descripcion TEXT,
+    estado VARCHAR(50) DEFAULT 'PENDIENTE EN EVALUACION',
+    id_cita INT NOT NULL DEFAULT 0,
+    FOREIGN KEY (id_user) REFERENCES user_inf(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_puesto) REFERENCES categoria_puestos(id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS citas_entrevista (

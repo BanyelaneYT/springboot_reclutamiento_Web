@@ -2,7 +2,6 @@ package com.example.demo.Controller;
 
 import com.example.demo.Service.CategoriaPuestosService;
 import com.example.demo.model.CategoriaPuestos;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,8 +11,11 @@ import java.util.List;
 @Controller
 public class CategoriaPuestosController {
 
-    @Autowired
-    private CategoriaPuestosService categoriaPuestosService;
+    private final CategoriaPuestosService categoriaPuestosService;
+
+    public CategoriaPuestosController(CategoriaPuestosService categoriaPuestosService) {
+        this.categoriaPuestosService = categoriaPuestosService;
+    }
 
     // LISTAR TODOS LOS PUESTOS (Para el panel de administración)
     @GetMapping("/catalogo")
@@ -41,7 +43,8 @@ public class CategoriaPuestosController {
     // ELIMINAR PUESTO POR ID
     @GetMapping("/catalogo/eliminar/{id}")
     public String eliminar(@PathVariable int id) {
-        categoriaPuestosService.eliminarPuesto(id);
+        // Eliminación deshabilitada por seguridad: acción removida desde la interfaz.
+        // Si se necesitara restaurar, llamar a: categoriaPuestosService.eliminarPuesto(id);
         return "redirect:/catalogo";
     }
 

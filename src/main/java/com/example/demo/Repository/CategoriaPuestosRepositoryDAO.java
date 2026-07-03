@@ -1,7 +1,6 @@
 package com.example.demo.Repository;
 
 import com.example.demo.model.CategoriaPuestos;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -11,8 +10,11 @@ import java.util.List;
 @Repository
 public class CategoriaPuestosRepositoryDAO implements CategoriaPuestosRepository {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
+
+    public CategoriaPuestosRepositoryDAO(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public List<CategoriaPuestos> listarCatalogo() {

@@ -31,8 +31,8 @@
 <main>
     <section class="hero">
         <div class="container">
-            <h1 class="mb-4">¡Que la armonía de las <span class="highlight">oportunidades</span> alcance su punto más alto!</h1>
-            <p class="display-6 mb-5">Bienvenidos, operadores. Sus logros brillan gracias al trabajo duro en equipo.</p>
+            <h1 class="mb-4 text-white">¡Que la armonía de las <span class="highlight">oportunidades</span> alcance su punto más alto!</h1>
+            <p class="display-6 mb-5 text-white">Bienvenidos, operadores. Sus logros brillan gracias al trabajo duro en equipo.</p>
         </div>
     </section>
 

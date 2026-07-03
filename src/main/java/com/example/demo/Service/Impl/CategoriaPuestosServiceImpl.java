@@ -3,7 +3,6 @@ package com.example.demo.Service.Impl;
 import com.example.demo.Repository.CategoriaPuestosRepository;
 import com.example.demo.Service.CategoriaPuestosService;
 import com.example.demo.model.CategoriaPuestos;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,8 +10,11 @@ import java.util.List;
 @Service
 public class CategoriaPuestosServiceImpl implements CategoriaPuestosService {
 
-    @Autowired
-    private CategoriaPuestosRepository categoriaPuestosRepository;
+    private final CategoriaPuestosRepository categoriaPuestosRepository;
+
+    public CategoriaPuestosServiceImpl(CategoriaPuestosRepository categoriaPuestosRepository) {
+        this.categoriaPuestosRepository = categoriaPuestosRepository;
+    }
 
     @Override
     public List<CategoriaPuestos> listarCatalogo() {

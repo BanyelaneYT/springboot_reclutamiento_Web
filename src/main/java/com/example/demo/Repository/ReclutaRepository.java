@@ -1,9 +1,9 @@
 package com.example.demo.Repository;
 
-import com.example.demo.model.UserInf;
-
 import java.util.List;
 import java.util.Map;
+
+import com.example.demo.model.UserInf;
 
 public interface ReclutaRepository {
     List<UserInf> listarPostulantes();
@@ -11,4 +11,5 @@ public interface ReclutaRepository {
     void cambiarEstado(int id, String estado);
     void eliminar(int id);
     List<Map<String, Object>> consultarEstadoPorDni(int dni);
+    Integer registrarPostulante(int dni, String nombre, int edad, int idPuesto);
 }

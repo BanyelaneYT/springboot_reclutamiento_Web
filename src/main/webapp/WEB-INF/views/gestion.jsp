@@ -34,8 +34,8 @@
                     <div class="icon-box">
                         <i class="fas fa-calendar-check"></i>
                     </div>
-                    <h4>Gestión de Eventos</h4>
-                    <p>Administre convocatorias, ferias y festividades institucionales.</p>
+                    <h4>Gestión de Puestos</h4>
+                    <p>Administre puestos, tanto nuevos como existentes.</p>
                 </a>
             </div>
             <div class="col-md-6">
@@ -45,6 +45,24 @@
                     </div>
                     <h4>Gestión de Postulantes</h4>
                     <p>Administre los postulantes y su información personal.</p>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="/citas" class="card-module">
+                    <div class="icon-box">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h4>Gestión de Citas</h4>
+                    <p>Administre las citas y reuniones programadas.</p>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <a href="/evaluaciones" class="card-module">
+                    <div class="icon-box">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h4>Gestión de Evaluaciones</h4>
+                    <p>Administre las evaluaciones de los postulantes.</p>
                 </a>
             </div>
             <div class="col-md-6">

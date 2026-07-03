@@ -2,7 +2,6 @@ package com.example.demo.Controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired; // Cambiado de Evento a CategoriaPuestos
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -11,14 +10,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.Service.BitacoraService;
+import com.example.demo.Service.ReclutaService;
 import com.example.demo.model.Administrador;
 import com.example.demo.model.CategoriaPuestos;
 
 @Controller
 public class ViewController {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate; // Permite consultar la BD
+    private final JdbcTemplate jdbcTemplate;
+    private final BitacoraService bitacoraService;
+    private final ReclutaService reclutaService;
+
+    public ViewController(JdbcTemplate jdbcTemplate, BitacoraService bitacoraService, ReclutaService reclutaService) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.bitacoraService = bitacoraService;
+        this.reclutaService = reclutaService;
+    }
 
     @GetMapping("/login")
     public String login() {
@@ -91,20 +99,20 @@ public class ViewController {
             @RequestParam("dni") int dni,
             @RequestParam("nombre") String nombre,
             @RequestParam("edad") int edad,
-            @RequestParam("puesto") int puesto) {
+            @RequestParam("id_puesto") int puesto) {
 
         try {
-            // 1. Insertamos al postulante en la tabla user_inf
-            String sqlUser = "INSERT INTO user_inf (dni, nombre, edad, puesto, estado) VALUES (?, ?, ?, ?, 'PENDIENTE EN EVALUACION')";
-            jdbcTemplate.update(sqlUser, dni, nombre, edad, puesto);
+            // Registrar postulante (automáticamente se crea en user_inf y postulante_eva)
+            Integer idRecluta = reclutaService.registrarPostulante(dni, nombre, edad, puesto);
+            
+            if (idRecluta != null) {
+                bitacoraService.registrarBitacora(1, idRecluta, "Nueva postulación registrada para " + nombre);
+            }
 
-            // CORRECCIÓN: Redirige a una vista existente, por ejemplo al login o main indicando el éxito.
             return "redirect:/login?exitoPostulacion=true";
 
         } catch (Exception e) {
-            System.out.println("=== ERROR AL GUARDAR POSTULACIÓN ===");
-            e.printStackTrace(); // Esto te mostrará en la consola exactamente qué falló (ej: DNI duplicado)
-
+            System.err.println("ERROR AL GUARDAR POSTULACIÓN: " + e.getMessage());
             return "redirect:/postular?puestoId=" + puesto + "&error=true";
         }
     }

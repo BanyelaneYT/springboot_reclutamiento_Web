@@ -49,7 +49,6 @@
                                 <th>Postulante</th>
                                 <th>Puesto</th>
                                 <th>Estado</th>
-                                <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -60,13 +59,6 @@
                                     <td class="fw-bold">${postulante.nombre}</td>
                                     <td class="text-accent">${postulante.nombrePuesto}</td>
                                     <td><span class="badge bg-warning text-dark">${postulante.estado}</span></td>
-                                    <td class="text-center">
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-info text-white btn-citar" data-bs-toggle="modal" data-bs-target="#citaModal" data-id="${postulante.id}" data-name="${postulante.nombre}">Citar</button>
-                                            <a href="/crudpostulantes/estado/${postulante.id}/aprobar" class="btn btn-sm btn-success">Aprobar</a>
-                                            <a href="/crudpostulantes/estado/${postulante.id}/rechazar" class="btn btn-sm btn-danger">Rechazar</a>
-                                        </div>
-                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -76,33 +68,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="citaModal" tabindex="-1" aria-labelledby="citaModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content bg-dark text-white border-secondary">
-                <div class="modal-header border-bottom border-secondary">
-                    <h5 class="modal-title" id="citaModalLabel">Agendar Entrevista</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                </div>
-                <form action="/crudpostulantes/agendar-cita" method="POST">
-                    <div class="modal-body">
-                        <input type="hidden" id="idUserInput" name="idUser" value="" />
-                        <div class="mb-3">
-                            <label class="form-label">Enlace de Google Meet</label>
-                            <input type="url" name="linkMeet" class="form-control bg-secondary text-white border-0" required placeholder="https://meet.google.com/abc-defg-hij" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Fecha y Hora Programada</label>
-                            <input type="datetime-local" name="fechaHora" class="form-control bg-secondary text-white border-0" required />
-                        </div>
-                    </div>
-                    <div class="modal-footer border-top border-secondary">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn btn-save">AGENDAR ENTREVISTA</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
