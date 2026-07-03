@@ -1,12 +1,9 @@
 package com.example.demo.Controller;
 
-import java.util.List;
-import java.util.Map;
+import com.example.demo.Service.BitacoraService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import com.example.demo.Service.BitacoraService;
 
 @Controller
 public class BitacoraController {
@@ -18,9 +15,8 @@ public class BitacoraController {
     }
 
     @GetMapping("/bitacora")
-    public String listarBitacora(Model model) {
-        List<Map<String, Object>> listaHistorial = bitacoraService.listarBitacora();
-        model.addAttribute("listaBitacora", listaHistorial);
+    public String listar(Model model) {
+        model.addAttribute("listaBitacora", bitacoraService.listarBitacora());
         return "bitacora-list";
     }
 }

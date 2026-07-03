@@ -10,29 +10,34 @@ import java.util.List;
 @Service
 public class CategoriaPuestosServiceImpl implements CategoriaPuestosService {
 
-    private final CategoriaPuestosRepository categoriaPuestosRepository;
+    private final CategoriaPuestosRepository repo;
 
-    public CategoriaPuestosServiceImpl(CategoriaPuestosRepository categoriaPuestosRepository) {
-        this.categoriaPuestosRepository = categoriaPuestosRepository;
+    public CategoriaPuestosServiceImpl(CategoriaPuestosRepository repo) {
+        this.repo = repo;
     }
 
     @Override
     public List<CategoriaPuestos> listarCatalogo() {
-        return categoriaPuestosRepository.listarCatalogo();
+        return repo.listarCatalogo();
+    }
+
+    @Override
+    public List<CategoriaPuestos> listarActivos() {
+        return repo.listarActivos();
     }
 
     @Override
     public void actualizarPuesto(int id, String nombre, String tipo, String descripcion, String presRem, String horario, int estado, int pago) {
-        categoriaPuestosRepository.actualizarPuesto(id, nombre, tipo, descripcion, presRem, horario, estado, pago);
+        repo.actualizarPuesto(id, nombre, tipo, descripcion, presRem, horario, estado, pago);
     }
 
     @Override
     public void eliminarPuesto(int id) {
-        categoriaPuestosRepository.eliminarPuesto(id);
+        repo.eliminarPuesto(id);
     }
 
     @Override
     public void guardarPuesto(String nombre, String tipo, String descripcion, String presRem, String horario, int estado, int pago) {
-        categoriaPuestosRepository.guardarPuesto(nombre, tipo, descripcion, presRem, horario, estado, pago);
+        repo.guardarPuesto(nombre, tipo, descripcion, presRem, horario, estado, pago);
     }
 }

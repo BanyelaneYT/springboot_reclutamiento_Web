@@ -11,40 +11,41 @@ import java.util.Map;
 @Service
 public class ReclutaServiceImpl implements ReclutaService {
 
-    private final ReclutaRepository reclutaRepository;
+    private final ReclutaRepository repo;
 
-    public ReclutaServiceImpl(ReclutaRepository reclutaRepository) {
-        this.reclutaRepository = reclutaRepository;
+    public ReclutaServiceImpl(ReclutaRepository repo) {
+        this.repo = repo;
     }
 
     @Override
-    public List<UserInf> listarPostulantes() {
-        return reclutaRepository.listarPostulantes();
+    public List<UserInf> listarPostulantes(Integer idPuesto, String filtroResultado) {
+        return repo.listarPostulantes(idPuesto, filtroResultado);
     }
 
     @Override
     public void agendarCita(Integer idUser, String linkMeet, String fechaHora) {
-        reclutaRepository.agendarCita(idUser, linkMeet, fechaHora);
+        repo.agendarCita(idUser, linkMeet, fechaHora);
     }
 
     @Override
     public void cambiarEstado(int id, String accion) {
-        String estadoDb = accion.equals("aprobar") ? "APROBADO" : "RECHAZADO";
-        reclutaRepository.cambiarEstado(id, estadoDb);
+        String estado = "aprobar".equalsIgnoreCase(accion) ? "APROBADO" : "RECHAZADO";
+        repo.cambiarEstado(id, estado);
     }
 
     @Override
     public void eliminar(int id) {
-        reclutaRepository.eliminar(id);
+        repo.eliminar(id);
     }
 
     @Override
-    public List<Map<String, Object>> consultarEstadoPorDni(int dni) {
-        return reclutaRepository.consultarEstadoPorDni(dni);
+    public Map<String, Object> buscarEstadoPorDni(int dni) {
+        List<Map<String, Object>> resultados = repo.consultarEstadoPorDni(dni);
+        return resultados.isEmpty() ? null : resultados.get(0);
     }
 
     @Override
     public Integer registrarPostulante(int dni, String nombre, int edad, int idPuesto) {
-        return reclutaRepository.registrarPostulante(dni, nombre, edad, idPuesto);
+        return repo.registrarPostulante(dni, nombre, edad, idPuesto);
     }
 }

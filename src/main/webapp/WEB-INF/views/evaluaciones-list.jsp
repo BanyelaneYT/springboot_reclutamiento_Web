@@ -27,7 +27,6 @@
         </nav>
     </div>
 </header>
-
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-11">
@@ -54,11 +53,11 @@
                                 <td>${eva.nombrePuesto}</td>
                                 <td>
                                     <c:choose>
-                                        <c:when test="${eva.idCita > 0}">
+                                        <c:when test="${eva.estado == 'ENTREVISTA' || eva.estado == 'APROBADO' || eva.estado == 'RECHAZADO'}">
                                             <span class="badge bg-info">${eva.puntaje} / 20</span>
                                         </c:when>
                                         <c:otherwise>
-                                            <span class="badge bg-secondary">Sin cita</span>
+                                            <span class="badge bg-secondary">sin cita</span>
                                         </c:otherwise>
                                     </c:choose>
                                 </td>
@@ -82,17 +81,13 @@
                                 <td>
                                     <div class="btn-group" role="group">
                                         <a href="/evaluaciones?agendarCita=${eva.idUser}" class="btn btn-sm btn-info text-white">
-                                            <i class="fas fa-video"></i> Citar
-                                        </a>
+                                        Citar</a>
                                         <a href="/evaluaciones?editarEvaluacion=${eva.id}" class="btn btn-sm btn-secondary">
-                                            <i class="fas fa-edit"></i> Editar
-                                        </a>
+                                        Editar</a>
                                         <a href="/evaluaciones/aprobar/${eva.id}" class="btn btn-sm btn-success">
-                                            <i class="fas fa-check"></i> Aprobar
-                                        </a>
+                                        Aprobar</a>
                                         <a href="/evaluaciones/rechazar/${eva.id}" class="btn btn-sm btn-danger">
-                                            <i class="fas fa-times"></i> Rechazar
-                                        </a>
+                                        Rechazar</a>
                                     </div>
                                 </td>
                             </tr>
@@ -100,11 +95,9 @@
                         </tbody>
                     </table>
                 </div>
-
                 <c:if test="${empty listaEvaluaciones}">
                     <p class="text-center text-muted mt-4">No hay evaluaciones registradas</p>
                 </c:if>
-
                 <c:if test="${mostrarAgendarCita}">
                     <div class="card mt-4 p-4 border-primary">
                         <h4>Agendar Entrevista para ${nombreUsuarioCita}</h4>
@@ -152,6 +145,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>

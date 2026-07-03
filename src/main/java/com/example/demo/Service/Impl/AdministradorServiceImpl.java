@@ -10,24 +10,29 @@ import java.util.List;
 @Service
 public class AdministradorServiceImpl implements AdministradorService {
 
-    private final AdministradorRepository administradorRepository;
+    private final AdministradorRepository repo;
 
-    public AdministradorServiceImpl(AdministradorRepository administradorRepository) {
-        this.administradorRepository = administradorRepository;
+    public AdministradorServiceImpl(AdministradorRepository repo) {
+        this.repo = repo;
     }
 
     @Override
     public List<Administrador> listarUsuarios() {
-        return administradorRepository.listarUsuarios();
+        return repo.listarUsuarios();
+    }
+
+    @Override
+    public boolean autenticar(String correo, String contrasena) {
+        return repo.autenticar(correo, contrasena);
     }
 
     @Override
     public void actualizarUsuario(int id, String correo, String contrasena) {
-        administradorRepository.actualizarUsuario(id, correo, contrasena);
+        repo.actualizarUsuario(id, correo, contrasena);
     }
 
     @Override
     public void guardarUsuario(String correo, String contrasena) {
-        administradorRepository.guardarUsuario(correo, contrasena);
+        repo.guardarUsuario(correo, contrasena);
     }
 }

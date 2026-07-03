@@ -10,19 +10,19 @@ import java.util.Map;
 @Service
 public class BitacoraServiceImpl implements BitacoraService {
 
-    private final BitacoraRepository bitacoraRepository;
+    private final BitacoraRepository repo;
 
-    public BitacoraServiceImpl(BitacoraRepository bitacoraRepository) {
-        this.bitacoraRepository = bitacoraRepository;
+    public BitacoraServiceImpl(BitacoraRepository repo) {
+        this.repo = repo;
     }
 
-        @Override
+    @Override
     public List<Map<String, Object>> listarBitacora() {
-        return bitacoraRepository.listarBitacora();
+        return repo.listarBitacora();
     }
 
     @Override
     public void registrarBitacora(int idUsuario, int idRecluta, String accion) {
-        bitacoraRepository.registrarBitacora(idUsuario, idRecluta, accion);
+        repo.registrarBitacora(idUsuario, idRecluta, accion);
     }
 }

@@ -1,14 +1,11 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Service.CitasEntrevistaService;
-import com.example.demo.model.CitasEntrevista;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 @Controller
 public class CitasEntrevistaController {
@@ -19,44 +16,35 @@ public class CitasEntrevistaController {
         this.citasEntrevistaService = citasEntrevistaService;
     }
 
-    // LISTAR TODAS LAS CITAS
     @GetMapping("/citas")
-    public String listarCitas(Model model) {
-        List<CitasEntrevista> lista = citasEntrevistaService.listarCitas();
-        model.addAttribute("listaCitas", lista);
+    public String listar(Model model) {
+        model.addAttribute("listaCitas", citasEntrevistaService.listarCitas());
         return "citas-list";
     }
 
-    // GUARDAR NUEVA CITA
+    @GetMapping("/citas/usuario")
+    public String listarPorUsuario(@RequestParam int idUser, Model model) {
+        model.addAttribute("listaCitas", citasEntrevistaService.obtenerCitasPorUsuario(idUser));
+        return "citas-list";
+    }
+
     @PostMapping("/citas/guardar")
-    public String guardarCita(@RequestParam int idUser,
-                              @RequestParam String linkMeet,
-                              @RequestParam String fechaHoraEntrevista) {
+    public String guardar(@RequestParam int idUser, @RequestParam String linkMeet,
+                            @RequestParam String fechaHoraEntrevista) {
         citasEntrevistaService.guardarCita(idUser, linkMeet, fechaHoraEntrevista);
         return "redirect:/citas";
     }
 
-    // ACTUALIZAR CITA
     @PostMapping("/citas/actualizar")
-    public String actualizarCita(@RequestParam int id,
-                                 @RequestParam String linkMeet,
-                                 @RequestParam String fechaHoraEntrevista) {
+    public String actualizar(@RequestParam int id, @RequestParam String linkMeet,
+                             @RequestParam String fechaHoraEntrevista) {
         citasEntrevistaService.actualizarCita(id, linkMeet, fechaHoraEntrevista);
         return "redirect:/citas";
     }
 
-    // ELIMINAR CITA
     @GetMapping("/citas/eliminar")
-    public String eliminarCita(@RequestParam int id) {
+    public String eliminar(@RequestParam int id) {
         citasEntrevistaService.eliminarCita(id);
         return "redirect:/citas";
-    }
-
-    // OBTENER CITAS POR USUARIO
-    @GetMapping("/citas/usuario")
-    public String obtenerCitasPorUsuario(@RequestParam int idUser, Model model) {
-        List<CitasEntrevista> lista = citasEntrevistaService.obtenerCitasPorUsuario(idUser);
-        model.addAttribute("listaCitas", lista);
-        return "citas-list";
     }
 }

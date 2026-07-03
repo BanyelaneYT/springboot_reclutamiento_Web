@@ -10,39 +10,39 @@ import java.util.List;
 @Service
 public class CitasEntrevistaServiceImpl implements CitasEntrevistaService {
 
-    private final CitasEntrevistaRepository citasEntrevistaRepository;
+    private final CitasEntrevistaRepository repo;
 
-    public CitasEntrevistaServiceImpl(CitasEntrevistaRepository citasEntrevistaRepository) {
-        this.citasEntrevistaRepository = citasEntrevistaRepository;
+    public CitasEntrevistaServiceImpl(CitasEntrevistaRepository repo) {
+        this.repo = repo;
     }
 
     @Override
     public List<CitasEntrevista> listarCitas() {
-        return citasEntrevistaRepository.listarCitas();
+        return repo.listarCitas();
     }
 
     @Override
     public CitasEntrevista obtenerCitaPorId(int id) {
-        return citasEntrevistaRepository.obtenerCitaPorId(id);
+        return repo.obtenerCitaPorId(id);
     }
 
     @Override
     public int guardarCita(int idUser, String linkMeet, String fechaHoraEntrevista) {
-        return citasEntrevistaRepository.guardarCita(idUser, linkMeet, fechaHoraEntrevista);
+        return repo.guardarCita(idUser, linkMeet, fechaHoraEntrevista);
     }
 
     @Override
     public void actualizarCita(int id, String linkMeet, String fechaHoraEntrevista) {
-        citasEntrevistaRepository.actualizarCita(id, linkMeet, fechaHoraEntrevista);
+        repo.actualizarCita(id, linkMeet, fechaHoraEntrevista);
     }
 
     @Override
     public void eliminarCita(int id) {
-        citasEntrevistaRepository.eliminarCita(id);
+        repo.eliminarCita(id);
     }
 
     @Override
     public List<CitasEntrevista> obtenerCitasPorUsuario(int idUser) {
-        return citasEntrevistaRepository.obtenerCitasPorUsuario(idUser);
+        return repo.obtenerCitasPorUsuario(idUser);
     }
 }

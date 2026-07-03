@@ -12,4 +12,5 @@ public interface PostulanteEvaRepository {
     void eliminarPostulante(int id);
     List<PostulanteEva> obtenerPostulantesPorPuesto(int idPuesto);
     List<PostulanteEva> obtenerPostulantesPorUsuario(int idUser);
+    PostulanteEva obtenerUltimaPorUsuario(int idUser);
 }

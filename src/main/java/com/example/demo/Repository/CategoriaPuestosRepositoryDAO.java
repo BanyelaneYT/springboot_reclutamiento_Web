@@ -16,10 +16,19 @@ public class CategoriaPuestosRepositoryDAO implements CategoriaPuestosRepository
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    private static final String SELECT_PUESTO = """
+            SELECT id, nombre, tipo, descripcion, pres_rem presRem, horario, estado, pago FROM categoria_puestos""";
+    private static final BeanPropertyRowMapper<CategoriaPuestos> MAPPER =
+            new BeanPropertyRowMapper<>(CategoriaPuestos.class);
+
     @Override
     public List<CategoriaPuestos> listarCatalogo() {
-        String sql = "SELECT id, nombre, tipo, descripcion, pres_rem AS presRem, horario, estado, pago FROM categoria_puestos";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CategoriaPuestos.class));
+        return jdbcTemplate.query(SELECT_PUESTO, MAPPER);
+    }
+
+    @Override
+    public List<CategoriaPuestos> listarActivos() {
+        return jdbcTemplate.query(SELECT_PUESTO + " WHERE estado = 1", MAPPER);
     }
 
     @Override

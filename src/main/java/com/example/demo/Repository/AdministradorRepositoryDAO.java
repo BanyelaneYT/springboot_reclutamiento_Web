@@ -16,10 +16,20 @@ public class AdministradorRepositoryDAO implements AdministradorRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    private static final BeanPropertyRowMapper<Administrador> MAPPER =
+            new BeanPropertyRowMapper<>(Administrador.class);
+
     @Override
     public List<Administrador> listarUsuarios() {
-        String sql = "SELECT * FROM administradores";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Administrador.class));
+        return jdbcTemplate.query("SELECT id, correo, contrasena FROM administradores", MAPPER);
+    }
+
+    @Override
+    public boolean autenticar(String correo, String contrasena) {
+        Integer count = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM administradores WHERE correo = ? AND contrasena = ?",
+                Integer.class, correo, contrasena);
+        return count != null && count > 0;
     }
 
     @Override

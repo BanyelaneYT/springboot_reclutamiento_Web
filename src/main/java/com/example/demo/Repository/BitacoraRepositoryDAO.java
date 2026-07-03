@@ -9,35 +9,39 @@ import java.util.Map;
 @Repository
 public class BitacoraRepositoryDAO implements BitacoraRepository {
 
-    private final JdbcTemplate jdbcTemplate;
+    private static final String ESTADO_INICIAL = "PENDIENTE EN EVALUACION";
 
-    public BitacoraRepositoryDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    private static final String RECLUTA_ESTADO = """
+            COALESCE(CASE WHEN ce.id IS NOT NULL THEN 'ENTREVISTA' END, pe.estado, '%s')"""
+            .formatted(ESTADO_INICIAL);
+
+    private static final String JOIN_CITA = " LEFT JOIN citas_entrevista ce ON ce.id_user = r.id";
+    private static final String JOIN_ULTIMA_EVA = """
+             LEFT JOIN postulante_eva pe ON pe.id = (
+                 SELECT MAX(id) FROM postulante_eva WHERE id_user = r.id)""";
+
+    private final JdbcTemplate jdbc;
+
+    public BitacoraRepositoryDAO(JdbcTemplate jdbc) {
+        this.jdbc = jdbc;
     }
 
     @Override
     public List<Map<String, Object>> listarBitacora() {
-        String sql = "SELECT b.id, " +
-                "       b.id_usuario AS idUsuario, " +
-                "       b.id_recluta AS idRecluta, " +
-                "       u.correo AS usuarioCorreo, " +
-                "       r.nombre AS reclutaNombre, " +
-                "       COALESCE((SELECT 'ENTREVISTA' FROM citas_entrevista ce WHERE ce.id_user = r.id LIMIT 1), " +
-                "                (SELECT pe.estado FROM postulante_eva pe WHERE pe.id_user = r.id ORDER BY pe.id DESC LIMIT 1), " +
-                "                'PENDIENTE EN EVALUACION') AS reclutaEstado, " +
-                "       b.accion, " +
-                "       b.fecha_registro AS fechaRegistro " +
-                "FROM bitacora b " +
-                "LEFT JOIN administradores u ON b.id_usuario = u.id " +
-                "LEFT JOIN user_inf r ON b.id_recluta = r.id " +
-                "ORDER BY b.fecha_registro DESC";
-
-        return jdbcTemplate.queryForList(sql);
+        String sql = """
+                SELECT b.id, u.correo usuarioCorreo, r.nombre reclutaNombre,
+                       %s reclutaEstado, b.accion, b.fecha_registro fechaRegistro
+                FROM bitacora b
+                LEFT JOIN administradores u ON b.id_usuario = u.id
+                LEFT JOIN user_inf r ON b.id_recluta = r.id
+                %s %s
+                ORDER BY b.fecha_registro DESC
+                """.formatted(RECLUTA_ESTADO, JOIN_CITA, JOIN_ULTIMA_EVA);
+        return jdbc.queryForList(sql);
     }
 
     @Override
     public void registrarBitacora(int idUsuario, int idRecluta, String accion) {
-        String sql = "INSERT INTO bitacora (id_usuario, id_recluta, accion) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, idUsuario, idRecluta, accion);
+        jdbc.update("INSERT INTO bitacora (id_usuario, id_recluta, accion) VALUES (?, ?, ?)", idUsuario, idRecluta, accion);
     }
 }
