@@ -1,15 +1,48 @@
 -- 1. Insertamos datos de prueba para categoría de puesto
 INSERT INTO categoria_puestos (nombre, tipo, descripcion, pres_rem, horario, estado, pago)
-SELECT 'Desarrollador Java', 'Full Stack', 'Desarrollo de aplicaciones web', 'Remoto', 'Lunes a Viernes', 1, 12000
+SELECT 'Atencion al Cliente', 'Call Center',
+       'Gestionar llamadas salientes (outbound) para la oferta de productos/servicios.
+                   Cumplir con los objetivos diarios de ventas y métricas de desempeño (KPIs).
+                   Registrar todas las interacciones de manera precisa en nuestro CRM.
+                   Mantener una comunicación clara, persuasiva y profesional.',
+    'Remoto', 'Lunes a Viernes 24/7', 1, 1200
 FROM SYSTEM_RANGE(1, 1)
 WHERE NOT EXISTS (
-    SELECT 1 FROM categoria_puestos WHERE nombre = 'Desarrollador Java'
+    SELECT 1 FROM categoria_puestos WHERE nombre = 'Atencion al Cliente'
 );
+
+INSERT INTO categoria_puestos (nombre, tipo, descripcion, pres_rem, horario, estado, pago)
+SELECT 'Asesor de Ventas', 'Call Center',
+                 'Secundaria completa (o estudios técnicos/universitarios en curso).
+                  Experiencia: Mínimo 3-6 meses en ventas, atención al cliente o puestos de call center.
+                  Experiencia previa en manejo de CRM o sistemas de gestión de llamadas.
+                  Habilidad para cumplir metas comerciales y trabajar bajo indicadores de desempeño.',
+       'Presencial', 'Lunes a Viernes Lun-Vie 12:00 a 20:00', 1, 1250
+FROM SYSTEM_RANGE(1, 1)
+WHERE NOT EXISTS (
+    SELECT 1 FROM categoria_puestos WHERE nombre = 'Asesor de Ventas'
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 -- 2. Insertamos un usuario postulante de prueba inicial
 INSERT INTO user_inf (dni, nombre, edad, id_puesto)
 SELECT 12345678, 'Juan Martinez Perez', 25,
-       (SELECT MIN(id) FROM categoria_puestos WHERE nombre = 'Desarrollador Java')
+       (SELECT MIN(id) FROM categoria_puestos WHERE nombre = 'Atencion al Cliente')
 FROM SYSTEM_RANGE(1, 1)
 WHERE NOT EXISTS (SELECT 1 FROM user_inf WHERE dni = 12345678);
 
@@ -50,7 +83,7 @@ WHERE NOT EXISTS (
 INSERT INTO postulante_eva (id_user, id_puesto, puntaje, descripcion, estado, id_cita)
 SELECT 
     (SELECT MIN(id) FROM user_inf WHERE dni = 12345678),
-    (SELECT MIN(id) FROM categoria_puestos WHERE nombre = 'Desarrollador Java'),
+    (SELECT MIN(id) FROM categoria_puestos WHERE nombre = 'Atencion al Cliente'),
     18,
     'Candidato con excelentes competencias técnicas y experiencia relevante',
     'EN EVALUACION',
@@ -59,7 +92,7 @@ FROM SYSTEM_RANGE(1, 1)
 WHERE NOT EXISTS (
     SELECT 1 FROM postulante_eva 
     WHERE id_user = (SELECT MIN(id) FROM user_inf WHERE dni = 12345678)
-      AND id_puesto = (SELECT MIN(id) FROM categoria_puestos WHERE nombre = 'Desarrollador Java')
+      AND id_puesto = (SELECT MIN(id) FROM categoria_puestos WHERE nombre = 'Atencion al Cliente')
 );
 
 -- Migración idempotente: normaliza registros legacy de postulante_eva al iniciar
