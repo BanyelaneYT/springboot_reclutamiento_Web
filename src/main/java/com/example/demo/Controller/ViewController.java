@@ -72,7 +72,7 @@ public class ViewController {
 
     @GetMapping("/postular")
     public String postular(@RequestParam(required = false) Integer puestoId, Model model) {
-        model.addAttribute("listaCatalogo", categoriaPuestosService.listarActivos());
+        model.addAttribute("listaCategorias", categoriaPuestosService.listarActivos());
         model.addAttribute("puestoSeleccionadoId", puestoId);
         return "postular";
     }
@@ -95,9 +95,9 @@ public class ViewController {
         }
     }
 
-    @GetMapping("/evento")
+    @GetMapping("/convocatorias")
     public String evento(Model model) {
-        model.addAttribute("listaCatalogo", categoriaPuestosService.listarCatalogo());
+        model.addAttribute("listaCategorias", categoriaPuestosService.listarCatalogo());
         return "puestos-vist";
     }
 }
