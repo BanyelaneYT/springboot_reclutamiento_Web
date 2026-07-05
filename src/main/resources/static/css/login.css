@@ -1,13 +1,13 @@
-body { font-family: 'Segoe UI', sans-serif;
-    background-image: url('https://img.magnific.com/vector-gratis/fondo-monocromatico-blanco_23-2149035084.jpg'); background-size: cover; display: flex;
+body { font-family: 'Poppins', sans-serif;
+    background-color: #ffffff; display: flex;
     justify-content: center; align-items: center;
     height: 100vh; margin: 0; }
-.login-card { background: rgba(255, 255, 255, 0.829); padding: 40px;
-    border-radius: 8px; box-shadow: 0 4px 12px rgb(255, 0, 0);
-    text-align: center; width: 300px; }
-.general-card { background: rgba(255, 255, 255, 0.829); padding: 40px;
-    border-radius: 8px; box-shadow: 0 4px 12px rgb(255, 0, 0);
-    text-align: center; width: 700px; }
+.login-card { background: #ffffff; padding: 40px;
+    border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    border: 1px solid #eee; text-align: center; width: 300px; }
+.general-card { background: #ffffff; padding: 40px;
+    border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    border: 1px solid #eee; text-align: center; width: 700px; }
 h2 { color: #000000; margin-bottom: 20px; }
 input { width: 100%; padding: 10px; margin: 10px 0;
     border: 1px solid #000000; border-radius: 4px;

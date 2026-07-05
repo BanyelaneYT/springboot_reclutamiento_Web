@@ -7,9 +7,8 @@ WHERE NOT EXISTS (
 );
 
 -- 2. Insertamos un usuario postulante de prueba inicial
-INSERT INTO user_inf (dni, nombre, edad, id_puesto)
-SELECT 12345678, 'Juan Martinez Perez', 25,
-       (SELECT MIN(id) FROM categoria_puestos WHERE nombre = 'Desarrollador Java')
+INSERT INTO user_inf (dni, nombre, edad)
+SELECT 12345678, 'Juan Martinez Perez', 25
 FROM SYSTEM_RANGE(1, 1)
 WHERE NOT EXISTS (SELECT 1 FROM user_inf WHERE dni = 12345678);
 
@@ -65,3 +64,8 @@ WHERE NOT EXISTS (
 -- Migración idempotente: normaliza registros legacy de postulante_eva al iniciar
 UPDATE postulante_eva SET id_cita = 0 WHERE id_cita IS NULL;
 UPDATE postulante_eva SET estado = 'PENDIENTE EN EVALUACION' WHERE estado = 'PENDIENTE';
+
+-- Migración: un postulante (DNI) puede postular a varios puestos, pero no repetir el mismo
+ALTER TABLE user_inf DROP COLUMN IF EXISTS id_puesto;
+CREATE UNIQUE INDEX IF NOT EXISTS uk_user_inf_dni ON user_inf(dni);
+CREATE UNIQUE INDEX IF NOT EXISTS uk_postulante_eva_user_puesto ON postulante_eva(id_user, id_puesto);
