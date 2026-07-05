@@ -11,10 +11,10 @@ CREATE TABLE IF NOT EXISTS categoria_puestos (
 
 CREATE TABLE IF NOT EXISTS user_inf (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    dni INT UNIQUE,
+    dni INT,
     nombre VARCHAR(150),
     edad INT,
-    id_puesto INT,
+    id_puesto INT UNIQUE,
     FOREIGN KEY (id_puesto) REFERENCES categoria_puestos(id) ON DELETE SET NULL
 );
 
