@@ -8,8 +8,6 @@ public class PostulanteEva {
     private String descripcion;
     private String estado;
     private int idCita;
-
-    // Atributos extra para mapear nombres en los JOINS
     private String nombreUsuario;
     private String nombrePuesto;
 

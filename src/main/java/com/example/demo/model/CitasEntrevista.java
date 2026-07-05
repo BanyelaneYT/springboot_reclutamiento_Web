@@ -5,8 +5,6 @@ public class CitasEntrevista {
     private int idUser;
     private String linkMeet;
     private String fechaHoraEntrevista;
-
-    // Atributo extra para mapear nombre del usuario
     private String nombreUsuario;
 
     public CitasEntrevista() {}
@@ -18,7 +16,6 @@ public class CitasEntrevista {
         this.fechaHoraEntrevista = fechaHoraEntrevista;
     }
 
-    // GETTERS Y SETTERS
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
