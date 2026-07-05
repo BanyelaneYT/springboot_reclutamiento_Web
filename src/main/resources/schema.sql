@@ -11,11 +11,9 @@ CREATE TABLE IF NOT EXISTS categoria_puestos (
 
 CREATE TABLE IF NOT EXISTS user_inf (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    dni INT,
+    dni INT NOT NULL UNIQUE,
     nombre VARCHAR(150),
-    edad INT,
-    id_puesto INT UNIQUE,
-    FOREIGN KEY (id_puesto) REFERENCES categoria_puestos(id) ON DELETE SET NULL
+    edad INT
 );
 
 CREATE TABLE IF NOT EXISTS postulante_eva (
@@ -26,6 +24,7 @@ CREATE TABLE IF NOT EXISTS postulante_eva (
     descripcion TEXT,
     estado VARCHAR(50) DEFAULT 'PENDIENTE EN EVALUACION',
     id_cita INT NOT NULL DEFAULT 0,
+    UNIQUE (id_user, id_puesto),
     FOREIGN KEY (id_user) REFERENCES user_inf(id) ON DELETE CASCADE,
     FOREIGN KEY (id_puesto) REFERENCES categoria_puestos(id) ON DELETE SET NULL
 );
