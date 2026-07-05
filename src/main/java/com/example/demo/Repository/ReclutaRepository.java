@@ -12,4 +12,5 @@ public interface ReclutaRepository {
     void eliminar(int id);
     List<Map<String, Object>> consultarEstadoPorDni(int dni);
     Integer registrarPostulante(int dni, String nombre, int edad, int idPuesto);
+    boolean existePostulacionAlPuesto(int dni, int idPuesto);
 }

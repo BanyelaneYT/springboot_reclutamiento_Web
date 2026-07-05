@@ -39,13 +39,20 @@ public class ReclutaServiceImpl implements ReclutaService {
     }
 
     @Override
-    public Map<String, Object> buscarEstadoPorDni(int dni) {
-        List<Map<String, Object>> resultados = repo.consultarEstadoPorDni(dni);
-        return resultados.isEmpty() ? null : resultados.get(0);
+    public List<Map<String, Object>> buscarPostulacionesPorDni(int dni) {
+        return repo.consultarEstadoPorDni(dni);
     }
 
     @Override
     public Integer registrarPostulante(int dni, String nombre, int edad, int idPuesto) {
+        /*
+         * Regla de negocio:
+         * - No puede postular a otro puesto mientras tenga alguna evaluación en curso
+         *   (pendiente, entrevista u otro estado distinto de Aprobado/Rechazado).
+         * - Solo puede iniciar una nueva postulación cuando todas sus evaluaciones
+         *   previas estén en Aprobado o Rechazado.
+         * - No puede repetir postulación al mismo puesto.
+         */
         return repo.registrarPostulante(dni, nombre, edad, idPuesto);
     }
 }

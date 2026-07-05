@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.exception.PostulacionException;
 import com.example.demo.model.UserInf;
 
 @Repository
@@ -24,16 +26,17 @@ public class ReclutaRepositoryDAO implements ReclutaRepository {
             new BeanPropertyRowMapper<>(UserInf.class);
 
     private static final String ESTADO = """
-        CASE 
+        CASE
             WHEN pe.estado IN ('APROBADO', 'RECHAZADO') THEN pe.estado
-            WHEN ce.id IS NOT NULL THEN 'ENTREVISTA'
+            WHEN ce.id IS NOT NULL AND pe.id_cita > 0 THEN 'ENTREVISTA'
             ELSE pe.estado
         END""";
 
-    private static final String JOIN_CITA = " LEFT JOIN citas_entrevista ce ON ce.id_user = u.id";
-    private static final String JOIN_ULTIMA_EVA = """
-             LEFT JOIN postulante_eva pe ON pe.id = (
-                 SELECT MAX(id) FROM postulante_eva WHERE id_user = u.id)""";
+    private static final String FROM_POSTULACION = """
+            FROM postulante_eva pe
+            JOIN user_inf u ON pe.id_user = u.id
+            LEFT JOIN categoria_puestos c ON pe.id_puesto = c.id
+            LEFT JOIN citas_entrevista ce ON ce.id = pe.id_cita AND pe.id_cita > 0""";
 
     private final JdbcTemplate jdbc;
 
@@ -44,17 +47,15 @@ public class ReclutaRepositoryDAO implements ReclutaRepository {
     @Override
     public List<UserInf> listarPostulantes(Integer idPuesto, String filtroResultado) {
         StringBuilder sql = new StringBuilder("""
-                SELECT u.id, u.dni, u.nombre, c.nombre nombrePuesto, %s estado
-                FROM user_inf u
-                LEFT JOIN categoria_puestos c ON u.id_puesto = c.id
-                %s %s
+                SELECT pe.id, u.dni, u.nombre, c.nombre nombrePuesto, %s estado
+                %s
                 WHERE 1=1
-                """.formatted(ESTADO, JOIN_CITA, JOIN_ULTIMA_EVA));
+                """.formatted(ESTADO, FROM_POSTULACION));
 
         List<Object> params = new ArrayList<>();
 
         if (idPuesto != null && idPuesto > 0) {
-            sql.append(" AND u.id_puesto = ?");
+            sql.append(" AND pe.id_puesto = ?");
             params.add(idPuesto);
         }
         if ("aprobados".equalsIgnoreCase(filtroResultado)) {
@@ -63,7 +64,7 @@ public class ReclutaRepositoryDAO implements ReclutaRepository {
             sql.append(" AND pe.estado = 'RECHAZADO'");
         }
 
-        sql.append(" ORDER BY u.id DESC");
+        sql.append(" ORDER BY pe.id DESC");
         return params.isEmpty()
                 ? jdbc.query(sql.toString(), MAPPER)
                 : jdbc.query(sql.toString(), MAPPER, params.toArray());
@@ -92,39 +93,109 @@ public class ReclutaRepositoryDAO implements ReclutaRepository {
     @Override
     public List<Map<String, Object>> consultarEstadoPorDni(int dni) {
         String sql = """
-                SELECT u.id, u.dni, u.nombre, %s estado,
+                SELECT u.id, u.dni, u.nombre, pe.id idPostulacion, c.nombre nombrePuesto, %s estado,
                        ce.link_meet, ce.fecha_hora_entrevista,
                        CASE WHEN ce.fecha_hora_entrevista <= NOW() THEN 1 ELSE 0 END linkhabilitado,
                        pe.puntaje, pe.descripcion
-                FROM user_inf u
-                %s %s
+                %s
                 WHERE u.dni = ?
-                """.formatted(ESTADO, JOIN_CITA, JOIN_ULTIMA_EVA);
+                ORDER BY pe.id DESC
+                """.formatted(ESTADO, FROM_POSTULACION);
         return jdbc.queryForList(sql, dni);
     }
 
     @Override
-    public Integer registrarPostulante(int dni, String nombre, int edad, int idPuesto) {
-        KeyHolder key = new GeneratedKeyHolder();
-        jdbc.update(con -> {
-            PreparedStatement ps = con.prepareStatement(
-                    "INSERT INTO user_inf (dni, nombre, edad, id_puesto) VALUES (?, ?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, dni);
-            ps.setString(2, nombre);
-            ps.setInt(3, edad);
-            ps.setInt(4, idPuesto);
-            return ps;
-        }, key);
+    public boolean existePostulacionAlPuesto(int dni, int idPuesto) {
+        Integer count = jdbc.queryForObject("""
+                SELECT COUNT(*)
+                FROM postulante_eva pe
+                JOIN user_inf u ON pe.id_user = u.id
+                WHERE u.dni = ? AND pe.id_puesto = ?
+                """, Integer.class, dni, idPuesto);
+        return count != null && count > 0;
+    }
 
-        Number idUser = key.getKey();
-        if (idUser == null) {
-            return null;
+    @Override
+    public Integer registrarPostulante(int dni, String nombre, int edad, int idPuesto) {
+        if (existePostulacionAlPuesto(dni, idPuesto)) {
+            throw new PostulacionException(
+                    PostulacionException.CODIGO_MISMO_PUESTO,
+                    "Ya tienes una postulación registrada para este puesto.");
         }
 
-        jdbc.update(
-                "INSERT INTO postulante_eva (id_user, id_puesto, puntaje, descripcion, estado, id_cita) VALUES (?, ?, 0, '', ?, 0)",
-                idUser.intValue(), idPuesto, ESTADO_INICIAL);
-        return idUser.intValue();
+        if (tienePostulacionesActivas(dni)) {
+            throw new PostulacionException(
+                    PostulacionException.CODIGO_PROCESO_ACTIVO,
+                    "Tienes un proceso de selección en curso. Solo puedes postular a otro puesto cuando tus evaluaciones estén en Aprobado o Rechazado.");
+        }
+
+        Integer idUser = buscarIdPorDni(dni);
+        if (idUser == null) {
+            idUser = crearUsuario(dni, nombre, edad);
+        } else {
+            actualizarDatosPersonales(idUser, nombre, edad);
+        }
+
+        insertarPostulacion(idUser, idPuesto);
+        return idUser;
+    }
+
+    private boolean tienePostulacionesActivas(int dni) {
+        Integer count = jdbc.queryForObject("""
+                SELECT COUNT(*)
+                FROM postulante_eva pe
+                JOIN user_inf u ON pe.id_user = u.id
+                WHERE u.dni = ?
+                  AND pe.estado NOT IN ('APROBADO', 'RECHAZADO')
+                """, Integer.class, dni);
+        return count != null && count > 0;
+    }
+
+    private Integer buscarIdPorDni(int dni) {
+        List<Integer> ids = jdbc.query(
+                "SELECT id FROM user_inf WHERE dni = ?",
+                (rs, rowNum) -> rs.getInt("id"),
+                dni);
+        return ids.isEmpty() ? null : ids.get(0);
+    }
+
+    private Integer crearUsuario(int dni, String nombre, int edad) {
+        KeyHolder key = new GeneratedKeyHolder();
+        try {
+            jdbc.update(con -> {
+                PreparedStatement ps = con.prepareStatement(
+                        "INSERT INTO user_inf (dni, nombre, edad) VALUES (?, ?, ?)",
+                        Statement.RETURN_GENERATED_KEYS);
+                ps.setInt(1, dni);
+                ps.setString(2, nombre);
+                ps.setInt(3, edad);
+                return ps;
+            }, key);
+        } catch (DataIntegrityViolationException ex) {
+            Integer idExistente = buscarIdPorDni(dni);
+            if (idExistente == null) {
+                throw ex;
+            }
+            return idExistente;
+        }
+
+        Number idUser = key.getKey();
+        return idUser != null ? idUser.intValue() : null;
+    }
+
+    private void actualizarDatosPersonales(int idUser, String nombre, int edad) {
+        jdbc.update("UPDATE user_inf SET nombre = ?, edad = ? WHERE id = ?", nombre, edad, idUser);
+    }
+
+    private void insertarPostulacion(int idUser, int idPuesto) {
+        try {
+            jdbc.update(
+                    "INSERT INTO postulante_eva (id_user, id_puesto, puntaje, descripcion, estado, id_cita) VALUES (?, ?, 0, '', ?, 0)",
+                    idUser, idPuesto, ESTADO_INICIAL);
+        } catch (DataIntegrityViolationException ex) {
+            throw new PostulacionException(
+                    PostulacionException.CODIGO_MISMO_PUESTO,
+                    "Ya tienes una postulación registrada para este puesto.");
+        }
     }
 }

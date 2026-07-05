@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 
+import com.example.demo.exception.PostulacionException;
 import com.example.demo.Service.AdministradorService;
 import com.example.demo.Service.BitacoraService;
 import com.example.demo.Service.CategoriaPuestosService;
@@ -87,8 +88,10 @@ public class ViewController {
                 bitacoraService.registrarAccion(idRecluta, "Nueva postulación registrada para " + nombre);
             }
             return "redirect:/login?exitoPostulacion=true";
+        } catch (PostulacionException ex) {
+            return "redirect:/postular?puestoId=" + puesto + "&error=" + ex.getCodigo();
         } catch (Exception e) {
-            return "redirect:/postular?puestoId=" + puesto + "&error=true";
+            return "redirect:/postular?puestoId=" + puesto + "&error=general";
         }
     }
 

@@ -1,43 +1,134 @@
-        .pregunta-card {
-        background: #ffffff;
-        padding: 20px;
-        border-left: 5px solid #ca0000;
-        margin-bottom: 20px;
-        border-radius: 4px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        text-align: left;
-        }
-        /* Oculta las flechas en Chrome, Safari, Edge y Opera */
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
-        .my-4 {
-            margin-top: 0.5rem !important;
-            margin-bottom: 0.5rem !important;
-        }
-        .container {
-            margin: 60px auto 20px auto; /* Separación de 140px para que el header fixed-top no tape el título */
-            flex: 1; /* Obliga al footer a irse al fondo de la pantalla si hay poco contenido */
-            box-sizing: border-box;
-        }
-        /* Oculta las flechas en Firefox */
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
-        .pregunta-card label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #0a1f44;
-        }
-        select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            background-color: #fafafa;
-        }
-        .error-msg { color: #ca0000; font-weight: bold; background: #ffe6e6; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
-        .success-msg { color: #28a745; font-weight: bold; background: #e6ffe6; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; }
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    color: #0a1f44;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.page-wrapper {
+    padding-top: 120px;
+    padding-bottom: 60px;
+}
+
+.page-title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #0a1f44;
+    margin-bottom: 10px;
+}
+
+.page-subtitle {
+    color: #555;
+    font-size: 15px;
+}
+
+.form-panel {
+    max-width: 950px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    border: 1px solid #eee;
+}
+
+.rules-box {
+    background: #fff5f5;
+    border: 1px solid #f5c2c7;
+    border-left: 4px solid #b80707;
+    color: #333;
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.rules-box ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+}
+
+.rules-box strong {
+    color: #b80707;
+}
+
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container select {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 12px 15px;
+    color: #0a1f44;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-container input:focus,
+.form-container select:focus {
+    outline: none;
+    border-color: #b80707;
+    box-shadow: 0 0 0 3px rgba(184, 7, 7, 0.1);
+}
+
+.field-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.section-title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: #0a1f44;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.section-title i {
+    color: #b80707;
+}
+
+.puesto-label {
+    color: #b80707;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.btn-submit-call {
+    background: #b80707;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 1px;
+    border-radius: 6px;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-submit-call:hover {
+    background: #ff0000;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}

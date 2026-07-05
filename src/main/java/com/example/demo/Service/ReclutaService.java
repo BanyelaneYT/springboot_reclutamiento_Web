@@ -10,6 +10,6 @@ public interface ReclutaService {
     void agendarCita(Integer idUser, String linkMeet, String fechaHora);
     void cambiarEstado(int id, String accion);
     void eliminar(int id);
-    Map<String, Object> buscarEstadoPorDni(int dni);
+    List<Map<String, Object>> buscarPostulacionesPorDni(int dni);
     Integer registrarPostulante(int dni, String nombre, int edad, int idPuesto);
 }
