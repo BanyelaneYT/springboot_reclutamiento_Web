@@ -23,7 +23,7 @@
         </div>
     </header>
 
-    <div class="container-fluid CRUD-CATALOGO" style="padding-top: 110px;">
+    <div class="container-fluid CRUD-CATEGORIA" style="padding-top: 110px;">
         <div class="row min-vh-100">
             <div class="col-md-12 content-pane">
          
@@ -49,7 +49,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="puesto" items="${listaCatalogo}">
+                                <c:forEach var="puesto" items="${listaCategorias}">
                                     <tr>
                                         <td class="fw-bold text-id">${puesto.id}</td>
                                         <td>${puesto.nombre}</td>
@@ -84,7 +84,7 @@
 
     <div class="modal fade" id="modalAgregar" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <form action="/catalogo/guardar" method="POST" class="modal-content custom-modal text-white">
+            <form action="/categoria/guardar" method="POST" class="modal-content custom-modal text-white">
                 <div class="modal-header">
                     <h5 class="modal-title"><i class="fas fa-folder-plus me-2"></i> Registrar Nuevo Puesto</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -137,7 +137,7 @@
 
     <div class="modal fade" id="modalActualizar" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
-            <form action="/catalogo/actualizar" method="POST" class="modal-content custom-modal text-white">
+            <form action="/categoria/actualizar" method="POST" class="modal-content custom-modal text-white">
                 <input type="hidden" name="id" id="upd_id">
                 <div class="modal-header">
                     <h5 class="modal-title"><i class="fas fa-edit me-2"></i> Modificar Puesto</h5>
