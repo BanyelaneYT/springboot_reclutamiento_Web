@@ -31,11 +31,6 @@ public class CategoriaPuestosController {
         return "redirect:/catalogo";
     }
 
-    @GetMapping("/catalogo/eliminar/{id}")
-    public String eliminar(@PathVariable int id) {
-        return "redirect:/catalogo";
-    }
-
     @PostMapping("/catalogo/guardar")
     public String guardar(@RequestParam String nombre, @RequestParam String tipo, @RequestParam String descripcion,
                           @RequestParam String presRem, @RequestParam String horario,

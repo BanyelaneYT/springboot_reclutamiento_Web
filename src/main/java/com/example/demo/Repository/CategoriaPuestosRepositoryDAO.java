@@ -38,12 +38,6 @@ public class CategoriaPuestosRepositoryDAO implements CategoriaPuestosRepository
     }
 
     @Override
-    public void eliminarPuesto(int id) {
-        String sql = "DELETE FROM categoria_puestos WHERE id=?";
-        jdbcTemplate.update(sql, id);
-    }
-
-    @Override
     public void guardarPuesto(String nombre, String tipo, String descripcion, String presRem, String horario, int estado, int pago) {
         String sql = "INSERT INTO categoria_puestos (nombre, tipo, descripcion, pres_rem, horario, estado, pago) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, nombre, tipo, descripcion, presRem, horario, estado, pago);

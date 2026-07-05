@@ -26,18 +26,25 @@ public class CategoriaPuestos {
     // GETTERS Y SETTERS
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
+
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
+
     public String getTipo() { return tipo; }
     public void setTipo(String tipo) { this.tipo = tipo; }
+
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
     public String getPresRem() { return presRem; }
     public void setPresRem(String presRem) { this.presRem = presRem; }
+
     public String getHorario() { return horario; }
     public void setHorario(String horario) { this.horario = horario; }
+
     public int getEstado() { return estado; }
     public void setEstado(int estado) { this.estado = estado; }
+
     public int getPago() { return pago; }
     public void setPago(int pago) { this.pago = pago; }
 }

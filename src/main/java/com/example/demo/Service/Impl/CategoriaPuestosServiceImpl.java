@@ -32,11 +32,6 @@ public class CategoriaPuestosServiceImpl implements CategoriaPuestosService {
     }
 
     @Override
-    public void eliminarPuesto(int id) {
-        repo.eliminarPuesto(id);
-    }
-
-    @Override
     public void guardarPuesto(String nombre, String tipo, String descripcion, String presRem, String horario, int estado, int pago) {
         repo.guardarPuesto(nombre, tipo, descripcion, presRem, horario, estado, pago);
     }
