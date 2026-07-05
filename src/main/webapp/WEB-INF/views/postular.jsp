@@ -71,14 +71,10 @@
         <div class="rules-box">
             <strong>Reglas de postulación:</strong>
             <ul>
-                <li>Solo puedes postular a un puesto nuevo cuando todas tus evaluaciones previas estén en <strong>Aprobado</strong> o <strong>Rechazado</strong>.</li>
-                <li>Mientras tengas algún proceso en <strong>Pendiente</strong> o <strong>Entrevista</strong>, no podrás iniciar otra postulación.</li>
+                <li>No puedes postular a un puesto nuevo mientras tengas algún proceso en <strong>Pendiente</strong> o <strong>Entrevista</strong>.</li>
                 <li>No puedes volver a postular al mismo puesto si ya tienes una solicitud registrada para él.</li>
             </ul>
         </div>
-
-
-
         <c:if test="${param.error == 'PROCESO_ACTIVO'}">
             <div class="alert alert-danger mb-4">
                 Tienes un proceso de selección en curso. Debes esperar a que finalice (Aprobado o Rechazado) antes de postular a otro puesto distinto.
@@ -105,13 +101,14 @@
                             </option>
                         </c:forEach>
                     </select>
-                </div>
-            </div>
+                <c:forEach var="puesto" items="${listaCatalogo}">
+                    <option value="${puesto.id}" <c:if test="${puesto.id == puestoSeleccionadoId}">selected="selected"</c:if>>
+                        ${puesto.nombre} (${puesto.presRem} | ${puesto.tipo})
+                    </option>
+                </c:forEach>
+            </select>
         </form>
-
-
-
-        <form action="/postular/guardar" method="POST">
+        <form action="/postular/guardar" method="POST" class="mb-4">
 
             <input type="hidden" name="id_puesto" value="${puestoSeleccionadoId}">
 
@@ -156,15 +153,11 @@
 
 
             <button type="submit" class="btn-submit-call">
-
                 ENVIAR MI POSTULACIÓN <i class="fas fa-paper-plane ms-2"></i>
-
             </button>
-
         </form>
-
     </div>
-
+</div>
 </div>
 
 
