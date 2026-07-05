@@ -9,13 +9,13 @@
 
 :root {
     --callypso-red: #ca0000;
-    --callypso-dark: #0e0e0e;
-    --callypso-gray: #252525;
+    --callypso-dark: #747474;
+    --callypso-gray: #ffffff;
 }
 body {
     font-family: 'Raleway', sans-serif;
     background-color: var(--callypso-dark);
-    color: #ffffff !important; /* Fuerza a que el texto base sea blanco puro */
+    color: #000000 !important; /* Fuerza a que el texto base sea blanco puro */
     scroll-behavior: smooth;
     padding-top: 70px;
     margin: 0;
@@ -33,7 +33,7 @@ body {
     font-weight: 800;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: white;
+    color: rgb(0, 0, 0);
     margin: 0;
 }
 /* texto de fondo */
@@ -52,11 +52,11 @@ body {
     font-size: 3.5rem;
     font-weight: 800;
     text-transform: uppercase;
-    color: #ffffff !important;
+    color: #000000 !important;
     text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.9);
 }
 .hero p {
-    color: #f8f9fa !important;
+    color: #000000 !important;
     text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.9);
 }
 .highlight {
@@ -67,10 +67,11 @@ body {
     background-color: var(--callypso-gray);
 }
 .card-benefit {
-    background: #1a1a1a;
+    background: #ffffff;
     border: 1px solid #333;
     border-radius: 15px;
     padding: 30px;
+    color: black;
     height: 100%;
 }
 .card-image {

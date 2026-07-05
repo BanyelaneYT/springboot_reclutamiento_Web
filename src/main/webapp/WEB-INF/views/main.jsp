@@ -13,20 +13,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
-<body style="background-color: #1d1d1d;">
+<body>
 <!-- Header -->    
 <header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-        <a href="/" class="logo">
-            CallypsoCall
-        </a>
-        
+    <div class="header-fullwidth d-flex align-items-center justify-content-between">
+        <a href="/" class="logo">CallypsoCall</a>
         <nav id="navbar" class="navbar">
-            <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
-                <li><a class="nav-link" href="/publicidad">Servicios</a></li>
-                <li><a class="nav-link" href="/contacto">Contacto</a></li>
-                <li><a class="nav-link" href="/evento">Eventos</a></li>
-                <li><a class="getstarted" href="/login">Login ></a></li>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/evento">Convocatorias</a></li>
+                <li><a href="/contacto">Contacto</a></li>
+                <li><a href="/login" class="btn-login-header">Login</a></li>
             </ul>
         </nav>
     </div>

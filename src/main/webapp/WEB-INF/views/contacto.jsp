@@ -19,21 +19,18 @@
 
 <header id="header" class="fixed-top d-flex align-items-center">
     <div class="header-fullwidth d-flex align-items-center justify-content-between">
-        <a href="/" class="logo">
-            CallypsoCall
-        </a>
-
+        <a href="/" class="logo">CallypsoCall</a>
         <nav id="navbar" class="navbar">
-            <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
-                <li><a class="nav-link" href="/publicidad">Servicios</a></li>
-                <li><a class="nav-link" href="/contacto">Contacto</a></li>
-                <li><a class="nav-link" href="/evento">Eventos</a></li>
-                <li><a class="getstarted" href="/login">Login ></a></li>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/evento">Convocatorias</a></li>
+                <li><a href="/contacto">Contacto</a></li>
+                <li><a href="/login" class="btn-login-header">Login</a></li>
             </ul>
         </nav>
     </div>
 </header>
-<div class="container-contacto">
+<div class="container-contacto" style="margin-top:100px">
 
     <h1>CONTÁCTANOS</h1>
     <p class="subtitle">¡Estamos aquí para escucharte! Ponte en contacto con nosotros y juntos crearemos soluciones excepcionales.</p>

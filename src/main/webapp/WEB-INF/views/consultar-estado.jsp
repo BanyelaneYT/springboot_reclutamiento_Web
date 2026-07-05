@@ -10,7 +10,7 @@
 <body>
 <div class="login-card">
     <h2>REVISAR SOLICITUD</h2>
-    <p style="color: #ccc; text-align: center; font-size: 14px; margin-bottom: 20px;">Ingresa tu DNI para ver el estado de tu postulación.</p>
+    <p style="color: #000000; text-align: center; font-size: 14px; margin-bottom: 20px;">Ingresa tu DNI para ver el estado de tu postulación.</p>
 
     <c:if test="${not empty error}">
         <div style="color: white; background-color: #dc3545; padding: 10px; border-radius: 5px; text-align: center; margin-bottom: 15px;">
@@ -24,7 +24,7 @@
     </form>
 
     <div style="margin-top: 15px; text-align: center;">
-        <a href="/login" style="color: white; text-decoration: underline; font-size: 14px;">Volver al Login</a>
+        <a href="/login" style="color: rgb(0, 0, 0); text-decoration: underline; font-size: 14px;">Volver al Login</a>
     </div>
 </div>
 </body>

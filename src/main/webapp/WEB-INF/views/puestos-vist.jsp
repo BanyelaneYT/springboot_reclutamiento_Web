@@ -14,8 +14,16 @@
 </head>
 <body>
 <header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
+    <div class="header-fullwidth d-flex align-items-center justify-content-between">
         <a href="/" class="logo">CallypsoCall</a>
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/evento">Convocatorias</a></li>
+                <li><a href="/contacto">Contacto</a></li>
+                <li><a href="/login" class="btn-login-header">Login</a></li>
+            </ul>
+        </nav>
     </div>
 </header>
 
@@ -29,14 +37,16 @@
                         <div class="col-md-4">
                             <div class="card-benefit p-4 shadow">
                                 <h3 class="text-accent mb-2">${puesto.nombre}</h3>
-                                <p class="text-white-50 mb-1"><i class="fas fa-map-marker-alt me-2"></i>${puesto.presRem} | ${puesto.tipo}</p>
-                                <p class="text-white-50 mb-3"><i class="fas fa-clock me-2"></i>${puesto.horario}</p>
-                                <p class="text-white text-start" style="font-size: 0.95rem;">${puesto.descripcion}</p>
+                                <p class="text-black-50 mb-1"><i class="fas fa-map-marker-alt me-2"></i>${puesto.presRem} | ${puesto.tipo}</p>
+                                <p class="text-black-50 mb-3"><i class="fas fa-clock me-2"></i>${puesto.horario}</p>
+                                <p class="text-black text-start" style="font-size: 0.95rem;">${puesto.descripcion}</p>
                                 <div class="mt-4 mb-3">
                                     <span class="fs-5 fw-bold text-success">Sueldo: S/. ${puesto.pago}</span>
                                 </div>
                                 <div>
-                                    <a href="/postular" class="btn-join shadow-lg w-100">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
+                                    <a href="/postular?puestoId=${puesto.id}" class="btn-join shadow-lg w-100">
+                                        POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>

@@ -14,30 +14,25 @@
 </head>
 
 <body>
-<!-- Header -->    
 <header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex align-items-center justify-content-between">
-        <a href="/" class="logo">
-            CallypsoCall
-        </a>
-        
+    <div class="header-fullwidth d-flex align-items-center justify-content-between">
+        <a href="/" class="logo">CallypsoCall</a>
         <nav id="navbar" class="navbar">
-            <ul class="d-flex align-items-center m-0 p-0" style="list-style: none;">
-                <li><a class="nav-link" href="/publicidad">Servicios</a></li>
-                <li><a class="nav-link" href="/contacto">Contacto</a></li>
-                <li><a class="nav-link" href="/evento">Eventos</a></li>
-                <li><a class="getstarted" href="/login">Login ></a></li>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/evento">Convocatorias</a></li>
+                <li><a href="/contacto">Contacto</a></li>
+                <li><a href="/login" class="btn-login-header">Login</a></li>
             </ul>
         </nav>
     </div>
 </header>
-<!-- Fin Header -->
 
 <main>
     <section class="hero">
         <div class="container">
-            <h1 class="mb-4">¡Que la armonía de las <span class="highlight">oportunidades</span> alcance su punto más alto!</h1>
-            <p class="display-6 mb-5">Bienvenidos, operadores. Sus logros brillan gracias al trabajo duro en equipo.</p>
+            <h1 class="mb-4 text-white">¡Que la armonía de las <span class="highlight">oportunidades</span> alcance su punto más alto!</h1>
+            <p class="display-6 mb-5 text-white">Bienvenidos, operadores. Sus logros brillan gracias al trabajo duro en equipo.</p>
         </div>
     </section>
 

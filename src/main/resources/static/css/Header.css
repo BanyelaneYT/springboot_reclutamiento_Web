@@ -1,51 +1,88 @@
-/* Header General */
-#header { 
-    background: #b10000; /* El rojo exacto de tu imagen */
-    padding: 15px 0; 
-    color: white; 
-    transition: all 0.5s; 
-    box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+/* ==========================================================================
+   HEADER GENERAL UNIFICADO (Callypso Call)
+   ========================================================================== */
+#header {
+    background: #b10000; /* El rojo exacto corporativo */
+    padding: 10px 0;
+    color: white;
+    transition: all 0.5s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999; /* Asegura que siempre esté por encima del contenido */
+    height: 70px;
+}
+
+/* Contenedor de ancho completo estilizado */
+.header-fullwidth {
+    width: 100%;
+    padding: 0 40px; /* Margen elegante a los lados */
 }
 
 /* Estilos del Logo */
-#header .logo { 
-    font-size: 24px; 
-    font-weight: 700; 
+#header .logo {
+    font-size: 24px;
+    font-weight: 700;
     color: #ffffff;
     text-decoration: none;
     text-transform: uppercase;
+    font-family: 'Raleway', sans-serif;
+    letter-spacing: 1px;
 }
-#header .logo span { 
-    font-size: 14px; 
-    display: block; /* Hace que "& Asociados" vaya abajo si es necesario */
+
+#header .logo:hover {
+    color: #f3f3f3;
+}
+
+#header .logo span {
+    font-size: 14px;
+    display: block;
     font-weight: 300;
 }
 
-/* Menú de Navegación */
+/* ==========================================================================
+   MENÚ DE NAVEGACIÓN (NAVBAR)
+   ========================================================================== */
 #navbar ul {
-    gap: 30px; /* Espaciado entre cada opción del menú */
+    display: flex;
+    align-items: center;
+    gap: 30px; /* Espaciado idéntico entre opciones */
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-#navbar .nav-link {
+#navbar a {
     color: #ffffff;
-    font-weight: 700;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
     font-size: 14px;
-    text-transform: uppercase;
     text-decoration: none;
-    padding: 10px 0;
-    transition: 0.3s;
+    padding: 8px 0;
+    position: relative;
 }
 
-/* El Botón Blanco "Cotiza >" */
-#navbar .getstarted {
-    background: #ffffff;
-    color: #b10000; /* Texto rojo dentro del botón */
-    font-weight: 700;
-    font-size: 15px;
-    padding: 10px 25px;
-    border-radius: 50px; /* Bordes completamente redondeados */
-    text-decoration: none;
-    transition: 0.3s;
-    display: inline-block;
-    margin-left: 15px;
+/* Botón Destacado de Login (Reemplazo moderno de getstarted) */
+#navbar .btn-login-header {
+    background: #e03a3c; /* Variación del rojo para resaltar */
+    color: #ffffff !important;
+    padding: 8px 20px !important;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* Ajuste responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    .header-fullwidth {
+        padding: 0 20px;
+    }
+    #navbar ul {
+        gap: 15px;
+    }
+    #header .logo {
+        font-size: 20px;
+    }
 }

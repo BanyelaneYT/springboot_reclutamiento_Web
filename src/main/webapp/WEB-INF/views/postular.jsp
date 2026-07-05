@@ -4,98 +4,155 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Callypso Call | Postulación Masiva</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Raleway:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/contacto.css">
-    <link rel="stylesheet" href="/css/postular.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callypso Call | Postulación</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Raleway:400,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <link rel="stylesheet" href="/css/Header.css">
+    <link rel="stylesheet" href="/css/contacto.css">
+
+    <style>
+        body {
+            background-color: #1d1d1d;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+        }
+        .page-title {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        /* Estilización de inputs para que luzcan idénticos a los de contacto.jsp */
+        .form-container input[type="text"],
+        .form-container input[type="number"],
+        .form-container select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 12px 15px;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .form-container input:focus,
+        .form-container select:focus {
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            box-shadow: none;
+        }
+        .form-container select option {
+            background: #1d1d1d;
+            color: #fff;
+        }
+        .question-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 6px;
+            height: 100%;
+        }
+        .question-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #e5e5e5;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .btn-submit-call {
+            background: #e03a3c;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            width: 100%;
+        }
+        .btn-submit-call:hover {
+            background: #ca2a2c;
+        }
+    </style>
 </head>
 <body>
+
 <header id="header" class="fixed-top d-flex align-items-center">
     <div class="header-fullwidth d-flex align-items-center justify-content-between">
         <a href="/" class="logo">CallypsoCall</a>
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/evento">Convocatorias</a></li>
+                <li><a href="/contacto">Contacto</a></li>
+                <li><a href="/login" class="btn-login-header">Login</a></li>
+            </ul>
+        </nav>
     </div>
 </header>
 
-<div class="container container-postular">
-    <div class="form-container shadow-lg">
-        <h2 class="text-center text-white mb-4 fw-bold style-title-postular">FICHA DE POSTULACIÓN TÉCNICA</h2>
+<div class="container" style="padding-top: 120px; padding-bottom: 60px;">
+    <div class="text-center mb-5">
+        <h2 class="page-title">FICHA DE POSTULACIÓN TÉCNICA</h2>
+        <p style="color: rgba(255,255,255,0.6); font-size: 15px;">Completa tus datos personales y responde el cuestionario del puesto seleccionado.</p>
+    </div>
 
-        <c:if test="${param.error == 'duplicado'}">
-            <div class="alert alert-danger text-center fw-bold">Usted ya cuenta con una postulación activa vinculada a este DNI.</div>
-        </c:if>
+    <div class="form-container m-auto" style="max-width: 950px; background: rgba(255,255,255,0.02); padding: 40px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
 
-        <form action="/reclutar/guardar" method="POST">
-            <input type="hidden" name="idQuest" value="1"> <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label class="form-label text-white">Nombres y Apellidos Completos</label>
-                    <input type="text" class="form-control" name="nombre" placeholder="Ingrese nombre completo" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label class="form-label text-white">Documento de Identidad (DNI)</label>
-                    <input type="number" class="form-control" name="dni" placeholder="DNI de 8 dígitos" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label class="form-label text-white">Edad</label>
-                    <input type="number" class="form-control" name="edad" placeholder="Edad actual" required>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label class="form-label text-white">Puesto al que Postula</label>
-                    <select name="puesto" class="form-select" required>
-                        <option value="1">Asesor Call Center - Ventas España</option>
-                        <option value="2">Atención al Cliente - Turno Mañana</option>
+        <form action="/postular" method="GET" class="mb-4">
+            <div class="mb-3">
+                <label class="fw-bold mb-2" style="color: #e03a3c; font-size: 14px; letter-spacing: 0.5px;">PUESTO AL QUE POSTULA:</label>
+                <div class="input-group">
+                    <select name="puestoId" onchange="this.form.submit()" required>
+                <option value="">-- Selecciona un puesto laboral --</option>
+                        <c:forEach var="puesto" items="${listaCatalogo}">
+                            <option value="${puesto.id}" ${puesto.id == puestoSeleccionadoId ? 'selected' : ''}>
+                                ${puesto.nombre} (${puesto.presRem} | ${puesto.tipo})
+                            </option>
+                        </c:forEach>
                     </select>
                 </div>
             </div>
+        </form>
 
-            <hr style="border-color: #ca0000; margin: 30px 0;">
-            <h4 class="text-white mb-4"><i class="fas fa-clipboard-check me-2"></i> Evaluación Psicotécnica y Comercial</h4>
+        <form action="/postular/guardar" method="POST">
+            <input type="hidden" name="id_puesto" value="${puestoSeleccionadoId}">
 
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="pregunta-card">
-                        <label>1. Si un cliente te corta abruptamente la llamada diciendo "No me interesa", ¿qué haces?</label>
-                        <select name="res1" required>
-                            <option value="1">Me molesto y no insisto</option>
-                            <option value="2">Paso inmediatamente a la siguiente llamada sin importar</option>
-                            <option value="3">Intento registrar qué le molestó para mejorar</option>
-                            <option value="4">Mantengo la calma y aplico una técnica de rebatir objeciones antes que cuelgue</option>
-                        </select>
-                    </div>
+            <h4 class="mb-4 pb-2 border-bottom border-secondary" style="font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 18px;">
+                <i class="fas fa-user me-2" style="color: #e03a3c;"></i>Datos Personales
+            </h4>
+
+            <div class="row g-4 mb-5">
+                <div class="col-md-4">
+                    <label class="form-label small text-white-50">Documento de Identidad (DNI)</label>
+                    <input type="number" name="dni" required placeholder="Ej. 74589632">
                 </div>
-                <div class="col-md-6">
-                    <div class="pregunta-card">
-                        <label>2. ¿Cuál consideras que es la clave principal para cerrar una venta difícil?</label>
-                        <select name="res2" required>
-                            <option value="1">Hablar rápido sin dejar interrupciones</option>
-                            <option value="2">Ofrecer rebajas o descuentos desesperadamente</option>
-                            <option value="3">Escuchar con atención las necesidades reales del cliente</option>
-                            <option value="4">Generar un sentido de urgencia absoluto y confianza</option>
-                        </select>
-                    </div>
+                <div class="col-md-5">
+                    <label class="form-label small text-white-50">Nombre Completo</label>
+                    <input type="text" name="nombre" required placeholder="Ej. Carlos Mendoza Ramos">
                 </div>
-                <div class="col-md-6">
-                    <div class="pregunta-card">
-                        <label>8. ¿Cómo reaccionas cuando tu supervisor te corrige?</label>
-                        <select name="res8" required>
-                            <option value="1">Me incomoda y siento que me expone</option>
-                            <option value="2">Escucho pero sigo trabajando a mi manera</option>
-                            <option value="3">Acepto los comentarios para evitar roces</option>
-                            <option value="4">Agradezco el feedback para potenciar mis ventas</option>
-                        </select>
-                    </div>
+                <div class="col-md-3">
+                    <label class="form-label small text-white-50">Edad Actual</label>
+                    <input type="number" name="edad" required placeholder="Ej. 24" min="18" max="99">
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-danger w-100 py-3 mt-3 fw-bold" style="background-color: #ca0000; border: none; font-size: 1.1rem;">
-                ENVIAR POSTULACIÓN AHORA
-            </button>
+            <div class="mt-5">
+                <button type="submit" class="btn-submit-call">
+                    ENVIAR MI POSTULACIÓN <i class="fas fa-paper-plane ms-2"></i>
+                </button>
+            </div>
         </form>
     </div>
 </div>
-<footer class="footer-simple">
-    <p>&copy; 2026 Callypso Call Peru. Todos los derechos reservados.</p>
-</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

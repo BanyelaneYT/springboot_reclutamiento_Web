@@ -6,49 +6,77 @@
     <meta charset="UTF-8">
     <title>Estado de Solicitud</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #1d1d1d; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: 'Raleway', sans-serif;}
-        .status-card { background-color: #2b2b2b; padding: 40px; border-radius: 12px; width: 100%; max-width: 500px; text-align: center; box-shadow: 0 8px 16px rgba(0,0,0,0.5); }
-        .aprobado { color: #28a745; font-weight: bold; font-size: 2rem; margin: 20px 0;}
-        .desaprobado { color: #dc3545; font-weight: bold; font-size: 2rem; margin: 20px 0;}
-        .pendiente { color: #ffc107; font-weight: bold; font-size: 2rem; margin: 20px 0;}
-        .box-link { background-color: #1a1a1a; padding: 15px; border-radius: 8px; border-left: 4px solid #28a745; margin-top: 20px; text-align: left; }
-        .box-link a { color: #38ef7d; text-decoration: none; word-break: break-all; }
-    </style>
+    <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-    <div class="status-card">
-        <h3>Hola, ${postulante.nombre}</h3>
-        <p class="text">El estado actual de tu postulación es:</p>
+    <div class="d-flex align-items-center" style="height: 100vh;">
 
-        <c:choose>
-                    <%-- CASO 1: YA SE LE GENERÓ LA ENTREVISTA O FUE APROBADO TOTALMENTE --%>
-                    <c:when test="${postulante.estado == 'ENTREVISTA' || postulante.estado == 'APROBADO'}">
-                        <div class="aprobado">Entrevista Programada</div>
-                        <p>¡Felicidades! Tu entrevista ya está agendada.</p>
+        <div class="general-card text-center" style="max-width: 500px; color: rgb(0, 0, 0);">
+            <h3>Hola, ${postulante.nombre}</h3>
+            <p class="text-black-50">El estado de tu postulación es:</p>
 
-                        <div class="box-link">
-                            <p class="m-0" style="font-size: 15px;">
-                                <strong>Link de la Entrevista (Horario 3:30pm):</strong> <br>
-                                <a href="https://meet.google.com/abc-defg-hij" target="_blank">https://meet.google.com/abc-defg-hij</a>
-                            </p>
-                        </div>
-                    </c:when>
+            <c:choose>
+                <%-- CASO 1: ENTREVISTA PROGRAMADA --%>
+                <c:when test="${postulante.estado == 'ENTREVISTA'}">
+                    <div class="text-warning h2">Entrevista Programada</div>
+                    <p>Fecha y Hora pactada: <strong>${postulante.fecha_hora_entrevista}</strong></p>
 
-                    <%-- CASO 2: APROBÓ EL FORMULARIO AUTOMÁTICO, PERO ADMINISTRACIÓN AÚN NO LE GENERA EL LINK --%>
-                    <c:when test="${postulante.estado == 'PENDIENTE EN EVALUACION'}">
-                        <div class="pendiente">Aprobaste el Formulario</div>
-                        <p>¡Buen trabajo! Has superado el puntaje mínimo del test técnico. Tu postulación está <strong>pendiente a entrevista</strong>. Por favor, vuelve a consultar esta página más tarde para ver tu enlace de reunión.</p>
-                    </c:when>
+                    <c:choose>
+                        <c:when test="${postulante.linkhabilitado == 1}">
+                            <div class="alert alert-success mt-3">
+                                <strong>¡El enlace ya está activo!</strong><br>
+                                <a href="${postulante.link_meet}" target="_blank" class="btn btn-success mt-2">Ingresar a la Entrevista</a>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="alert alert-danger mt-3">
+                                <strong>El enlace se encuentra bloqueado.</strong><br>
+                                Se habilitará automáticamente al llegar la fecha y hora indicada arriba.
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
+                </c:when>
 
-                    <%-- CASO 3: DESAPROBÓ EL TEST O FUE RECHAZADO MANUALMENTE --%>
-                    <c:otherwise>
-                        <div class="desaprobado">Desaprobaste el formulario</div>
-                        <p>Agradecemos tu tiempo y participación. En esta ocasión no alcanzaste el puntaje necesario para continuar con el proceso de selección.</p>
-                    </c:otherwise>
-                </c:choose>
+                <%-- CASO 2: EN EVALUACIÓN --%>
+                <c:when test="${postulante.estado == 'PENDIENTE EN EVALUACION'}">
+                    <div class="text-info h2">En Evaluación Manual</div>
+                    <p>Tu postulación ha sido recibida con éxito. Recursos Humanos está revisando tus datos.</p>
+                </c:when>
 
-        <a href="/main" class="btn btn-outline-light mt-4 w-100">Volver al Inicio</a>
+                <%-- CASO 3: PROCESO APROBADO --%>
+                <c:when test="${postulante.estado == 'APROBADO'}">
+                    <div class="text-success h2">¡Felicitaciones! Proceso Aprobado</div>
+                    <p>Nos complace informarte que tu perfil ha sido seleccionado. Por favor, acércate a nuestra sede central a la brevedad posible para la firma de tu contrato e iniciar con tu proceso de inducción. ¡Bienvenido al equipo de CallypsoCall!</p>
+                </c:when>
+
+                <%-- CASO 4: PROCESO RECHAZADO (Cualquier otro estado o "RECHAZADO") --%>
+                <c:otherwise>
+                    <div class="text-danger h2">Proceso Terminado</div>
+                    <p>Agradecemos profundamente tu participación en este proceso de selección. En esta oportunidad, tu perfil no se adecúa por completo a los criterios específicos requeridos para el puesto. Guardaremos tus datos en nuestra base de datos para futuras convocatorias. ¡Te deseamos el mayor de los éxitos en tu futuro laboral!</p>
+                </c:otherwise>
+            </c:choose>
+
+            <div class="mt-4 text-start">
+                <h5 class="text-black mb-3">Detalle de Evaluación</h5>
+                <p class="mb-1"><strong>Nota:</strong>
+                    <c:choose>
+                        <c:when test="${not empty postulante.puntaje}">${postulante.puntaje} / 20</c:when>
+                        <c:otherwise>No disponible</c:otherwise>
+                    </c:choose>
+                </p>
+                <p class="mb-1"><strong>Estado:</strong> ${postulante.estado}</p>
+                <p class="mb-0"><strong>Descripción:</strong>
+                    <c:choose>
+                        <c:when test="${not empty postulante.descripcion}">${postulante.descripcion}</c:when>
+                        <c:otherwise>Sin descripción registrada.</c:otherwise>
+                    </c:choose>
+                </p>
+            </div>
+
+            <div style="margin-top: 15px;">
+                <a href="/main" style="color: #007bff; text-decoration: none; font-weight: bold;">Volver al Inicio</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>
