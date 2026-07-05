@@ -30,11 +30,11 @@
     <div class="container-fluid p-4">
         <div class="row g-4">
             <div class="col-md-6">
-                <a href="/catalogo" class="card-module">
+                <a href="/categoria" class="card-module">
                     <div class="icon-box">
                         <i class="fas fa-calendar-check"></i>
                     </div>
-                    <h4>Gestión de Puestos</h4>
+                    <h4>Gestión de Categoría de Puestos</h4>
                     <p>Administre puestos, tanto nuevos como existentes.</p>
                 </a>
             </div>

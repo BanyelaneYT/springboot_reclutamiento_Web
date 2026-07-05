@@ -17,25 +17,25 @@ public class CategoriaPuestosController {
         this.categoriaPuestosService = categoriaPuestosService;
     }
 
-    @GetMapping("/catalogo")
+    @GetMapping("/categoria")
     public String listar(Model model) {
-        model.addAttribute("listaCatalogo", categoriaPuestosService.listarCatalogo());
-        return "catalogo-crud";
+        model.addAttribute("listaCategorias", categoriaPuestosService.listarCatalogo());
+        return "categoria-crud";
     }
 
-    @PostMapping("/catalogo/actualizar")
+    @PostMapping("/categoria/actualizar")
     public String actualizar(@RequestParam int id, @RequestParam String nombre, @RequestParam String tipo,
                              @RequestParam String descripcion, @RequestParam String presRem,
                              @RequestParam String horario, @RequestParam int estado, @RequestParam int pago) {
         categoriaPuestosService.actualizarPuesto(id, nombre, tipo, descripcion, presRem, horario, estado, pago);
-        return "redirect:/catalogo";
+        return "redirect:/categoria";
     }
 
-    @PostMapping("/catalogo/guardar")
+    @PostMapping("/categoria/guardar")
     public String guardar(@RequestParam String nombre, @RequestParam String tipo, @RequestParam String descripcion,
                           @RequestParam String presRem, @RequestParam String horario,
                           @RequestParam int estado, @RequestParam int pago) {
         categoriaPuestosService.guardarPuesto(nombre, tipo, descripcion, presRem, horario, estado, pago);
-        return "redirect:/catalogo";
+        return "redirect:/categoria";
     }
 }
