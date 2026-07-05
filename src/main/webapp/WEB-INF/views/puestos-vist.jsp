@@ -19,7 +19,7 @@
         <nav id="navbar" class="navbar">
             <ul>
                 <li><a href="/">Inicio</a></li>
-                <li><a href="/evento">Convocatorias</a></li>
+                <li><a href="/convocatorias">Convocatorias</a></li>
                 <li><a href="/contacto">Contacto</a></li>
                 <li><a href="/login" class="btn-login-header">Login</a></li>
             </ul>
@@ -32,7 +32,7 @@
         <div class="container text-center">
             <h2 class="mb-5 display-4 fw-bold">Convocatorias Vigentes en <span class="highlight">Callypso Call</span></h2>
             <div class="row g-4">
-                <c:forEach var="puesto" items="${listaCatalogo}">
+                <c:forEach var="puesto" items="${listaCategorias}">
                     <c:if test="${puesto.estado == 1}">
                         <div class="col-md-4">
                             <div class="card-benefit p-4 shadow">
