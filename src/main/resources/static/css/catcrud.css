@@ -1,72 +1,66 @@
-/* GENERAL */
+
 body {
-    background-color: #0e0e0e ;
-    color: #e0e0e0;
+    background-color: #f4f6f9;
     font-family: 'Raleway', sans-serif;
     margin: 0;
+    padding-top: 90px;
 }
-/* CARD PRINCIPAL */
+
+/* Anula los "text-white" viejos de tus JSP para que se vean en el fondo blanco */
+.text-white, .text-white-50, .text-muted {
+    color: #333333 !important;
+}
+
+/* Contenedor principal sin sombras */
 .main-card {
-    background: #dfdfdf;
-    border: 1px solid #333;
-    border-radius: 15px;
-    padding: 2.5rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    margin-top: 90px;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 2rem;
+    border: 1px solid #ddd;
+    margin-bottom: 40px;
 }
 
 .section-title {
     text-align: center;
-    color: #000000;
+    color: #1a1a1a !important;
     font-weight: 700;
     margin-bottom: 2rem;
 }
 
-/* TABLA */
-.table {
-    margin-bottom: 0;
-    border-color: #333;
-}
+/* Tablas planas y legibles */
+.table { margin-bottom: 0; }
 
 thead th {
-    background-color: #ca0000;
-    color: white ;
+    background-color: #ca0000 !important;
+    color: #ffffff !important;
     text-align: center;
-    padding: 15px ;
-    border: none ;
+    padding: 12px;
+    border: none;
     text-transform: uppercase;
     font-size: 0.85rem;
-    letter-spacing: 1px;
 }
 
 tbody td {
-    background-color: transparent ;
-    color: #b0b0b0;
-    padding: 15px ;
-    border-bottom: 1px solid #2a2a2a ;
+    background-color: #ffffff !important;
+    color: #333333 !important;
+    padding: 12px;
     text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #eee;
 }
 
-.text-id { font-size: 0.9rem; color: white; }
-
-.badge-tipo {
-    max-width: 250px;
-    white-space: nowrap;
-    overflow: hidden;
-    color: #1f1f1f;
-    font-size: 0.8rem;
-    font-weight: 600;
+/* elimina el efecto hover en las tablas, solo BLANCO Y ESTÁTICO */
+.table-hover > tbody > tr:hover > *,
+.table > tbody > tr:hover > *,
+tbody tr:hover td,
+tbody tr:hover th {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+    box-shadow: none !important;
+    transform: none !important;
 }
 
-.text-description {
-    max-width: 250px;
-    white-space: nowrap;
-    overflow: hidden;
-    color: white;
-    text-overflow: ellipsis;
-}
-
-/* BOTONES DE ACCIÓN */
+/* Botones cuadrados de acción en las tablas */
 .action-buttons {
     display: flex;
     justify-content: center;
@@ -74,56 +68,58 @@ tbody td {
 }
 
 .btn-action {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     border: none;
+    color: white;
+    text-decoration: none;
 }
 
-.btn-edit { background: #ffc107; color: #000; }
-.btn-delete { background: #dc3545; color: white; }
+.btn-edit { background: #ffc107; color: #000 !important; }
+.btn-delete { background: #dc3545; }
 
-.btn-action:hover {
-    transform: scale(1.1);
-    opacity: 0.9;
-}
-
-/* MODAL */
+/* Modales limpios */
 .custom-modal {
-    background: #1a1a1a ;
-    color: white;
-    border: 1px solid #ca0000;
-    border-radius: 15px;
+    background-color: #ffffff !important;
+    border-radius: 8px;
+    border: 1px solid #ddd;
 }
 
-.modal-header {
-    border-bottom: 1px solid #333;
+.custom-modal label,
+.custom-modal h5,
+.custom-modal p {
+    color: #333333 !important;
+    font-weight: 600;
 }
 
-.form-control, .form-select {
-    background-color: #252525 ;
-    border: 1px solid #444 ;
-    color: white ;
+/* Evitar que los filtros, textareas e inputs se pongan negros al usarlos */
+.form-select, .form-control {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+    border: 1px solid #ced4da !important;
+}
+
+.form-select option {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* Arreglar TODOS los botones rojos para que no se pongan blancos al pasar el cursor */
+.btn-save, .btn-primary, .btn-danger {
+    background-color: #ca0000 !important;
+    color: #ffffff !important;
+    border: 1px solid #ca0000 !important;
+    font-weight: 600;
     padding: 10px;
+    border-radius: 6px;
 }
 
-.form-control:focus {
-    border-color: #ca0000 ;
-    box-shadow: 0 0 0 0.25rem rgba(202, 0, 0, 0.2);
-}
-
-.btn-save {
-    background: #ca0000;
-    color: white;
-    font-weight: 700;
-    padding: 12px;
-    border: none;
-}
-
-.btn-save:hover {
-    background: #a80000;
-    color: white;
+.btn-save:hover, .btn-primary:hover, .btn-danger:hover {
+    background-color: #9c0000 !important; /* Se oscurece a un rojo vino */
+    color: #ffffff !important; /* Obliga a que la letra siga siendo blanca */
+    border: 1px solid #9c0000 !important;
 }

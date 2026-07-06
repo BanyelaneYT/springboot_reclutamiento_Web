@@ -70,8 +70,8 @@
                     <div class="icon-box">
                         <i class="fas fa-user-tie"></i>
                     </div>
-                    <h4>Gestión de Usuarios</h4>
-                    <p>Administre los usuarios del sistema y sus permisos.</p>
+                    <h4>Gestión de Administradores</h4>
+                    <p>Administre los Usuarios del sistema y sus permisos.</p>
                 </a>
             </div>
             <div class="col-md-6">

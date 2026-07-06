@@ -2,16 +2,15 @@
    HEADER GENERAL UNIFICADO (Callypso Call)
    ========================================================================== */
 #header {
-    background: #b10000; /* El rojo exacto corporativo */
+    background: #b10000;
     padding: 10px 0;
     color: white;
-    transition: all 0.5s;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 9999; /* Asegura que siempre esté por encima del contenido */
     height: 70px;
+    z-index: 1000;
 }
 
 /* Contenedor de ancho completo estilizado */

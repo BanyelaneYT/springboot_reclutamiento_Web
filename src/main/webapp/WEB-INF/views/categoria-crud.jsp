@@ -56,7 +56,7 @@
                                         <td><span class="badge bg-secondary badge-tipo">${puesto.tipo}</span></td>
                                         <td>${puesto.presRem}</td>
                                         <td>${puesto.horario}</td>
-                                        <td class="text-success fw-bold">S/. ${puesto.pago}</td>
+                                        <td class="text fw-bold">S/. ${puesto.pago}</td>
                                         <td>
                                             <c:choose>
                                                 <c:when test="${puesto.estado == 1}"><span class="badge bg-success">Activo</span></c:when>
