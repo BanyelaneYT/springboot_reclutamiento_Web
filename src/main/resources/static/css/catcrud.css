@@ -81,6 +81,7 @@ tbody tr:hover th {
 
 .btn-edit { background: #ffc107; color: #000 !important; }
 .btn-delete { background: #dc3545; }
+.btn-activate { background: #198754; }
 
 /* Modales limpios */
 .custom-modal {

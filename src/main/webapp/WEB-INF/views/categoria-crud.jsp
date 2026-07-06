@@ -66,9 +66,32 @@
                                         <td class="text-center">
                                             <div class="action-buttons">
                                                 <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalActualizar"
-                                                        onclick="llenarDatosModal('${puesto.id}', '${puesto.nombre}', '${puesto.tipo}', '${puesto.descripcion}', '${puesto.presRem}', '${puesto.horario}', '${puesto.estado}', '${puesto.pago}')">
+                                                        onclick="llenarDatosModal('${puesto.id}', '${puesto.nombre}', '${puesto.tipo}', '${puesto.descripcion}', '${puesto.presRem}', '${puesto.horario}', '${puesto.estado}', '${puesto.pago}')"
+                                                        title="Editar">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
+                                                <c:choose>
+                                                    <c:when test="${puesto.estado == 1}">
+                                                        <form action="/categoria/cambiar-estado" method="POST" class="d-inline"
+                                                              onsubmit="return confirm('¿Desactivar este puesto?');">
+                                                            <input type="hidden" name="id" value="${puesto.id}">
+                                                            <input type="hidden" name="estado" value="0">
+                                                            <button type="submit" class="btn-action btn-delete" title="Desactivar">
+                                                                <i class="fas fa-toggle-off"></i>
+                                                            </button>
+                                                        </form>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <form action="/categoria/cambiar-estado" method="POST" class="d-inline"
+                                                              onsubmit="return confirm('¿Activar este puesto?');">
+                                                            <input type="hidden" name="id" value="${puesto.id}">
+                                                            <input type="hidden" name="estado" value="1">
+                                                            <button type="submit" class="btn-action btn-activate" title="Activar">
+                                                                <i class="fas fa-toggle-on"></i>
+                                                            </button>
+                                                        </form>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </div>
                                         </td>
                                     </tr>

@@ -15,7 +15,6 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.exception.PostulacionException;
 import com.example.demo.model.UserInf;
 
 @Repository
@@ -117,18 +116,6 @@ public class ReclutaRepositoryDAO implements ReclutaRepository {
 
     @Override
     public Integer registrarPostulante(int dni, String nombre, int edad, int idPuesto) {
-        if (existePostulacionAlPuesto(dni, idPuesto)) {
-            throw new PostulacionException(
-                    PostulacionException.CODIGO_MISMO_PUESTO,
-                    "Ya tienes una postulación registrada para este puesto.");
-        }
-
-        if (tienePostulacionesActivas(dni)) {
-            throw new PostulacionException(
-                    PostulacionException.CODIGO_PROCESO_ACTIVO,
-                    "Tienes un proceso de selección en curso. Solo puedes postular a otro puesto cuando tus evaluaciones estén en Aprobado o Rechazado.");
-        }
-
         Integer idUser = buscarIdPorDni(dni);
         if (idUser == null) {
             idUser = crearUsuario(dni, nombre, edad);
@@ -136,11 +123,14 @@ public class ReclutaRepositoryDAO implements ReclutaRepository {
             actualizarDatosPersonales(idUser, nombre, edad);
         }
 
-        insertarPostulacion(idUser, idPuesto);
+        if (!insertarPostulacion(idUser, idPuesto)) {
+            return null;
+        }
         return idUser;
     }
 
-    private boolean tienePostulacionesActivas(int dni) {
+    @Override
+    public boolean tienePostulacionesActivas(int dni) {
         Integer count = jdbc.queryForObject("""
                 SELECT COUNT(*)
                 FROM postulante_eva pe
@@ -187,15 +177,14 @@ public class ReclutaRepositoryDAO implements ReclutaRepository {
         jdbc.update("UPDATE user_inf SET nombre = ?, edad = ? WHERE id = ?", nombre, edad, idUser);
     }
 
-    private void insertarPostulacion(int idUser, int idPuesto) {
+    private boolean insertarPostulacion(int idUser, int idPuesto) {
         try {
             jdbc.update(
                     "INSERT INTO postulante_eva (id_user, id_puesto, puntaje, descripcion, estado, id_cita) VALUES (?, ?, 0, '', ?, 0)",
                     idUser, idPuesto, ESTADO_INICIAL);
+            return true;
         } catch (DataIntegrityViolationException ex) {
-            throw new PostulacionException(
-                    PostulacionException.CODIGO_MISMO_PUESTO,
-                    "Ya tienes una postulación registrada para este puesto.");
+            return false;
         }
     }
 }
