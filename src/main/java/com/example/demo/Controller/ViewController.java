@@ -1,6 +1,5 @@
 package com.example.demo.Controller;
 
-import com.example.demo.exception.PostulacionException;
 import com.example.demo.Service.AdministradorService;
 import com.example.demo.Service.BitacoraService;
 import com.example.demo.Service.CategoriaPuestosService;
@@ -82,14 +81,20 @@ public class ViewController {
                                      @RequestParam String nombre,
                                      @RequestParam int edad,
                                      @RequestParam("id_puesto") int puesto) {
+        if (reclutaService.existePostulacionAlPuesto(dni, puesto)) {
+            return "redirect:/postular?puestoId=" + puesto + "&error=MISMO_PUESTO";
+        }
+        if (reclutaService.tienePostulacionesActivas(dni)) {
+            return "redirect:/postular?puestoId=" + puesto + "&error=PROCESO_ACTIVO";
+        }
+
         try {
             Integer idRecluta = reclutaService.registrarPostulante(dni, nombre, edad, puesto);
-            if (idRecluta != null) {
-                bitacoraService.registrarAccion(idRecluta, "Nueva postulación registrada para " + nombre);
+            if (idRecluta == null) {
+                return "redirect:/postular?puestoId=" + puesto + "&error=MISMO_PUESTO";
             }
+            bitacoraService.registrarAccion(idRecluta, "Nueva postulación registrada para " + nombre);
             return "redirect:/login?exitoPostulacion=true";
-        } catch (PostulacionException ex) {
-            return "redirect:/postular?puestoId=" + puesto + "&error=" + ex.getCodigo();
         } catch (Exception e) {
             return "redirect:/postular?puestoId=" + puesto + "&error=general";
         }

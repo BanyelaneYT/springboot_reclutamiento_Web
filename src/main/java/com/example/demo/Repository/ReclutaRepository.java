@@ -13,4 +13,5 @@ public interface ReclutaRepository {
     List<Map<String, Object>> consultarEstadoPorDni(int dni);
     Integer registrarPostulante(int dni, String nombre, int edad, int idPuesto);
     boolean existePostulacionAlPuesto(int dni, int idPuesto);
+    boolean tienePostulacionesActivas(int dni);
 }

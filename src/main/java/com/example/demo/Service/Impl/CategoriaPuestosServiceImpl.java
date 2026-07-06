@@ -35,4 +35,9 @@ public class CategoriaPuestosServiceImpl implements CategoriaPuestosService {
     public void guardarPuesto(String nombre, String tipo, String descripcion, String presRem, String horario, int estado, int pago) {
         repo.guardarPuesto(nombre, tipo, descripcion, presRem, horario, estado, pago);
     }
+
+    @Override
+    public void cambiarEstado(int id, int estado) {
+        repo.cambiarEstado(id, estado);
+    }
 }

@@ -45,14 +45,16 @@ public class ReclutaServiceImpl implements ReclutaService {
 
     @Override
     public Integer registrarPostulante(int dni, String nombre, int edad, int idPuesto) {
-        /*
-         * Regla de negocio:
-         * - No puede postular a otro puesto mientras tenga alguna evaluación en curso
-         *   (pendiente, entrevista u otro estado distinto de Aprobado/Rechazado).
-         * - Solo puede iniciar una nueva postulación cuando todas sus evaluaciones
-         *   previas estén en Aprobado o Rechazado.
-         * - No puede repetir postulación al mismo puesto.
-         */
         return repo.registrarPostulante(dni, nombre, edad, idPuesto);
+    }
+
+    @Override
+    public boolean existePostulacionAlPuesto(int dni, int idPuesto) {
+        return repo.existePostulacionAlPuesto(dni, idPuesto);
+    }
+
+    @Override
+    public boolean tienePostulacionesActivas(int dni) {
+        return repo.tienePostulacionesActivas(dni);
     }
 }

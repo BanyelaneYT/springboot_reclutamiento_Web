@@ -12,4 +12,6 @@ public interface ReclutaService {
     void eliminar(int id);
     List<Map<String, Object>> buscarPostulacionesPorDni(int dni);
     Integer registrarPostulante(int dni, String nombre, int edad, int idPuesto);
+    boolean existePostulacionAlPuesto(int dni, int idPuesto);
+    boolean tienePostulacionesActivas(int dni);
 }

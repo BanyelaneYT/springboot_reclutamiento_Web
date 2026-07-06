@@ -1,68 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
-
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Callypso Call | Postulación</title>
-
-
-
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700|Raleway:400,700,800" rel="stylesheet">
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
     <link rel="stylesheet" href="/css/Header.css">
-
     <link rel="stylesheet" href="/css/contacto.css">
-
     <link rel="stylesheet" href="/css/postular.css">
-
 </head>
-
 <body>
-
-
-
 <header id="header" class="fixed-top d-flex align-items-center">
-
     <div class="header-fullwidth d-flex align-items-center justify-content-between">
-
         <a href="/" class="logo">CallypsoCall</a>
-
         <nav id="navbar" class="navbar">
-
             <ul>
-
                 <li><a href="/">Inicio</a></li>
                 <li><a href="/publicidad">Publicidad</a></li>
                 <li><a href="/convocatorias">Convocatorias</a></li>
                 <li><a href="/contacto">Contacto</a></li>
-
                 <li><a href="/login" class="btn-login-header">Login</a></li>
-
             </ul>
-
         </nav>
-
     </div>
-
 </header>
-
-
-
 <div class="container page-wrapper">
     <div class="text-center mb-5">
         <h2 class="page-title">FICHA DE POSTULACIÓN TÉCNICA</h2>
@@ -86,7 +52,6 @@
                 Ya tienes una postulación registrada para este puesto. Selecciona otro puesto para continuar.
             </div>
         </c:if>
-
         <c:if test="${param.error == 'general'}">
             <div class="alert alert-danger mb-4">
                 No se pudo registrar tu postulación. Verifica los datos e intenta nuevamente.
@@ -96,12 +61,11 @@
             <label class="puesto-label">PUESTO AL QUE POSTULA:</label>
             <select name="puestoId" onchange="this.form.submit()" required>
                 <option value="">-- Selecciona un puesto laboral --</option>
-                        <c:forEach var="puesto" items="${listaCategorias}">
-                            <option value="${puesto.id}" ${puesto.id == puestoSeleccionadoId ? 'selected' : ''}>
-                                ${puesto.nombre} (${puesto.presRem} | ${puesto.tipo})
-                            </option>
-                        </c:forEach>
-                    </select>
+                <c:forEach var="puesto" items="${listaCategorias}">
+                    <option value="${puesto.id}" ${puesto.id == puestoSeleccionadoId ? 'selected' : ''}>
+                        ${puesto.nombre} (${puesto.presRem} | ${puesto.tipo})
+                    </option>
+                </c:forEach>
                 <c:forEach var="puesto" items="${listaCatalogo}">
                     <option value="${puesto.id}" <c:if test="${puesto.id == puestoSeleccionadoId}">selected="selected"</c:if>>
                         ${puesto.nombre} (${puesto.presRem} | ${puesto.tipo})
@@ -110,63 +74,30 @@
             </select>
         </form>
         <form action="/postular/guardar" method="POST" class="mb-4">
-
             <input type="hidden" name="id_puesto" value="${puestoSeleccionadoId}">
-
-
-
             <h4 class="section-title">
-
                 <i class="fas fa-user me-2"></i>Datos Personales
-
             </h4>
-
-
-
             <div class="row g-4 mb-5">
-
                 <div class="col-md-4">
-
                     <label class="field-label">Documento de Identidad (DNI)</label>
-
                     <input type="number" name="dni" required placeholder="Ej. 74589632">
-
                 </div>
-
                 <div class="col-md-5">
-
                     <label class="field-label">Nombre Completo</label>
-
                     <input type="text" name="nombre" required placeholder="Ej. Carlos Mendoza Ramos">
-
                 </div>
-
                 <div class="col-md-3">
-
                     <label class="field-label">Edad Actual</label>
-
                     <input type="number" name="edad" required placeholder="Ej. 24" min="18" max="99">
-
                 </div>
-
             </div>
-
-
-
             <button type="submit" class="btn-submit-call">
                 ENVIAR MI POSTULACIÓN <i class="fas fa-paper-plane ms-2"></i>
             </button>
         </form>
     </div>
 </div>
-</div>
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
-
 </html>
-
-

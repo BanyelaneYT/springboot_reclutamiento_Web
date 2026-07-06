@@ -38,4 +38,10 @@ public class CategoriaPuestosController {
         categoriaPuestosService.guardarPuesto(nombre, tipo, descripcion, presRem, horario, estado, pago);
         return "redirect:/categoria";
     }
+
+    @PostMapping("/categoria/cambiar-estado")
+    public String cambiarEstado(@RequestParam int id, @RequestParam int estado) {
+        categoriaPuestosService.cambiarEstado(id, estado);
+        return "redirect:/categoria";
+    }
 }

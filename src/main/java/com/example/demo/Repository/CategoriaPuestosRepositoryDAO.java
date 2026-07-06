@@ -42,4 +42,9 @@ public class CategoriaPuestosRepositoryDAO implements CategoriaPuestosRepository
         String sql = "INSERT INTO categoria_puestos (nombre, tipo, descripcion, pres_rem, horario, estado, pago) VALUES (?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, nombre, tipo, descripcion, presRem, horario, estado, pago);
     }
+
+    @Override
+    public void cambiarEstado(int id, int estado) {
+        jdbcTemplate.update("UPDATE categoria_puestos SET estado = ? WHERE id = ?", estado, id);
+    }
 }
