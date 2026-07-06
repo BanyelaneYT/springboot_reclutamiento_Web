@@ -79,7 +79,7 @@
 
 <div class="modal fade" id="modalUpdate" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <form action="/usuarios/actualizar" method="POST" class="modal-content custom-modal">
+        <form action="/administradores/actualizar" method="POST" class="modal-content custom-modal">
             <div class="modal-header">
                 <h5 class="modal-title">Actualizar Usuarios</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
@@ -104,7 +104,7 @@
 
 <div class="modal fade" id="modalGuardar" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <form action="/usuarios/guardar" method="POST" class="modal-content custom-modal">
+        <form action="/administradores/guardar" method="POST" class="modal-content custom-modal">
             <div class="modal-body p-4">
                 <div class="mb-3">
                     <label class="form-label">Correo</label>

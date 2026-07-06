@@ -66,7 +66,7 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <a href="/usuarios" class="card-module">
+                <a href="/administradores" class="card-module">
                     <div class="icon-box">
                         <i class="fas fa-user-tie"></i>
                     </div>
