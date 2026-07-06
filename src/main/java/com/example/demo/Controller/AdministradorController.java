@@ -1,11 +1,12 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Service.AdministradorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.demo.Service.AdministradorService;
 
 @Controller
 public class AdministradorController {
@@ -16,21 +17,21 @@ public class AdministradorController {
         this.administradorService = administradorService;
     }
 
-    @GetMapping("/usuarios")
+    @GetMapping("/administradores")
     public String listar(Model model) {
         model.addAttribute("listaUsuarios", administradorService.listarUsuarios());
         return "usuarios-crud";
     }
 
-    @PostMapping("/usuarios/actualizar")
+    @PostMapping("/administradores/actualizar")
     public String actualizar(@RequestParam int id, @RequestParam String correo, @RequestParam String contrasena) {
         administradorService.actualizarUsuario(id, correo, contrasena);
-        return "redirect:/usuarios";
+        return "redirect:/administradores";
     }
 
-    @PostMapping("/usuarios/guardar")
+    @PostMapping("/administradores/guardar")
     public String guardar(@RequestParam String correo, @RequestParam String contrasena) {
         administradorService.guardarUsuario(correo, contrasena);
-        return "redirect:/usuarios";
+        return "redirect:/administradores";
     }
 }
