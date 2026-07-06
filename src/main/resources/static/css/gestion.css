@@ -1,65 +1,45 @@
-:root {
-    --bg-dark: #0e0e0e;
-    --card-bg: #1a1a1a;
-    --primary: #ca0000;
-
-}
 
 body {
-    background-color: #0e0e0e;
+    background-color: #f4f6f9;
     font-family: 'Raleway', sans-serif;
-    color: #fff;
     margin: 0;
-    overflow-x: hidden;
+    padding-top: 90px;
 }
 
-/* MAIN CONTENT */
 .main-content {
-    min-height: 100vh;
-    margin-top: 90px;
+    min-height: calc(100vh - 90px);
+    padding-bottom: 40px;
 }
 
-.main-content.active { margin-left: 0; }
-
-/* NAVBAR */
-.navbar-custom {
-    height: 70px;
-    background: var(--primary);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 30px;
-    border-bottom: 1px solid #222;
-}
-
-.toggle-btn {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 24px;
-    cursor: pointer;
-}
-/* CARDS */
+/* Tarjetas limpias, sin efectos 3D ni movimientos */
 .card-module {
-    background: var(--card-bg);
+    background: #ffffff;
     padding: 30px;
-    border-radius: 20px;
+    border-radius: 8px;
     display: block;
     text-decoration: none;
-    color: #fff;
-    border: 1px solid #333;
-    height: 100%;
+    text-align: center;
+    border: 1px solid #ddd;
 }
+
+.card-module:hover {
+    border-color: #ca0000; /* Cambia sutilmente el borde, sin moverse */
+}
+
 .icon-box {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
+    font-size: 40px;
+    color: #ca0000;
+    margin-bottom: 15px;
 }
 
-.icon-box i { font-size: 28px; color: var(--primary); }
+.card-module h4 {
+    color: #1a1a1a; /* Obliga a que el título sea negro */
+    font-weight: 700;
+    margin-bottom: 10px;
+}
 
-.status-badge.gray { background: #333; color: #888; }
-.locked { opacity: 0.6; cursor: not-allowed; }
+.card-module p {
+    color: #555555; /* Obliga a que la descripción sea gris oscura */
+    margin: 0;
+    font-size: 0.95rem;
+}

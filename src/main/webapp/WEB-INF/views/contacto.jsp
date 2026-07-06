@@ -23,6 +23,7 @@
         <nav id="navbar" class="navbar">
             <ul>
                 <li><a href="/">Inicio</a></li>
+                <li><a href="/publicidad">Publicidad</a></li>
                 <li><a href="/convocatorias">Convocatorias</a></li>
                 <li><a href="/contacto">Contacto</a></li>
                 <li><a href="/login" class="btn-login-header">Login</a></li>

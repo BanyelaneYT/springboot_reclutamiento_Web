@@ -47,6 +47,7 @@
             <ul>
 
                 <li><a href="/">Inicio</a></li>
+                <li><a href="/publicidad">Publicidad</a></li>
                 <li><a href="/convocatorias">Convocatorias</a></li>
                 <li><a href="/contacto">Contacto</a></li>
 

@@ -41,7 +41,7 @@
                         Ingresar Nuevo Usuario
                     </button>
                 </div>
-                <h2 class="section-title">Administración de Usuarios</h2>
+                <h2 class="section-title">Administración de Usuarios del Sistema</h2>
 
                 <div class="table-responsive">
                     <table class="table table-hover align-middle">

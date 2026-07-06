@@ -20,7 +20,7 @@
         <nav id="navbar" class="navbar">
             <ul>
                 <li><a href="/">Inicio</a></li>
-                <li><a href="/convocatorias">Convocatorias</a></li>
+                <li><a href="/publicidad">Publicidad</a></li> <li><a href="/convocatorias">Convocatorias</a></li>
                 <li><a href="/contacto">Contacto</a></li>
                 <li><a href="/login" class="btn-login-header">Login</a></li>
             </ul>
@@ -28,91 +28,42 @@
     </div>
 </header>
 
-<main>
-    <section class="hero">
-        <div class="container">
-            <h1 class="mb-4 text-white">¡Que la armonía de las <span class="highlight">oportunidades</span> alcance su punto más alto!</h1>
-            <p class="display-6 mb-5 text-white">Bienvenidos, operadores. Sus logros brillan gracias al trabajo duro en equipo.</p>
-        </div>
-    </section>
+<section class="hero">
+    <div class="container">
+        <h1>Únete a nuestro <span class="highlight">Gran Equipo</span></h1>
+        <p class="mt-3">Desarrolla tu potencial con los mejores beneficios del mercado</p>
+    </div>
+</section>
 
-    <section class="work-with-us" id="vacantes">
-        <div class="container text-center">
-            <h2 class="mb-5 display-4 fw-bold">Trabaja en <span class="highlight">Callypso Call</span></h2>
-            <div class="row g-4">
-
-                <div class="col-md-4">
-                    <div class="card-benefit">
-                        <i class="fas fa-chart-line icon-red"></i>
-                        <h3>Crecimiento</h3>
-                        <p>Inicia tu línea de carrera profesional en el sector de ventas más grande de Lima.</p>
-                    </div>
+<section class="work-with-us text-center">
+    <div class="container">
+        <h2 class="mb-5">Sé parte de <span class="highlight">Callypso Call</span></h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card-image">
+                    <img src="https://callypsocallperu.com/assets/img/gallery/7.jpg" class="img-fluid" alt="Galería 1">
                 </div>
-
-                <div class="col-md-4">
-                    <div class="card-benefit">
-                        <i class="fas fa-medal icon-red"></i>
-                        <h3>Comisiones</h3>
-                        <p>Bonos ilimitados y premios por desempeño que reconocen tu esfuerzo diario.</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card-benefit">
-                        <i class="fas fa-users icon-red"></i>
-                        <h3>Cultura</h3>
-                        <p>Ambiente motivador diseñado para operadores que buscan alcanzar el éxito.</p>
-                    </div>
-                </div>
-
             </div>
-        </div>
-    </section>
-
-    <section class="py-5 bg-dark text-white text-center border-top border-danger">
-        <div class="container">
-            <h2 class="mb-4">Buscamos <span class="highlight">Asesores de Ventas</span></h2>
-            <p class="fs-5 mb-4">Únete a nuestras campañas masivas en la sede de Los Olivos.</p>
-            <div class="d-inline-block p-3 border rounded border-danger">
-                <span class="fw-bold">Sueldo Base + Altas Comisiones + Planilla</span>
+            <div class="col-md-4">
+                <div class="card-image">
+                    <img src="https://callypsocallperu.com/assets/img/gallery/5.jpg" class="img-fluid" alt="Galería 2">
+                </div>
             </div>
-        </div>
-    </section>
-    <section class="work-with-us py-5 text-white text-center border-top border-danger">
-        <div class="container">
-            <h2 class="mb-4">Se parte de <span class="highlight">Callypso Call</span></h2>
-            <div class="row g-4">
-
-                <div class="col-md-4">
-                    <div class="card-image">
-                        <img src="https://callypsocallperu.com/assets/img/gallery/7.jpg" class="img-fluid" alt="Galería 4">
-                    </div>
+            <div class="col-md-4">
+                <div class="card-image">
+                    <img src="https://callypsocallperu.com/assets/img/gallery/1.jpg" class="img-fluid" alt="Galería 3">
                 </div>
-
-                <div class="col-md-4">
-                    <div class="card-image">
-                        <img src="https://callypsocallperu.com/assets/img/gallery/5.jpg" class="img-fluid" alt="Galería 4">
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card-image">
-                        <img src="https://callypsocallperu.com/assets/img/gallery/1.jpg" class="img-fluid" alt="Galería 4">
-                    </div>
-                </div>
-
             </div>
-        </div>
-    </section>
-
-    <div class="footer-call">
-        <div class="container">
-            <h2 class="text-white mb-4">¿Listo para empezar tu camino al éxito?</h2>
-            <a href="/postular" class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
-            <p class="mt-4 text-white-50">Callypso Call Peru | Sede Lima 2026</p>
         </div>
     </div>
-</main>
+</section>
+
+<div class="footer-call">
+    <div class="container">
+        <h2 class="text-white mb-4">¿Listo para empezar tu camino al éxito?</h2>
+        <a href="/postular" class="btn-join shadow-lg">POSTULAR AHORA <i class="fas fa-paper-plane ms-2"></i></a>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
