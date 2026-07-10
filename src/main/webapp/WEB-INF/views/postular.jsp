@@ -63,12 +63,12 @@
                 <option value="">-- Selecciona un puesto laboral --</option>
                 <c:forEach var="puesto" items="${listaCategorias}">
                     <option value="${puesto.id}" ${puesto.id == puestoSeleccionadoId ? 'selected' : ''}>
-                        ${puesto.nombre} (${puesto.presRem} | ${puesto.tipo})
+                        ${puesto.nombre} (${puesto.presRem} | ${puesto.nombreCategoria})
                     </option>
                 </c:forEach>
                 <c:forEach var="puesto" items="${listaCatalogo}">
                     <option value="${puesto.id}" <c:if test="${puesto.id == puestoSeleccionadoId}">selected="selected"</c:if>>
-                        ${puesto.nombre} (${puesto.presRem} | ${puesto.tipo})
+                        ${puesto.nombre} (${puesto.presRem} | ${puesto.nombreCategoria})
                     </option>
                 </c:forEach>
             </select>

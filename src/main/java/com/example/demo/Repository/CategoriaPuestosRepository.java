@@ -7,7 +7,7 @@ import java.util.List;
 public interface CategoriaPuestosRepository {
     List<CategoriaPuestos> listarCatalogo();
     List<CategoriaPuestos> listarActivos();
-    void actualizarPuesto(int id, String nombre, String tipo, String descripcion, String presRem, String horario, int estado, int pago);
-    void guardarPuesto(String nombre, String tipo, String descripcion, String presRem, String horario, int estado, int pago);
+    void actualizarPuesto(int id, String nombre, int idCategoria, String descripcion, String presRem, String horario, int estado, int pago);
+    void guardarPuesto(String nombre, int idCategoria, String descripcion, String presRem, String horario, int estado, int pago);
     void cambiarEstado(int id, int estado);
 }

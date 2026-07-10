@@ -2,20 +2,23 @@ package com.example.demo.model;
 
 public class CategoriaPuestos {
     private Integer id;
+    private Integer idCategoria;
+    private String nombreCategoria;
     private String nombre;
-    private String tipo;
     private String descripcion;
-    private String presRem; // Presencial o Remoto
+    private String presRem;
     private String horario;
     private int estado;
     private int pago;
 
     public CategoriaPuestos() {}
 
-    public CategoriaPuestos(Integer id, String nombre, String tipo, String descripcion, String presRem, String horario, int estado, int pago) {
+    public CategoriaPuestos(Integer id, Integer idCategoria, String nombreCategoria, String nombre,
+                            String descripcion, String presRem, String horario, int estado, int pago) {
         this.id = id;
+        this.idCategoria = idCategoria;
+        this.nombreCategoria = nombreCategoria;
         this.nombre = nombre;
-        this.tipo = tipo;
         this.descripcion = descripcion;
         this.presRem = presRem;
         this.horario = horario;
@@ -23,15 +26,17 @@ public class CategoriaPuestos {
         this.pago = pago;
     }
 
-    // GETTERS Y SETTERS
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 
+    public Integer getIdCategoria() { return idCategoria; }
+    public void setIdCategoria(Integer idCategoria) { this.idCategoria = idCategoria; }
+
+    public String getNombreCategoria() { return nombreCategoria; }
+    public void setNombreCategoria(String nombreCategoria) { this.nombreCategoria = nombreCategoria; }
+
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
-
-    public String getTipo() { return tipo; }
-    public void setTipo(String tipo) { this.tipo = tipo; }
 
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }

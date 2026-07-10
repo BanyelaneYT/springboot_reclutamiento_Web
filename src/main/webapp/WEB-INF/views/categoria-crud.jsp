@@ -30,7 +30,7 @@
                 <div class="container-fluid px-4">
 
                     <div class="d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
-                        <h2 class="title-panel m-0 text-white">Mantenimiento de Categoría de Puestos</h2>
+                        <h2 class="title-panel m-0 text-white">Mantenimiento de Puestos Laborales</h2>
                         <button class="btn btn-save shadow-lg" data-bs-toggle="modal" data-bs-target="#modalAgregar">NUEVO PUESTO</button>
                     </div>
 
@@ -40,7 +40,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Nombre Puesto</th>
-                                    <th>Tipo</th>
+                                    <th>Categoría</th>
                                     <th>Modalidad</th>
                                     <th>Horario</th>
                                     <th>Sueldo/Pago</th>
@@ -53,7 +53,7 @@
                                     <tr>
                                         <td class="fw-bold text-id">${puesto.id}</td>
                                         <td>${puesto.nombre}</td>
-                                        <td><span class="badge bg-secondary badge-tipo">${puesto.tipo}</span></td>
+                                        <td><span class="badge bg-secondary badge-tipo">${puesto.nombreCategoria}</span></td>
                                         <td>${puesto.presRem}</td>
                                         <td>${puesto.horario}</td>
                                         <td class="text fw-bold">S/. ${puesto.pago}</td>
@@ -66,7 +66,7 @@
                                         <td class="text-center">
                                             <div class="action-buttons">
                                                 <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalActualizar"
-                                                        onclick="llenarDatosModal('${puesto.id}', '${puesto.nombre}', '${puesto.tipo}', '${puesto.descripcion}', '${puesto.presRem}', '${puesto.horario}', '${puesto.estado}', '${puesto.pago}')"
+                                                        onclick="llenarDatosModal('${puesto.id}', '${puesto.nombre}', '${puesto.idCategoria}', '${puesto.descripcion}', '${puesto.presRem}', '${puesto.horario}', '${puesto.estado}', '${puesto.pago}')"
                                                         title="Editar">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
@@ -119,8 +119,13 @@
                             <input type="text" name="nombre" class="form-control" required placeholder="Ej. Asesor de Ventas">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Tipo</label>
-                            <input type="text" name="tipo" class="form-control" required placeholder="Ej. Call Center">
+                            <label class="form-label">Categoría</label>
+                            <select name="idCategoria" class="form-select" required>
+                                <option value="">-- Selecciona una categoría --</option>
+                                <c:forEach var="cat" items="${listaCategoriasDisponibles}">
+                                    <option value="${cat.id}">${cat.nombre}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Modalidad (pres_rem)</label>
@@ -173,8 +178,12 @@
                             <input type="text" name="nombre" id="upd_nombre" class="form-control" required>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label class="form-label">Tipo</label>
-                            <input type="text" name="tipo" id="upd_tipo" class="form-control" required>
+                            <label class="form-label">Categoría</label>
+                            <select name="idCategoria" id="upd_idCategoria" class="form-select" required>
+                                <c:forEach var="cat" items="${listaCategoriasDisponibles}">
+                                    <option value="${cat.id}">${cat.nombre}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Modalidad</label>
@@ -213,10 +222,10 @@
     </div>
 
     <script>
-        function llenarDatosModal(id, nombre, tipo, descripcion, presRem, horario, estado, pago) {
+        function llenarDatosModal(id, nombre, idCategoria, descripcion, presRem, horario, estado, pago) {
             document.getElementById('upd_id').value = id;
             document.getElementById('upd_nombre').value = nombre;
-            document.getElementById('upd_tipo').value = tipo;
+            document.getElementById('upd_idCategoria').value = idCategoria;
             document.getElementById('upd_descripcion').value = descripcion;
             document.getElementById('upd_presRem').value = presRem;
             document.getElementById('upd_horario').value = horario;

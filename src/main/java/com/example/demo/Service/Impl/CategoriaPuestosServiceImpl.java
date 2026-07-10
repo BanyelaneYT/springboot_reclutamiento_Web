@@ -27,13 +27,13 @@ public class CategoriaPuestosServiceImpl implements CategoriaPuestosService {
     }
 
     @Override
-    public void actualizarPuesto(int id, String nombre, String tipo, String descripcion, String presRem, String horario, int estado, int pago) {
-        repo.actualizarPuesto(id, nombre, tipo, descripcion, presRem, horario, estado, pago);
+    public void actualizarPuesto(int id, String nombre, int idCategoria, String descripcion, String presRem, String horario, int estado, int pago) {
+        repo.actualizarPuesto(id, nombre, idCategoria, descripcion, presRem, horario, estado, pago);
     }
 
     @Override
-    public void guardarPuesto(String nombre, String tipo, String descripcion, String presRem, String horario, int estado, int pago) {
-        repo.guardarPuesto(nombre, tipo, descripcion, presRem, horario, estado, pago);
+    public void guardarPuesto(String nombre, int idCategoria, String descripcion, String presRem, String horario, int estado, int pago) {
+        repo.guardarPuesto(nombre, idCategoria, descripcion, presRem, horario, estado, pago);
     }
 
     @Override

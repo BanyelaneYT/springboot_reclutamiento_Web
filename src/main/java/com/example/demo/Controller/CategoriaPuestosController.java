@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Service.CategoriaPuestosService;
+import com.example.demo.Service.CategoriaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,30 +12,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CategoriaPuestosController {
 
     private final CategoriaPuestosService categoriaPuestosService;
+    private final CategoriaService categoriaService;
 
-    public CategoriaPuestosController(CategoriaPuestosService categoriaPuestosService) {
+    public CategoriaPuestosController(CategoriaPuestosService categoriaPuestosService,
+                                      CategoriaService categoriaService) {
         this.categoriaPuestosService = categoriaPuestosService;
+        this.categoriaService = categoriaService;
     }
 
     @GetMapping("/categoria")
     public String listar(Model model) {
         model.addAttribute("listaCategorias", categoriaPuestosService.listarCatalogo());
+        model.addAttribute("listaCategoriasDisponibles", categoriaService.listarActivas());
         return "categoria-crud";
     }
 
     @PostMapping("/categoria/actualizar")
-    public String actualizar(@RequestParam int id, @RequestParam String nombre, @RequestParam String tipo,
+    public String actualizar(@RequestParam int id, @RequestParam String nombre, @RequestParam int idCategoria,
                              @RequestParam String descripcion, @RequestParam String presRem,
                              @RequestParam String horario, @RequestParam int estado, @RequestParam int pago) {
-        categoriaPuestosService.actualizarPuesto(id, nombre, tipo, descripcion, presRem, horario, estado, pago);
+        categoriaPuestosService.actualizarPuesto(id, nombre, idCategoria, descripcion, presRem, horario, estado, pago);
         return "redirect:/categoria";
     }
 
     @PostMapping("/categoria/guardar")
-    public String guardar(@RequestParam String nombre, @RequestParam String tipo, @RequestParam String descripcion,
+    public String guardar(@RequestParam String nombre, @RequestParam int idCategoria, @RequestParam String descripcion,
                           @RequestParam String presRem, @RequestParam String horario,
                           @RequestParam int estado, @RequestParam int pago) {
-        categoriaPuestosService.guardarPuesto(nombre, tipo, descripcion, presRem, horario, estado, pago);
+        categoriaPuestosService.guardarPuesto(nombre, idCategoria, descripcion, presRem, horario, estado, pago);
         return "redirect:/categoria";
     }
 

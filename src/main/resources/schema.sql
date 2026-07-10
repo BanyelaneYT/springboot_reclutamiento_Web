@@ -1,12 +1,21 @@
+CREATE TABLE IF NOT EXISTS categorias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    descripcion TEXT,
+    estado INT DEFAULT 1
+);
+
 CREATE TABLE IF NOT EXISTS categoria_puestos (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    id_categoria INT,
     nombre VARCHAR(150),
     tipo VARCHAR(100),
     descripcion TEXT,
     pres_rem VARCHAR(50),
     horario VARCHAR(100),
     estado INT,
-    pago INT
+    pago INT,
+    FOREIGN KEY (id_categoria) REFERENCES categorias(id)
 );
 
 CREATE TABLE IF NOT EXISTS user_inf (

@@ -30,11 +30,20 @@
     <div class="container-fluid p-4">
         <div class="row g-4">
             <div class="col-md-6">
+                <a href="/categorias" class="card-module">
+                    <div class="icon-box">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <h4>Gestión de Categorías</h4>
+                    <p>Administre el catálogo de categorías de puestos (Call Center, Ventas, etc.).</p>
+                </a>
+            </div>
+            <div class="col-md-6">
                 <a href="/categoria" class="card-module">
                     <div class="icon-box">
                         <i class="fas fa-calendar-check"></i>
                     </div>
-                    <h4>Gestión de Categoría de Puestos</h4>
+                    <h4>Gestión de Puestos Laborales</h4>
                     <p>Administre puestos, tanto nuevos como existentes.</p>
                 </a>
             </div>
