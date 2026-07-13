@@ -1,11 +1,12 @@
 package com.example.demo.Repository;
 
-import com.example.demo.model.Categoria;
+import java.util.List;
+
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.example.demo.model.Categoria;
 
 @Repository
 public class CategoriaRepositoryDAO implements CategoriaRepository {
@@ -52,9 +53,14 @@ public class CategoriaRepositoryDAO implements CategoriaRepository {
 
     @Override
     public int contarPuestosPorCategoria(int idCategoria) {
-        Integer count = jdbcTemplate.queryForObject(
-                "SELECT COUNT(*) FROM categoria_puestos WHERE id_categoria = ?",
-                Integer.class, idCategoria);
+        String sql = "SELECT COUNT(*) FROM categoria_puestos WHERE id_categoria = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, idCategoria);
+        System.out.println("🔍 Categoría " + idCategoria + " tiene " + count + " puestos");
         return count != null ? count : 0;
+    }
+    @Override
+    public void desactivarPorCategoria(int idCategoria) {
+        String sql = "UPDATE categoria_puestos SET estado = 0 WHERE id_categoria = ?";
+        jdbcTemplate.update(sql, idCategoria);
     }
 }

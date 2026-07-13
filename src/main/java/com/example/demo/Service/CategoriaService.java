@@ -1,8 +1,8 @@
 package com.example.demo.Service;
 
-import com.example.demo.model.Categoria;
-
 import java.util.List;
+
+import com.example.demo.model.Categoria;
 
 public interface CategoriaService {
     List<Categoria> listarCatalogo();
@@ -11,4 +11,7 @@ public interface CategoriaService {
     void actualizarCategoria(int id, String nombre, String descripcion, int estado);
     void cambiarEstado(int id, int estado);
     int contarPuestosPorCategoria(int idCategoria);
+    // ==================== NUEVO MÉTODO ====================
+    void desactivarPorCategoria(int idCategoria);
+    // =====================================================
 }

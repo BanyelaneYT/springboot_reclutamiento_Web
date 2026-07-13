@@ -1,11 +1,12 @@
 package com.example.demo.Service.Impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.example.demo.Repository.CategoriaRepository;
 import com.example.demo.Service.CategoriaService;
 import com.example.demo.model.Categoria;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CategoriaServiceImpl implements CategoriaService {
@@ -45,4 +46,10 @@ public class CategoriaServiceImpl implements CategoriaService {
     public int contarPuestosPorCategoria(int idCategoria) {
         return repo.contarPuestosPorCategoria(idCategoria);
     }
+    // ==================== NUEVO MÉTODO ====================
+    @Override
+    public void desactivarPorCategoria(int idCategoria) {
+        repo.desactivarPorCategoria(idCategoria);
+    }
+    // =====================================================
 }

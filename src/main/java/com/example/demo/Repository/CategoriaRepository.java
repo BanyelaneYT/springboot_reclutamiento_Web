@@ -1,8 +1,8 @@
 package com.example.demo.Repository;
 
-import com.example.demo.model.Categoria;
-
 import java.util.List;
+
+import com.example.demo.model.Categoria;
 
 public interface CategoriaRepository {
     List<Categoria> listarCatalogo();
@@ -11,4 +11,5 @@ public interface CategoriaRepository {
     void actualizarCategoria(int id, String nombre, String descripcion, int estado);
     void cambiarEstado(int id, int estado);
     int contarPuestosPorCategoria(int idCategoria);
+    void desactivarPorCategoria(int idCategoria); // Nuevo método para desactivar puestos por categoría
 }

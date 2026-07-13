@@ -1,19 +1,23 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Service.CategoriaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.Service.CategoriaPuestosService;
+import com.example.demo.Service.CategoriaService;
+
 @Controller
 public class CategoriaController {
 
     private final CategoriaService categoriaService;
+    private final CategoriaPuestosService categoriaPuestosService;
 
-    public CategoriaController(CategoriaService categoriaService) {
+    public CategoriaController(CategoriaService categoriaService, CategoriaPuestosService categoriaPuestosService) {
         this.categoriaService = categoriaService;
+        this.categoriaPuestosService = categoriaPuestosService;
     }
 
     @GetMapping("/categorias")
@@ -39,11 +43,19 @@ public class CategoriaController {
     }
 
     @PostMapping("/categorias/cambiar-estado")
-    public String cambiarEstado(@RequestParam int id, @RequestParam int estado) {
-        if (estado == 0 && categoriaService.contarPuestosPorCategoria(id) > 0) {
-            return "redirect:/categorias?error=EN_USO";
+public String cambiarEstado(@RequestParam int id, @RequestParam int estado) {
+    if (estado == 0) {
+        int cantidad = categoriaService.contarPuestosPorCategoria(id);
+        if (cantidad > 0) {
+            // Desactiva todos los puestos de esa categoría
+            categoriaPuestosService.cambiarEstadoPorCategoria(id, 0);
         }
-        categoriaService.cambiarEstado(id, estado);
-        return "redirect:/categorias";
+    } else if (estado == 1) {
+        // Opcional: Activar también los puestos cuando se activa la categoría
+        categoriaPuestosService.cambiarEstadoPorCategoria(id, 1);
     }
+    
+    categoriaService.cambiarEstado(id, estado);
+    return "redirect:/categorias";
+}
 }

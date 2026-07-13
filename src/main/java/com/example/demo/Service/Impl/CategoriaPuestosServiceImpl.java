@@ -1,11 +1,12 @@
 package com.example.demo.Service.Impl;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.example.demo.Repository.CategoriaPuestosRepository;
 import com.example.demo.Service.CategoriaPuestosService;
 import com.example.demo.model.CategoriaPuestos;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CategoriaPuestosServiceImpl implements CategoriaPuestosService {
@@ -39,5 +40,9 @@ public class CategoriaPuestosServiceImpl implements CategoriaPuestosService {
     @Override
     public void cambiarEstado(int id, int estado) {
         repo.cambiarEstado(id, estado);
+    }
+    @Override
+    public void cambiarEstadoPorCategoria(int idCategoria, int estado) {
+        repo.cambiarEstadoPorCategoria(idCategoria, estado);
     }
 }

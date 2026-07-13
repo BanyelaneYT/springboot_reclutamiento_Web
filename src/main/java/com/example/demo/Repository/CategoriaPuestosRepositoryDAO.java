@@ -1,11 +1,12 @@
 package com.example.demo.Repository;
 
-import com.example.demo.model.CategoriaPuestos;
+import java.util.List;
+
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import com.example.demo.model.CategoriaPuestos;
 
 @Repository
 public class CategoriaPuestosRepositoryDAO implements CategoriaPuestosRepository {
@@ -49,5 +50,10 @@ public class CategoriaPuestosRepositoryDAO implements CategoriaPuestosRepository
     @Override
     public void cambiarEstado(int id, int estado) {
         jdbcTemplate.update("UPDATE categoria_puestos SET estado = ? WHERE id = ?", estado, id);
+    }
+    @Override
+    public void cambiarEstadoPorCategoria(int idCategoria, int estado) {
+        String sql = "UPDATE categoria_puestos SET estado = ? WHERE id_categoria = ?";
+        jdbcTemplate.update(sql, estado, idCategoria);
     }
 }
