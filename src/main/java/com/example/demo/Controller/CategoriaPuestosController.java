@@ -45,7 +45,14 @@ public class CategoriaPuestosController {
 
     @PostMapping("/categoria/cambiar-estado")
     public String cambiarEstado(@RequestParam int id, @RequestParam int estado) {
-        categoriaPuestosService.cambiarEstado(id, estado);
-        return "redirect:/categoria";
+        try {
+            categoriaPuestosService.cambiarEstado(id, estado);
+            return "redirect:/categoria";
+        } catch (RuntimeException e) {
+            if ("CATEGORIA_INACTIVA".equals(e.getMessage())) {
+                return "redirect:/categoria?error=CAT_INACTIVA";
+            }
+            throw e;
+        }
     }
 }

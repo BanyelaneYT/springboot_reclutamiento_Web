@@ -34,6 +34,13 @@
                         <button class="btn btn-save shadow-lg" data-bs-toggle="modal" data-bs-target="#modalAgregar">NUEVO PUESTO</button>
                     </div>
 
+
+                    <c:if test="${param.error == 'CAT_INACTIVA'}">
+                        <div class="alert alert-danger mb-4">
+                            <strong>¡Operación denegada!</strong> No puedes activar este puesto porque su categoría principal se encuentra inactiva.
+                        </div>
+                    </c:if>
+
                     <div class="table-responsive shadow-lg rounded-4 overflow-hidden">
                         <table class="table table-hover align-middle m-0 text-white">
                             <thead>
@@ -57,12 +64,16 @@
                                         <td>${puesto.presRem}</td>
                                         <td>${puesto.horario}</td>
                                         <td class="text fw-bold">S/. ${puesto.pago}</td>
+
+
                                         <td>
                                             <c:choose>
                                                 <c:when test="${puesto.estado == 1}"><span class="badge bg-success">Activo</span></c:when>
                                                 <c:otherwise><span class="badge bg-danger">Inactivo</span></c:otherwise>
                                             </c:choose>
                                         </td>
+
+
                                         <td class="text-center">
                                             <div class="action-buttons">
                                                 <button class="btn-action btn-edit" data-bs-toggle="modal" data-bs-target="#modalActualizar"
@@ -70,8 +81,10 @@
                                                         title="Editar">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
+
                                                 <c:choose>
                                                     <c:when test="${puesto.estado == 1}">
+
                                                         <form action="/categoria/cambiar-estado" method="POST" class="d-inline"
                                                               onsubmit="return confirm('¿Desactivar este puesto?');">
                                                             <input type="hidden" name="id" value="${puesto.id}">
@@ -82,14 +95,26 @@
                                                         </form>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <form action="/categoria/cambiar-estado" method="POST" class="d-inline"
-                                                              onsubmit="return confirm('¿Activar este puesto?');">
-                                                            <input type="hidden" name="id" value="${puesto.id}">
-                                                            <input type="hidden" name="estado" value="1">
-                                                            <button type="submit" class="btn-action btn-activate" title="Activar">
-                                                                <i class="fas fa-toggle-on"></i>
-                                                            </button>
-                                                        </form>
+
+                                                        <c:choose>
+                                                            <c:when test="${puesto.estadoCategoria == 1}">
+                                                                <!-- Si la categoría padre está activa, muestra el botón de encender normal -->
+                                                                <form action="/categoria/cambiar-estado" method="POST" class="d-inline"
+                                                                      onsubmit="return confirm('¿Activar este puesto?');">
+                                                                    <input type="hidden" name="id" value="${puesto.id}">
+                                                                    <input type="hidden" name="estado" value="1">
+                                                                    <button type="submit" class="btn-action btn-activate" title="Activar">
+                                                                        <i class="fas fa-toggle-on"></i>
+                                                                    </button>
+                                                                </form>
+                                                            </c:when>
+                                                            <c:otherwise>
+
+                                                                <button type="button" class="btn-action" style="background:#6c757d; cursor:not-allowed;" title="No se puede activar: Categoría Inactiva" disabled>
+                                                                    <i class="fas fa-toggle-on"></i>
+                                                                </button>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </div>

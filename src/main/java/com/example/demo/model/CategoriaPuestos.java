@@ -10,6 +10,7 @@ public class CategoriaPuestos {
     private String horario;
     private int estado;
     private int pago;
+    private int estadoCategoria;
 
     public CategoriaPuestos() {}
 
@@ -52,4 +53,7 @@ public class CategoriaPuestos {
 
     public int getPago() { return pago; }
     public void setPago(int pago) { this.pago = pago; }
+
+    public int getEstadoCategoria() { return estadoCategoria; }
+    public void setEstadoCategoria(int estadoCategoria) { this.estadoCategoria = estadoCategoria; }
 }

@@ -18,7 +18,7 @@ public class CategoriaPuestosRepositoryDAO implements CategoriaPuestosRepository
     }
 
     private static final String SELECT_PUESTO = """
-            SELECT cp.id, cp.id_categoria idCategoria, c.nombre nombreCategoria,
+            SELECT cp.id, cp.id_categoria idCategoria, c.nombre nombreCategoria, c.estado estadoCategoria,
                    cp.nombre, cp.descripcion, cp.pres_rem presRem, cp.horario, cp.estado, cp.pago
             FROM categoria_puestos cp
             JOIN categorias c ON cp.id_categoria = c.id""";
@@ -49,8 +49,17 @@ public class CategoriaPuestosRepositoryDAO implements CategoriaPuestosRepository
 
     @Override
     public void cambiarEstado(int id, int estado) {
+        if (estado == 1) {
+            String sqlCheck = "SELECT c.estado FROM categorias c JOIN categoria_puestos cp ON c.id = cp.id_categoria WHERE cp.id = ?";
+            Integer estadoCat = jdbcTemplate.queryForObject(sqlCheck, Integer.class, id);
+
+            if (estadoCat == null || estadoCat == 0) {
+                throw new RuntimeException("CATEGORIA_INACTIVA");
+            }
+        }
         jdbcTemplate.update("UPDATE categoria_puestos SET estado = ? WHERE id = ?", estado, id);
     }
+
     @Override
     public void cambiarEstadoPorCategoria(int idCategoria, int estado) {
         String sql = "UPDATE categoria_puestos SET estado = ? WHERE id_categoria = ?";
